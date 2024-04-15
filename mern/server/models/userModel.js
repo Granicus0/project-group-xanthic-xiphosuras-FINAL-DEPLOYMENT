@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import bcrypt, { hash } from 'bcrypt'
+import validator from 'validator'
 
 const Schema = mongoose.Schema
 
@@ -17,8 +18,22 @@ const userSchema = new Schema({
 
 // Creates a user and returns it.
 userSchema.statics.signup = async function (email, password) {
-    const exists = await this.findOne({email});
 
+    // Validate email and password
+    if(!email || !password) {
+        throw Error('You must have both an email and password')
+    }
+
+    // User the validator library to check if an email is a valid email, and if the user chosen password is strong enough
+    if(!validator.isEmail(email)) {
+        throw Error('Email is not valid')
+    }
+    if(!validator.isStrongPassword(password)) {
+        throw Error('Choose a stronger password')
+    }
+
+    // Check if the email is already in use
+    const exists = await this.findOne({email});
     if(exists) {
         throw Error('Email already exists')
     }
