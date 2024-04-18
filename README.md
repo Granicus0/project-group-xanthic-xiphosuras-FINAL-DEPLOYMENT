@@ -11,3 +11,10 @@ Your team members are:
 - Vinayak Joshi
 
 ![](./group-image/Xanthic%20Xiphosuras.webp)
+
+run backend:
+`` node --env-file=config.env server ``
+
+
+`` npm install -D tailwindcss postcss autoprefixer ``
+`` npx tailwindcss init -p ``
