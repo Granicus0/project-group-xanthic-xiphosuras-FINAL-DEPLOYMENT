@@ -1,9 +1,16 @@
 import Model from '../models/modelModel.js';
+import User from '../path/to/UserModel';
 
-// Create a new model
 export const createModel = async (req, res) => {
     const { model_address, metaData_address, model_description, model_type, user } = req.body;
+    
     try {
+        // Optionally check if the referenced user exists
+        const existingUser = await User.findById(user);
+        if (!existingUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
         const model = new Model({
             model_address,
             metaData_address,
