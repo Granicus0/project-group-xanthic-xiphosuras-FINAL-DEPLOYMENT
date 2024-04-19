@@ -35,6 +35,3 @@ To run the server-side part of the web application, run the following command in
 #### User signup:
 - API Path: ``http://localhost:5050/api/user/signup`` <br/>
 - Request body: ``{email: "example@gmail.com", password: "examplePassword"}``
-
-
-
