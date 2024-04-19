@@ -4,7 +4,7 @@ import mongoose from 'mongoose'
 
 import userRoutes from './routes/user.js'
 import records from './routes/record.js'
-import modelRoutes from './routes/modelRoutes.js';
+import modelRoutes from './routes/model';
 
 const PORT = process.env.PORT || 5050;
 
