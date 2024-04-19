@@ -70,7 +70,7 @@ export const deleteModel = async (req, res) => {
     }
 };
 
-// Example additional route to get a single model by its ID
+// Get a single model by its ID
 export const getModelById = async (req, res) => {
     const { id } = req.params;
     try {
