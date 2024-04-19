@@ -10,6 +10,9 @@ This is a project that utilizes the [MERN](https://www.mongodb.com/mern-stack) s
 
 ```npm install```
 
+### install Three and gsap in /client
+```npm i three gsap```
+
 ### Install TailwindCSS, PostCSS and Autoprefixer
 - Run the following commands inside of the ``mern`` directory:
 
@@ -19,7 +22,7 @@ This is a project that utilizes the [MERN](https://www.mongodb.com/mern-stack) s
 
 That's it! To run the client-side part of the web application, run the following command inside of the ``client`` folder under the ``mern`` directory:
 
-```npm i three gsap```
+
 ```npm run dev```
 
 To run the server-side part of the web application, run the following command inside of the ``server`` folder under the ``mern`` directory:
