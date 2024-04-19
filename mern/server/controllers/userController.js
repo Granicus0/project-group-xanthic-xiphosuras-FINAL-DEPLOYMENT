@@ -33,30 +33,48 @@ export const loginUser = async (req, res) => {
 
 // User signup
 export const signupUser = async (req, res) => {
+
+    console.log("Signup req recieved")
     const { email, password } = req.body
+    console.log("Signup email: " + email)
+
 
     try {
+
+        console.log("Attempting to create user")
 
         // Create a user with email and password
         const user = await User.signup(email, password)
 
+        console.log("Created user")
+        console.log("Attempting to create token")
+
+
         // Create the users JWT
         const token = createToken(user._id)
+        console.log("Created token")
+
+        
+        console.log("Attempting to set response status")
 
         // Send back response with email and JWT
         res.status(200).json({ email, token })
 
+        console.log("Set response status to: 200 OK, email: " + email + " and token: " + token + "");
+
+
     } catch (error) {
 
+        console.log("Error creating user")
         res.status(400).json({ error: error.message })
 
     }
 
 };
 
-// Test the API
+// Test the base API route
 export const testUser = async (req, res) => {
-    res.json({ msg: 'success' })
+    res.json({ msg: 'Base API route works! Note this does not mean the other routes function properly' })
 };
 
 
