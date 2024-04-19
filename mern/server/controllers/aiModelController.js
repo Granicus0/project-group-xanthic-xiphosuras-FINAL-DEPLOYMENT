@@ -1,5 +1,5 @@
-import Model from '../models/modelModel.js';
-import User from '../path/to/UserModel';
+import Model from '../models/aiModel.js';
+import User from '../models/userModel.js';
 
 export const createModel = async (req, res) => {
     const { model_address, metaData_address, model_description, model_type, user } = req.body;
