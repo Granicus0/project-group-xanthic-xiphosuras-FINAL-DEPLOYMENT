@@ -5,19 +5,41 @@ import validator from 'validator'
 const Schema = mongoose.Schema
 
 const userSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        trim: true
+    },
+
     email: {
         type: String,
         required: true,
-        unique: true
+        unique: true,
+        trim: true
     },
     password: {
         type: String,
         required: true
-    }
+    },
+
+    models: [{
+         type: Schema.Types.ObjectId, 
+         ref: 'Model' 
+        }]
+    
+
 })
 
+
+
+
 // Creates a user and returns it.
-userSchema.statics.signup = async function (email, password) {
+userSchema.statics.signup = async function (name, email, password) {
+
+    // Validate name, email, and password
+    if (!name || !email || !password) {
+        throw Error('All fields must be filled');
+    }
 
     // Validate email and password
     if (!email || !password) {
@@ -44,7 +66,7 @@ userSchema.statics.signup = async function (email, password) {
     const finalHashedPassword = await bcrypt.hash(password, salt);
 
     // Creates a user on MongoDB containing their email and salted hashed password
-    const user = await this.create({ email, password: finalHashedPassword })
+    const user = await this.create({ name, email, password: finalHashedPassword });
 
     return user
 }
@@ -75,4 +97,7 @@ userSchema.statics.login = async function (email, password) {
 }
 
 const User = mongoose.model('User', userSchema);
+
+
+
 export default User

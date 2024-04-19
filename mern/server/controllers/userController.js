@@ -22,7 +22,7 @@ export const loginUser = async (req, res) => {
         const token = createToken(user._id)
 
         // Send back response with email and JWT
-        res.status(200).json({ email, token })
+        res.status(200).json({ email: user.email, token });
 
     } catch (error) {
 
@@ -35,7 +35,7 @@ export const loginUser = async (req, res) => {
 export const signupUser = async (req, res) => {
 
     console.log("Signup req recieved")
-    const { email, password } = req.body
+    const { name, email, password } = req.body;
     console.log("Signup email: " + email)
 
 
@@ -44,7 +44,7 @@ export const signupUser = async (req, res) => {
         console.log("Attempting to create user")
 
         // Create a user with email and password
-        const user = await User.signup(email, password)
+        const user = await User.signup(name, email, password);
 
         console.log("Created user")
         console.log("Attempting to create token")
