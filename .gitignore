@@ -1,5 +1,4 @@
 node_modules/
-
 __pycache__/
 1/
 2/
@@ -11,6 +10,6 @@ __pycache__/
 8/
 9/
 10/
-
 python_demo/dev_requirements.txt
 python_demo/dev_debug.ipynb
+config.env
