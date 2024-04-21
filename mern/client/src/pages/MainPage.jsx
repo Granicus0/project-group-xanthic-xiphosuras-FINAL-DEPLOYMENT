@@ -113,9 +113,9 @@ const MainPage = () => {
         });
         
         const controls = new OrbitControls(camera, canvasRef.current);
-        controls.enableRotate = true;
-        controls.enableZoom = true;
-        controls.enablePan = true;
+        controls.enableRotate = false;
+        controls.enableZoom = false;
+        controls.enablePan = false;
         
         let shouldRotate = true;
         const animate = () => {
@@ -129,18 +129,31 @@ const MainPage = () => {
         animate();
         
         const tl = gsap.timeline();
-        tl.fromTo("nav", { y: "-100%" }, { y: "0%" })
+        tl.to(".return_button", { y: "-1000%" });
+        tl.fromTo("nav", { y: "-1000%" }, { y: "0%" })
         tl.fromTo(meshgroup.position, { x: 0, y: -100, z: 0 }, { x: 0, y: 0, z: 0, duration: 2, ease: "power2.out" }, "-=1.5")
         tl.fromTo(".title1", { opacity: 0 }, { opacity: 1 });
         tl.fromTo(".title2", { opacity: 0 }, { opacity: 1 });
-        tl.fromTo(".start_button", { opacity: 0 }, { opacity: 1.5 });
+        tl.fromTo(".start_button", { opacity: 0 }, { opacity: 1 });
         
-        const button = document.getElementsByClassName("start_button")[0];
-        button.addEventListener("click", function() {
+        const return_button = document.getElementsByClassName("return_button")[0];
+        return_button.addEventListener("click", function() {
+          tl.to(camera.position, { x: -0.5, y: 3.3, z: 3.8, duration: 3, ease: "power2.out"})
+          tl.to(".return_button", { y: "-1000%" },"-=1.5")
+          tl.to(".toptitle",{y: "0%" },"-=1");
+          tl.to(".title1", { opacity: 1 });
+          tl.to(".title2", { opacity: 1 });
+          tl.to(".start_button", { opacity: 1 });
+        });
+
+        const about_button = document.getElementsByClassName("start_button")[0];
+        about_button.addEventListener("click", function() {
           tl.to(".title1", { opacity: 0 });
           tl.to(".title2", { opacity: 0 });
           tl.to(".start_button", { opacity: 0 });
-          tl.to(camera.position, { x: 0, y: 3, z: 0, duration: 2, ease: "power2.out" })
+          tl.to(".toptitle",{y: "-1000%" })
+          tl.to(".return_button", { y: "0%" })
+          tl.to(camera.position, { x: 0, y: 3, z: 0.1, duration: 3, ease: "power2.out"},"-=1.5")
         });
 
         return () => {
@@ -152,21 +165,24 @@ const MainPage = () => {
 
     return (
         <>
-            <nav>
-                <a href="/" className="toptitle">ArgusML</a>
-                <ul>
-                    <li>
-                        <div className="form-check form-switch">
-                            <input className="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckDefault" />
-                            <label className="form-check-label" htmlFor="flexSwitchCheckDefault">Default switch checkbox input</label>
-                        </div>
-                    </li>
-                </ul>
-            </nav>
-            <h1 className="title1">Empower Your Data</h1>
-            <h1 className="title2">Train Smarter, Not Harder</h1>
-            <button className="start_button">Get Started For Free</button>
-            <canvas ref={canvasRef} className="webgl"></canvas>
+          <nav>
+              <a href="/" className="toptitle">ArgusML</a>
+              
+              <ul>
+                  <li>
+                      <a>Log in</a>
+                  </li>
+                  <li>
+                    <button className="sign_button">Sign up</button>
+                  </li>
+              </ul>
+          </nav>
+          <button className="return_button">← Back to Home Page</button>
+          <h1 className="title1">Empower Your Data</h1>
+          <h1 className="title2">Train Smarter, Not Harder</h1>
+          <button className="start_button">About This Website</button>
+          
+          <canvas ref={canvasRef} className="webgl"></canvas>
         </>
     )
 }
