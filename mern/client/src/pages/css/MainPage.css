@@ -2,7 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    cursor: url('assets/textures/mouse4.svg'), auto;
+    cursor: url('/mern/client/src/assets/textures/mouse4.svg'), auto;
   }
   
   body, html {
@@ -43,9 +43,9 @@
   nav ul {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 3rem;
     font-weight: bold;
-    
+    font-size: 1.2rem;
   }
   
   nav a {
@@ -90,4 +90,31 @@
   
   .darkmode {
     z-index:2;
+  }
+
+  .sign_button {
+    z-index: 2;
+    color: white;
+    font-size: 1rem;
+    padding: 0.8rem 1.2rem;
+    border: none;
+    border-radius: 1rem;
+    background-color: black;
+    font-weight: bold;
+    margin: -0.8rem 0 0 0;
+  }
+
+  .return_button{
+    font-size: 1.2rem;
+    font-weight: bold;
+    z-index: 2;
+    color: white;
+    border: none;
+    border-radius: 1rem;
+    background-color: black;
+    position: absolute;
+    top: 3rem;
+    left: 3rem;
+    padding: 0.8rem 1.2rem;
+    margin: -0.8rem 0 0 0;
   }
