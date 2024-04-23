@@ -3,8 +3,10 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import MainPage from './pages/MainPage';
 
+
 const App = () => {
   return (
+
     <div className="App">
       <BrowserRouter>
         <Routes>
@@ -25,6 +27,7 @@ const App = () => {
         </Routes>
       </BrowserRouter>
     </div>
+
   );
 };
 export default App

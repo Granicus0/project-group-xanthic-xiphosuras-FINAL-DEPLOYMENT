@@ -4,10 +4,13 @@ import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 import gsap from "gsap";
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import './css/MainPage.css'
+import { useNavigate } from 'react-router-dom';
 
 const MainPage = () => {
 
     const canvasRef = useRef(null);
+    const navigate = useNavigate();
+
 
     useEffect(() => {
         const scene = new THREE.Scene();
@@ -163,6 +166,13 @@ const MainPage = () => {
         };
     }, []);
 
+    const handleLogin = () => {
+      navigate('/login');
+  };
+    const handleSign = () => {
+      navigate('/Signup');
+  };
+
     return (
         <>
           <nav>
@@ -170,10 +180,15 @@ const MainPage = () => {
               
               <ul>
                   <li>
-                      <a>Log in</a>
+                                    
+                    <button  className="login_button"onClick={handleLogin}>
+                      login
+                    </button>
+                
+                  
                   </li>
                   <li>
-                    <button className="sign_button">Sign up</button>
+                    <button className="sign_button"onClick={handleSign}>Sign up</button>
                   </li>
               </ul>
           </nav>

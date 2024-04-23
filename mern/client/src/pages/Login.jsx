@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useLogin } from '../hooks/useLogin'
+import './css/Login.css';
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -11,25 +12,36 @@ const Login = () => {
   }
 
   return (
-    <form className="login" onSubmit={handleSubmit}>
-      <h3>Log In</h3>
+    <div className="login-container"> {/*Alina*/}
+      <form className="login" onSubmit={handleSubmit}>
+      <h3>Welcome</h3>
 
       <label>Email address:</label>
       <input
         type="email"
         onChange={(e) => setEmail(e.target.value)}
         value={email}
+        placeholder="Email"
       />
       <label>Password:</label>
       <input
         type="password"
         onChange={(e) => setPassword(e.target.value)}
         value={password}
+        placeholder="Passwork"
       />
+      <div className="actions">
+        <a href="#" className="reset-passwork">Reset password</a>
+        <button type="submit" className="login-button">Log in</button>
+      </div>
 
-      <button disabled={isLoading}>Log in</button>
       {error && <div className="error">{error}</div>}
+      <div className="register-link">
+        No account? <a href="#" className="create-one">Create one</a>
+      </div>
     </form>
+       
+    </div>
   )
 }
 
