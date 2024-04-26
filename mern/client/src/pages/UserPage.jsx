@@ -10,6 +10,7 @@ function UserPage() {
   const userDat = localStorage.getItem('user')
   const json = JSON.parse(userDat);
   const userId = json._id;
+  const userName = json.name;
 
   useEffect(() => {
     const fetchModels = async () => {
@@ -41,7 +42,9 @@ function UserPage() {
 
   return (
     <div>
-      <h4> My Models </h4>
+      <h1> Hello, {userName}! </h1>
+      <br></br>
+      <h4> Your Current Models </h4>
       <div className="model-card-container">
 
         {models && models.map((model) => (
