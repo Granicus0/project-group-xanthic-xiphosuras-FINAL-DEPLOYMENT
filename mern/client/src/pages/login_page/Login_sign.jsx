@@ -7,18 +7,18 @@ import gsap from "gsap";
 import "./Login_sign.css";
 
 const LoginSignup = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [loginEmail, setLoginEmail] = useState("");
+  const [loginPassword, setLoginPassword] = useState("");
   const { login, error, isLoading } = useLogin();
+  const [isLogin, setIsLogin] = useState(""); 
   const navigate = useNavigate();
 
-  const [email2, setEmail2] = useState("");
-  const [password2, setPassword2] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState(""); // Added state for confirm password
-  const [name, setname] = useState("");
+  const [signupEmail, setSignupEmail] = useState("");
+  const [signupPassword, setSignupPassword] = useState("");
+  const [confirmSignupPassword, setConfirmPassword] = useState(""); // Added state for confirm password
+  const [name, setSignupName]= useState("");
   const { signup, error2, isLoading2 } = useSignup();
 
-  let isLogin_b = true;
 
   useEffect(() => {
     const checkLoggedIn = () => {
@@ -33,14 +33,14 @@ const LoginSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (isLogin_b) {
-      await login(email, password);
+    if (isLogin) {
+      await login(loginEmail, loginPassword);
     } else {
-      if (password !== confirmPassword) {
+      if (signupPassword !== confirmSignupPassword) {
         console.error("Passwords do not match!");
         return; // Stop the submission if passwords do not match
       }
-      await signup(email, password);
+      await signup(name, signupEmail, signupPassword);
     }
   };
 
@@ -62,7 +62,6 @@ const LoginSignup = () => {
     const but_i = document.getElementsByTagName("button");
 
     register.addEventListener("click", function () {
-      isLogin_b = false;
       formbox.style.transform = "translateX(80%)";
       formbox.style.backgroundColor = "#a5c8fd";
       Array.from(input_i).forEach((input) => {
@@ -99,7 +98,6 @@ const LoginSignup = () => {
     });
 
     log_in.addEventListener("click", function () {
-      isLogin_b = true;
       formbox.style.transform = "translateX(0%)";
       formbox.style.backgroundColor = "#fab2be";
       Array.from(but_i).forEach((button) => {
@@ -133,19 +131,19 @@ const LoginSignup = () => {
       </a>
       <div className="container">
         <div className="form-box">
-          <div className="login-box" onSubmit={handleSubmit}>
+          <form className="login-box" onSubmit={handleSubmit}>
             <h1>Log in</h1>
             <input
               type="email"
               placeholder="Email:"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+              value={loginEmail}
+              onChange={(e) => setLoginEmail(e.target.value)}
             ></input>
             <input
               type="password"
               placeholder="Password:"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              value={loginPassword}
+              onChange={(e) => setLoginPassword(e.target.value)}
             ></input>
             <a href="#" className="reset-password">
               Reset password
@@ -154,51 +152,51 @@ const LoginSignup = () => {
               Log in
             </button>
             {error && <div className="error">{error}</div>}
-          </div>
+          </form>
 
-          <div className="register-box hidden" onSubmit={handleSubmit}>
+          <form className="register-box hidden" onSubmit={handleSubmit}>
             <h1>Register</h1>
             <input
               type="text"
               placeholder="Name:"
               value={name}
-              onChange={(e) => setname(e.target.value)}
+              onChange={(e) => setSignupName(e.target.value)}
             ></input>
             <input
               type="email"
               placeholder="Email:"
-              value={email2}
-              onChange={(e) => setEmail2(e.target.value)}
+              value={signupEmail}
+              onChange={(e) => setSignupEmail(e.target.value)}
             ></input>
             <input
               type="password"
               placeholder="Password:"
-              value={password2}
-              onChange={(e) => setPassword2(e.target.value)}
+              value={signupPassword}
+              onChange={(e) => setSignupPassword(e.target.value)}
             ></input>
             <input
               id="confirm-password"
               type="password"
               placeholder="Confirm Password:"
               onChange={(e) => setConfirmPassword(e.target.value)}
-              value={confirmPassword}
+              value={confirmSignupPassword}
             />
             <button type="submit" disabled={isLoading2}>
               Sign up
             </button>
             {error && <div className="error">{error2}</div>}
-          </div>
+          </form>
         </div>
 
         <div className="con-box left">
           <h2>Have account?</h2>
           <img src="src/assets/textures/logo3.png" alt="logo" />
-          <button id="login">Go to Log in</button>
+          <button id="login" onClick={() => setIsLogin(true)}>Go to Log in</button>
         </div>
         <div className="con-box right">
           <h2>Do not have account?</h2>
           <img src="src/assets/textures/logo3.png" alt="logo" />
-          <button id="register">Go to sign up</button>
+          <button id="register" onClick={() => setIsLogin(false)}>Go to sign up</button>
         </div>
       </div>
     </div>

@@ -42,7 +42,7 @@ function UserPage() {
 
   return (
     <div>
-      <h1> Hello, {userName}! </h1>
+      <h1 color='black'> Hello, {userName}! </h1>
       <br></br>
       <h4> Your Current Models </h4>
       <div className="model-card-container">
