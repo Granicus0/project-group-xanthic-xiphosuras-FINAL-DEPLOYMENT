@@ -7,10 +7,11 @@ import gsap from "gsap";
 import "./Login_sign.css";
 
 const LoginSignup = () => {
+
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const { login, error, isLoading } = useLogin();
-  const [isLogin, setIsLogin] = useState(""); 
+  const [isLogin, setIsLogin] = useState(true); 
   const navigate = useNavigate();
 
   const [signupEmail, setSignupEmail] = useState("");
@@ -18,6 +19,7 @@ const LoginSignup = () => {
   const [confirmSignupPassword, setConfirmPassword] = useState(""); // Added state for confirm password
   const [name, setSignupName]= useState("");
   const { signup, error2, isLoading2 } = useSignup();
+
 
 
   useEffect(() => {
@@ -33,7 +35,9 @@ const LoginSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(isLogin)
     if (isLogin) {
+
       await login(loginEmail, loginPassword);
     } else {
       if (signupPassword !== confirmSignupPassword) {
@@ -62,6 +66,7 @@ const LoginSignup = () => {
     const but_i = document.getElementsByTagName("button");
 
     register.addEventListener("click", function () {
+      isLoginEventListener = false;
       formbox.style.transform = "translateX(80%)";
       formbox.style.backgroundColor = "#a5c8fd";
       Array.from(input_i).forEach((input) => {
