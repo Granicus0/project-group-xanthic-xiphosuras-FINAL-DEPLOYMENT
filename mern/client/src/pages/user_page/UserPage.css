@@ -1,0 +1,13 @@
+.user-page-header {
+    color: black;
+    margin: 1rem;
+}
+
+.user-page-sub-header{
+    position: relative;
+    left:1%;
+}
+
+.user-page-container{
+    height:100vh;
+}

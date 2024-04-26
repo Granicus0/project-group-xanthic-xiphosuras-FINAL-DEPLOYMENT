@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import ModelCard from '../../components/ModelCard';
 import { useAuthContext } from '../../hooks/useAuthContext';
+import "./UserPage.css";
 
 function UserPage() {
   const [models, setModels] = useState([]);
@@ -41,10 +42,10 @@ function UserPage() {
   }
 
   return (
-    <div>
-      <h1 color='black'> Hello, {userName}! </h1>
+    <div className='user-page-container'>
+      <h1 className='user-page-header'> Hello, {userName}! </h1>
       <br></br>
-      <h4> Your Current Models </h4>
+      <h4 className='user-page-sub-header'> Your Current Models </h4>
       <div className="model-card-container">
 
         {models && models.map((model) => (

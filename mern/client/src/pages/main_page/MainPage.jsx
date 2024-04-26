@@ -173,7 +173,7 @@ const MainPage = () => {
             <Link to="/register" state={{mode: 'login'}}>Log in</Link>
           </li>
           <li>
-            <Link to="/register" state={{ mode: 'signup' }}>Sign up</Link>
+            <Link to="/register" state={{ mode: 'signup' }} className='sign_button'>Sign up</Link>
           </li>
         </ul>
       </nav>
