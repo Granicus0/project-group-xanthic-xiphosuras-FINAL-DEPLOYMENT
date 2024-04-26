@@ -11,3 +11,11 @@
 .user-page-container{
     height:100vh;
 }
+
+.model-card-container2{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem;
+}

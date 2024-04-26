@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import ModelCard from '../../components/ModelCard';
+import ModelCardv2 from '../../components/ModelCardv2';
 import { useAuthContext } from '../../hooks/useAuthContext';
 import "./UserPage.css";
 
@@ -46,8 +47,13 @@ function UserPage() {
       <h1 className='user-page-header'> Hello, {userName}! </h1>
       <br></br>
       <h4 className='user-page-sub-header'> Your Current Models </h4>
-      <div className="model-card-container">
+      <div className="model-card-container2">
+        {models && models.map((model) => (
+          <ModelCardv2 key={model._id} modelInfo={model} />
+        ))}
 
+      </div>
+      <div className="model-card-container">
         {models && models.map((model) => (
           <ModelCard key={model._id} modelInfo={model} />
         ))}
