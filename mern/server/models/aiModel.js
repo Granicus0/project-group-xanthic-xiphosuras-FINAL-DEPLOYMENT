@@ -4,6 +4,7 @@ import mongoose from 'mongoose'
 const Schema = mongoose.Schema
 
 const modelSchema = new Schema({
+    model_name: { type: String, required: true },
     model_address: { type: String, required: true },
     metaData_address: { type: String, required: true },
     model_description: { type: String, required: true },

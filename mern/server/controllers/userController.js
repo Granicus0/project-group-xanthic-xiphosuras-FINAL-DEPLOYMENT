@@ -1,5 +1,6 @@
 import User from '../models/userModel.js'
 import jwt from 'jsonwebtoken'
+import logger from '../logger.js'
 
 // Function to create a JWT using the JWT library
 const createToken = (_id) => {
@@ -12,6 +13,7 @@ export const loginUser = async (req, res) => {
 
     // Grab the users email and password from the request body
     const { email, password } = req.body
+    logger.logRequestDetails(req);
 
     try {
 
@@ -22,7 +24,8 @@ export const loginUser = async (req, res) => {
         const token = createToken(user._id)
 
         // Send back response with email and JWT
-        res.status(200).json({ email: user.email, token });
+        res.status(200).json({_id: user._id, name: user.name, email: user.email, token });
+        
 
     } catch (error) {
 
@@ -34,33 +37,21 @@ export const loginUser = async (req, res) => {
 // User signup
 export const signupUser = async (req, res) => {
 
-    console.log("Signup req recieved")
+    logger.logRequestDetails(req);
+    
     const { name, email, password } = req.body;
-    console.log("Signup email: " + email)
 
 
     try {
 
-        console.log("Attempting to create user")
-
         // Create a user with email and password
         const user = await User.signup(name, email, password);
 
-        console.log("Created user")
-        console.log("Attempting to create token")
-
-
         // Create the users JWT
         const token = createToken(user._id)
-        console.log("Created token")
-
-        
-        console.log("Attempting to set response status")
 
         // Send back response with email and JWT
-        res.status(200).json({ email, token })
-
-        console.log("Set response status to: 200 OK, email: " + email + " and token: " + token + "");
+        res.status(200).json({ name, email, token })
 
 
     } catch (error) {
@@ -74,6 +65,8 @@ export const signupUser = async (req, res) => {
 
 // Test the base API route
 export const testUser = async (req, res) => {
+    logger.logRequestDetails(req);
+
     res.json({ msg: 'Base API route works! Note this does not mean the other routes function properly' })
 };
 

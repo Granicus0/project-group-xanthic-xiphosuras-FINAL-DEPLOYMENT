@@ -31,8 +31,6 @@ const userSchema = new Schema({
 })
 
 
-
-
 // Creates a user and returns it.
 userSchema.statics.signup = async function (name, email, password) {
 
