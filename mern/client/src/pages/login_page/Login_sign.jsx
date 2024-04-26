@@ -62,6 +62,19 @@ const LoginSignup = () => {
     let loginbox = document.getElementsByClassName("login-box")[0];
     let registerbox = document.getElementsByClassName("register-box")[0];
 
+
+    if (isLogin) {
+      formbox.style.transform = "translateX(0%)";
+      formbox.style.backgroundColor = "#fab2be";
+      loginbox.classList.remove("hidden");
+      registerbox.classList.add("hidden");
+    } else {
+      formbox.style.transform = "translateX(80%)"; 
+      formbox.style.backgroundColor = "#a5c8fd";
+      loginbox.classList.add("hidden");
+      registerbox.classList.remove("hidden");
+    }
+
     const input_i = document.getElementsByTagName("input");
     const but_i = document.getElementsByTagName("button");
 
@@ -127,7 +140,7 @@ const LoginSignup = () => {
       loginbox.classList.remove("hidden");
       registerbox.classList.add("hidden");
     });
-  }, []);
+  }, [isLogin]);
 
   return (
     <div className="loginf">
