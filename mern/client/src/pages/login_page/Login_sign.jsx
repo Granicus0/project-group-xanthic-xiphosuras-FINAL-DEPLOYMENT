@@ -15,6 +15,7 @@ const LoginSignup = () => {
   const [email2, setEmail2] = useState("");
   const [password2, setPassword2] = useState("");
   const [confirmPassword, setConfirmPassword] = useState(""); // Added state for confirm password
+  const [name, setname] = useState("");
   const { signup, error2, isLoading2 } = useSignup();
 
   let isLogin_b = true;
@@ -157,6 +158,12 @@ const LoginSignup = () => {
 
           <div className="register-box hidden" onSubmit={handleSubmit}>
             <h1>Register</h1>
+            <input
+              type="text"
+              placeholder="Name:"
+              value={name}
+              onChange={(e) => setname(e.target.value)}
+            ></input>
             <input
               type="email"
               placeholder="Email:"
