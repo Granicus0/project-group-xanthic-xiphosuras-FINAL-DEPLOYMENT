@@ -5,13 +5,17 @@ import { useSignup } from "../../hooks/useSignup";
 import { Link } from "react-router-dom";
 import gsap from "gsap";
 import "./Login_sign.css";
+import { useLocation } from 'react-router-dom';
 
 const LoginSignup = () => {
 
+  const location = useLocation();
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const { login, error, isLoading } = useLogin();
-  const [isLogin, setIsLogin] = useState(true); 
+
+  const initialMode = location.state?.mode;
+  const [isLogin, setIsLogin] = useState(initialMode === 'signup' ? false : true); 
   const navigate = useNavigate();
 
   const [signupEmail, setSignupEmail] = useState("");
