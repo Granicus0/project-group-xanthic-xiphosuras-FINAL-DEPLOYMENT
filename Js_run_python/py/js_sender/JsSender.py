@@ -6,6 +6,11 @@ __cache = dict()
 __auto_send = True
 
 
+def get_input_args():
+    if len(sys.argv)>=2:
+        return json.loads(sys.argv[1])
+
+
 def set_value(key, value):
     __cache[key] = value
     if __auto_send:

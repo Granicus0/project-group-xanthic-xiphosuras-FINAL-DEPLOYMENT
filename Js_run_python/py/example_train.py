@@ -3,9 +3,8 @@ import time
 from js_sender import JsSender # import JSSender Package
 
 
-args = sys.argv[1:]  # get the args passed from json, The first arg is the path of file, which can be ignored
-
-target_epoch = int(args[0])
+args = JsSender.get_input_args()
+target_epoch = args[0]
 
 # All print results will be received by the js backend and displayed in the terminal, you can set the backend to ignore these prints
 # "<params_start>" and "<params_end>" should not appear in your print, because they're used to locate parameters in the JSSender
