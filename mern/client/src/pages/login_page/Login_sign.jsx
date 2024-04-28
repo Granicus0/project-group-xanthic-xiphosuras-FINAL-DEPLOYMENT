@@ -83,7 +83,6 @@ const LoginSignup = () => {
     const but_i = document.getElementsByTagName("button");
 
     register.addEventListener("click", function () {
-      isLoginEventListener = false;
       formbox.style.transform = "translateX(80%)";
       formbox.style.backgroundColor = "#a5c8fd";
       Array.from(input_i).forEach((input) => {
