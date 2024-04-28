@@ -42,6 +42,8 @@ export const beginModelTraining = async (req, res, io) => {
 
     // files uploaded by the user are temporarily stored in /server/uploads. Use this folder to retrieve the CSV file.
     // Start a Python process. The relative path is just the server folder, NOT the current directory.
+    // ****** NOTE: THIS IS A HARDCODED PATH JUST FOR EXPERIMENTAL PURPOSES. THE PYTHON RUNTIME IS CONFIRMED WORKING. ***************
+    // ************ WE NEED TO CHANGE THIS TO NOT REFERENCE THE ADULT.CSV DATASET BUT RATHER THE CSV DATASET THAT THE USER HAS UPLOADED. *************
     const pythonProcess = spawn('python3', ['python_demo/training.py', '-csvp', 'python_demo/Dataset/adult.csv', '-schemap', 'python_demo/schemas/adult_train_schema.json', '-id', '3', '-l', 'income', '-p', 'once', '-m', 'RF']);
 
     // Log any errors from executing the python script (bruh this saved so much trouble...)
@@ -49,13 +51,26 @@ export const beginModelTraining = async (req, res, io) => {
         console.error(`Python error: ${data}`);
     });
 
+    // THIS is how we communicate live data back to the client.
+    // In the python files, wherever you want to output data, make sure you print it like this:
+
+        // ``` print("Print something here", flush=True) ```
+
+    // Setting flush=True flushes the buffer immediately and lets our backend capture these inputs
+    // inside this function through 'stdout'
     pythonProcess.stdout.on('data', (data) => {
+        // ANY data that has been printed to the console from ANY of the python files executed will be captured here and converted to a string
         const update = data.toString();
+        // Log the output to the console for our own sake (debugging mainly)
         console.log(`Python output: ${update}`);
+
+        // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
+        // This 'training_update' string is special! Notice how this is the *exact same string* that is inside of 
+        // client/pages/modelProgressPage/ModelProgress.jsx
         io.emit('training_update', update); 
     });
 
-    // On process completion 
+    // On process completion just send back a 200 OK
     pythonProcess.on('close', (code) => {
         console.log(`Model training finished. Python process exited with code ${code}`);
         res.status(200).send('Model training finished');
