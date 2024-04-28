@@ -33,7 +33,7 @@ export const createModel = async (req, res) => {
 
 export const getModelsByUser = async (req, res) => {
     logger.logRequestDetails(req);
-    const userId = req.params.email; // Retrieve the user ID from the URL parameters
+    const userId = req.params.userId; // Retrieve the user ID from the URL parameters
 
     try {
         // Check if the user exists

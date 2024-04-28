@@ -14,6 +14,7 @@ export const useSignup = () => {
             setError('All fields are required');
             return;
         }
+        
         setIsLoading(true)
         setError(null)
 
@@ -32,7 +33,7 @@ export const useSignup = () => {
             localStorage.setItem('user', JSON.stringify(json))
             dispatch({ type: 'LOGIN', payload: json })
             setIsLoading(false)
-            navigate(`/user/${encodeURIComponent(json._id)}`)
+            navigate("/user");
         }}
         catch (error) {
             setIsLoading(false)

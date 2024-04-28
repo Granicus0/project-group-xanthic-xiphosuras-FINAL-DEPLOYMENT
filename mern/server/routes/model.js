@@ -9,7 +9,7 @@ const router = express.Router();
 router.post('/createModel', createModel);
 
 // Route to get all models for a specific user
-router.get('/user/:email', getModelsByUser);
+router.get('/user/:userId', getModelsByUser);
 
 // Route to get a single model by ID
 router.get('/:id', getModelById);

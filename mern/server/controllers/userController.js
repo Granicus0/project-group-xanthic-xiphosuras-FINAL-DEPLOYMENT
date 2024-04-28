@@ -51,7 +51,7 @@ export const signupUser = async (req, res) => {
         const token = createToken(user._id)
 
         // Send back response with email and JWT
-        res.status(200).json({ name, email, token })
+        res.status(200).json({_id: user._id, name: user.name, email: user.email, token })
 
 
     } catch (error) {
