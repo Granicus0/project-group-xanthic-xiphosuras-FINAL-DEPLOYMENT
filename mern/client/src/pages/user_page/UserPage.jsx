@@ -11,8 +11,6 @@ function UserPage() {
   const [models, setModels] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const { logout } = useLogout();
-  const navigate = useNavigate()
 
   const userDat = localStorage.getItem('user')
   const json = JSON.parse(userDat);
@@ -53,8 +51,10 @@ function UserPage() {
         <CreateModelButton></CreateModelButton>
         <LogoutButton></LogoutButton>
         <h4 className='user-page-sub-header'> Your Current Models </h4>
+        <br></br>
+        <h5 className='user-page-sub-header'> Click one to make some predictions! </h5>
         <ModelGrid modelData={models}></ModelGrid>
-        
+
       </div>
 
   );
