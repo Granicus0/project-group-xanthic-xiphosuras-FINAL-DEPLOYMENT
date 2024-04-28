@@ -6,6 +6,7 @@ import UserPage from './pages/user_page/UserPage';
 import Log_signin from './pages/login_page/Login_sign';
 import MakeModel from './pages/makeModelPage/MakeModel';
 import UseModel from './pages/useModelPage/useModelPage.jsx';
+import ModelProgress from './pages/modelProgressPage/ModelProgress.jsx';
 const App = () => {
   return (
 
@@ -45,6 +46,11 @@ const App = () => {
           <Route
             path="/useModel"
             element={<UseModel />}
+          />
+
+          <Route
+            path="/modelProgress"
+            element={<ModelProgress/>}
           />
         </Routes>
       </BrowserRouter>

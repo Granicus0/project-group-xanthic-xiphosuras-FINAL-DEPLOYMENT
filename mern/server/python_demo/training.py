@@ -38,7 +38,10 @@ if __name__ == "__main__":
         if type=="redundant":
             df=df.drop(columns=column)
         preproessor[column]=preprocess(df,column,type)
+        print(f"Preprocessing complete for column '{column}'.", flush=True)  
+
     process=get_process(args["p"])
+    print("Starting model training...", flush=True)
     model, metadata["train_result"]=process(get_model_class(args["m"],schema[args["l"]]),df.drop(columns=args["l"]),df[args["l"]])
     if not os.path.exists(path(dirname,args["id"])):
         os.makedirs(path(dirname,args["id"]))

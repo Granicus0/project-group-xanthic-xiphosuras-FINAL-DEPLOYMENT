@@ -1,0 +1,18 @@
+{
+    "age": "catelogue",
+    "workclass": "catelogue",
+    "fnlwgt": "numeric",
+    "education": "catelogue",
+    "education-num": "numeric",
+    "marital-status": "catelogue",
+    "occupation": "catelogue",
+    "relationship": "catelogue",
+    "race": "catelogue",
+    "sex": "catelogue",
+    "capital-gain": "numeric",
+    "capital-loss": "numeric",
+    "hours-per-week": "numeric",
+    "native-country": "catelogue",
+    "income": "catelogue"
+  }
+  

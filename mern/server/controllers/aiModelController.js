@@ -2,8 +2,9 @@ import Model from '../models/aiModel.js';
 import User from '../models/userModel.js';
 import logger from '../logger.js';
 import mongoose from 'mongoose';
-import multer from 'multer';
-import * as Papa from 'papaparse';
+import { spawn } from 'child_process'
+import { io } from 'socket.io-client'
+
 
 export const createModel = async (req, res) => {
 
@@ -33,16 +34,33 @@ export const createModel = async (req, res) => {
     }
 };
 
-
-export const beginModelTraining = async (req, res) => {
-   // logger.logRequestDetails(req);
+export const beginModelTraining = async (req, res, io) => {
 
     const csvFile = req.file;
     const modelName = req.body.modelName;
     const modelType = req.body.modelType;
 
+    // files uploaded by the user are temporarily stored in /server/uploads. Use this folder to retrieve the CSV file.
+    // Start a Python process. The relative path is just the server folder, NOT the current directory.
+    const pythonProcess = spawn('python3', ['python_demo/training.py', '-csvp', 'python_demo/Dataset/adult.csv', '-schemap', 'python_demo/schemas/adult_train_schema.json', '-id', '3', '-l', 'income', '-p', 'once', '-m', 'RF']);
 
-    // ... your model training logic using csvFile, modelName, and modelType
+    // Log any errors from executing the python script (bruh this saved so much trouble...)
+    pythonProcess.stderr.on('data', (data) => {
+        console.error(`Python error: ${data}`);
+    });
+
+    pythonProcess.stdout.on('data', (data) => {
+        const update = data.toString();
+        console.log(`Python output: ${update}`);
+        io.emit('training_update', update); 
+    });
+
+    // On process completion 
+    pythonProcess.on('close', (code) => {
+        console.log(`Model training finished. Python process exited with code ${code}`);
+        res.status(200).send('Model training finished');
+    });
+
 };
 
 export const getModelsByUser = async (req, res) => {

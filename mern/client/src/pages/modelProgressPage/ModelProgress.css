@@ -1,0 +1,25 @@
+.model-training-output {
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .model-training-output h2 {
+    color: #333;
+    margin-bottom: 15px;
+  }
+  
+  .update-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .update-list li pre {
+    background-color: #eee;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-family: monospace;
+  }
+  
