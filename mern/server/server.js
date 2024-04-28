@@ -3,7 +3,6 @@ import cors from "cors";
 import mongoose from 'mongoose'
 
 import userRoutes from './routes/user.js'
-import records from './routes/record.js'
 import modelRoutes from './routes/model.js';
 
 const PORT = process.env.PORT || 5050;
@@ -12,11 +11,12 @@ const PORT = process.env.PORT || 5050;
 const app = express();
 
 app.use(cors());
+
+// Allows us to grab data from request objects (express will parse request objects into a JSON)
 app.use(express.json());
 
 app.use('/api/user', userRoutes)
-app.use('/record', records)
-app.use('/models', modelRoutes);
+app.use('/api/models', modelRoutes);
 
 // Connect to MongoDB via Mongoose
 mongoose.connect(process.env.ATLAS_URI)
