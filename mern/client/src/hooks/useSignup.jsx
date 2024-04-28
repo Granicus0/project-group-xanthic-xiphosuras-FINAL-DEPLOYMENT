@@ -9,6 +9,11 @@ export const useSignup = () => {
     const navigate = useNavigate()
 
     const signup = async (name, email, password) => {
+      try{
+        if (!name || !email || !password) {  // check if all fields are empty
+            setError('All fields are required');
+            return;
+        }
         setIsLoading(true)
         setError(null)
 
@@ -21,14 +26,17 @@ export const useSignup = () => {
         const json = await response.json()
         if (!response.ok) {
             setIsLoading(false)
-            setError(json.error)
+            setError(json.error || 'An error occurred')
 
-        }
-        if (response.ok) {
+        } else{
             localStorage.setItem('user', JSON.stringify(json))
             dispatch({ type: 'LOGIN', payload: json })
             setIsLoading(false)
-            navigate('/user')
+            navigate(`/user/${encodeURIComponent(json._id)}`)
+        }}
+        catch (error) {
+            setIsLoading(false)
+            setError('Failed to sign up: ' + error.message)
         }
     }
 

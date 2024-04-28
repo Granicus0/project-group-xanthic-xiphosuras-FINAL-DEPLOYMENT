@@ -31,16 +31,29 @@ export const createModel = async (req, res) => {
     }
 };
 
-// Retrieve all models for a specific user
 export const getModelsByUser = async (req, res) => {
     logger.logRequestDetails(req);
+    const userId = req.params.email; // Retrieve the user ID from the URL parameters
 
-    const userId = req.params.userId;
     try {
-        const models = await Model.find({ user: userId });
-        res.status(200).json(models);
+        // Check if the user exists
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json([{ message: "User not found." }]);
+        }
+
+        // Find models associated with this user
+        const models = await Model.find({ user: user._id });
+        if (models.length === 0) {
+            // If no models are found, send a 200 response with a message
+            res.status(200).json([]);
+        } else {
+            // If models are found, send them in the response
+            res.status(200).json(models);
+        }
     } catch (error) {
-        res.status(404).json({ error: error.message });
+        // Handle errors and respond accordingly
+        res.status(500).json({ error: error.message });
     }
 };
 

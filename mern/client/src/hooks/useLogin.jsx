@@ -29,8 +29,9 @@ export const useLogin = () => {
             localStorage.setItem('user', JSON.stringify(json))
             dispatch({ type: 'LOGIN', payload: json })
             setIsLoading(false)
-            navigate('/user')
+            navigate(`/user/${encodeURIComponent(json._id)}`)
         }
+        
     }
 
     return { login, isLoading, error }
