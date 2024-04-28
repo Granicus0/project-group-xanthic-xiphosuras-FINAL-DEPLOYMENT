@@ -2,6 +2,8 @@ import Model from '../models/aiModel.js';
 import User from '../models/userModel.js';
 import logger from '../logger.js';
 import mongoose from 'mongoose';
+import multer from 'multer';
+import * as Papa from 'papaparse';
 
 export const createModel = async (req, res) => {
 
@@ -29,6 +31,18 @@ export const createModel = async (req, res) => {
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
+};
+
+
+export const beginModelTraining = async (req, res) => {
+   // logger.logRequestDetails(req);
+
+    const csvFile = req.file;
+    const modelName = req.body.modelName;
+    const modelType = req.body.modelType;
+
+
+    // ... your model training logic using csvFile, modelName, and modelType
 };
 
 export const getModelsByUser = async (req, res) => {
@@ -106,8 +120,8 @@ export const getModelById = async (req, res) => {
     logger.logRequestDetails(req);
 
     const { id } = req.params;
-    if(!mongoose.Types.ObjectId.isValid(id)) {
-        return res.status(404).json({error: 'No such model'})
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+        return res.status(404).json({ error: 'No such model' })
     }
     try {
         const model = await Model.findById(id);

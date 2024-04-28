@@ -20,7 +20,7 @@ const LoginSignup = () => {
 
   const [signupEmail, setSignupEmail] = useState("");
   const [signupPassword, setSignupPassword] = useState("");
-  const [confirmSignupPassword, setConfirmPassword] = useState(""); // Added state for confirm password
+  const [confirmSignupPassword, setConfirmPassword] = useState(""); 
   const [name, setSignupName]= useState("");
   const { signup, error2, isLoading2 } = useSignup();
 

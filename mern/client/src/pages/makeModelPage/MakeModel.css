@@ -4,6 +4,8 @@
   width: 100vw;
 }
 
+.makemodel-
+
 .makemodel-page-header,
 .makemodel-page-sub-header {
   color: black;
@@ -46,7 +48,7 @@
   margin: 0; 
 }
 
-.content-area {
+.makemodel-content-area {
   width: 80%;
   max-width: 500px; 
   margin: 30px auto;
@@ -56,19 +58,46 @@
   box-shadow: 0 2px 5px rgba(0,0,0, 0.1);
 }
 
-.model-name-input, .upload-section {
+.makemodel-model-name-input, .makemodel-upload-section {
   margin-bottom: 20px;
 }
 
-.model-name-input label, .upload-section h4 {
+.makemodel-model-name-input label, .makemodel-upload-section h4 {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
 }
 
-.model-name-input input {
+.makemodel-model-name-input input {
   width: 100%;
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+}
+
+.makemodel-model-type-selection {
+  margin-top: 20px;
+}
+
+.makemodel-model-type-selection h4 {
+  margin-bottom: 10px;
+}
+
+.makemodel-model-type-selection select {
+  width: 100%; 
+  padding: 8px 12px;
+  border: 1px solid #ccc; 
+  border-radius: 5px; 
+  background-color: #fff;
+  appearance: none; 
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23333'><polygon points='12 5 8 9 4 5'/></svg>"); 
+  background-repeat: no-repeat;
+  background-position: right 10px center; 
+  margin-bottom: 15px;
+
+} 
+
+.makemodel-model-type-selection select:focus {
+  outline: none;
+  box-shadow: 0 0 5px rgba(0, 150, 255, 0.5); 
 }

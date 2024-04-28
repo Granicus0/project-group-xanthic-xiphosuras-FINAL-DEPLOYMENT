@@ -1,12 +1,12 @@
 import express from 'express'
-
-// Controller functions from user controller
-import { createModel, getModelsByUser, updateModel, deleteModel, getModelById} from '../controllers/aiModelController.js'
+import multer from 'multer'; 
+import { createModel, getModelsByUser, updateModel, deleteModel, getModelById, beginModelTraining} from '../controllers/aiModelController.js'
 const router = express.Router();
 
 
 // Route to create a new model
-router.post('/createModel', createModel);
+const upload = multer({ dest: 'uploads/' }); 
+router.post('/createModel', upload.single('csvFile') ,beginModelTraining);
 
 // Route to get all models for a specific user
 router.get('/user/:userId', getModelsByUser);
