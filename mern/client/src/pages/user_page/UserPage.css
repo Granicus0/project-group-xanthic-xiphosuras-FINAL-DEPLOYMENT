@@ -1,21 +1,26 @@
-.user-page-header {
+.user-page-container {
+    padding-top: 50px;
+    height: 100vh;
+    width: 100vw;
+}
+
+.user-page-header,
+.user-page-sub-header {
     color: black;
-    margin: 1rem;
+    text-align: center;
 }
 
-.user-page-sub-header{
-    position: relative;
-    left:1%;
+.user-page-container .create-model-button-component {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    padding: 8px 20px; 
 }
 
-.user-page-container{
-    height:100vh;
+.user-page-container .logout-button-component {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 8px 15px;
 }
 
-.model-card-container2{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    margin: 1rem;
-}

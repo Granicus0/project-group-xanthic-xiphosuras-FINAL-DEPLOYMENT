@@ -1,193 +1,42 @@
-
-/* 
-========================
-Variables
-========================
-*/
-
-
-:root {
-    
-    font-size: 10px;
-    
-    /* Primary */
-    --var-soft-blue: hsl(215, 51%, 70%);
-    --var-cyan: hsl(178, 100%, 50%);
-    /* Neutral */
-    --var-main-darkest: hsl(217, 54%, 11%);
-    --var-card-dark: hsl(216, 50%, 16%);
-    --var-line-dark: hsl(215, 32%, 27%);
-    --var-lightest: white;
-    
-    /* Fonts */
-    
-    --var-heading: normal normal 600 1em/1em 'Outfit', sans-serif;
-    
-    --var-small-heading: normal normal 400 0.7em/0.7em 'Outfit', sans-serif;
-    
-    --var-para: normal normal 300 0.7em/1.2em 'Outfit', sans-serif;
-}
-
-/* 
-=======================
-Setup
-=======================
-*/
-
-html {
-    box-sizing: border-box;
-}
-
-*, *::before, *::after {
-    box-sizing: inherit;
-    margin: 0;
-}
-
-body {
-    background-color: white;
-}
-
-img {
-    width: 100%;
-    border-radius: 15px;
-    display: block;
-}
-
-a {
-    color: inherit;
-}
-
-/* 
-
-Eye view
-
-https://i.postimg.cc/9MtT4GZY/view.png' border='0' alt='view */
-
-/*
-=========================
-Font Styling
-=========================
-*/
-
-h1 {
-    font: var(--var-heading);
-    color: var(--var-lightest);
-    padding: 1.2em 0;
-}
-
-h2 {
-    font: var(--var-small-heading);
-    color: var(--var-lightest);
-    /* padding on .coin-base */
-}
-
-p {
-    font: var(--var-para);
-    color: var(--var-soft-blue);
-    gap:0.1rem;
-}
-
-span {
-    color: white;
-}
-/* 
-=====================
-Classes
-=====================
-*/
-
-/* LAYOUT */
-
 .card-container {
-    width: 40%;
-    max-width: 300px;
-    margin: 2em auto;
-    background-color: var(--var-card-dark);
-    border-radius: 15px;
-    margin-bottom: 1rem;
-    padding: 1rem;
+  width: 300px;
+  background-color: #fff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  margin: 20px;
+  overflow: hidden;
 }
 
-div.flex-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+.hero-image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
 }
 
-div.coin-base, .time-left, .card-attribute {
-    display: flex;
-    align-items: center;
-    padding: 1em 0;
+.main-content {
+  padding: 15px;
 }
 
-a.hero-image-container {
-    position: relative;
-    display: block;
+.main-content h1 {
+  margin-bottom: 10px;
+  font-size: 18px;
+  color: #333;
 }
 
-
-
-/* Details */
-
-img.eye {
-    position: absolute;
-    width: 100%;
-    max-width: 2em;
-    top: 44%;
-    left: 43%;
+.main-content h1 a {
+  color: inherit;
+  text-decoration: none;
 }
 
-@media (min-width:400px) {
-  img.eye {
-    max-width: 3em;
-}
-}
-
-.hero-image-container::after {
-    content: '';
-    background-image: url("https://i.postimg.cc/9MtT4GZY/view.png");
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: 5rem;
-    background-color: hsla(178, 100%, 50%, 0.3);
-    width: 100%;
-    height: 100%;
-    border-radius: 1rem;
-    position: absolute;
-    top: 0;
-    left: 0;
-    display: block;
-    z-index: 2;
-    opacity: 0;
-    transition: opacity 0.3s ease-out;
+.flex-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
 }
 
 .small-image {
-    width: 1.2em;
-    margin-right: .5em;
-}
-
-.small-avatar {
-    width: 2em;
-    border-radius: 200px;
-    outline: 2px solid white;
-    margin-right: 1.4em;
-}
-
-div.attribution {
-    margin: 0 auto;
-    width: 100%;
-    font: var(--var-para);
-    text-align: center;
-    padding: 1.5em 0 4em 0;
-    color: var(--var-line-dark);
-}
-.attribution a {
-    color: var(--var-soft-blue);
-}
-
-@media (min-width:600px) {
-    body {
-        font-size: 18px;
-    }
+  width: 20px;
+  height: 20px;
+  margin-right: 5px;
 }

@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import ModelCard from '../../components/ModelCard';
-import ModelCardv2 from '../../components/ModelCardv2';
-import {useLogout} from '../../hooks/useLogout'
+import LogoutButton from '../../components/LogoutButton'
+import CreateModelButton from '../../components/CreateModelButton'; 
+
+import { useLogout } from '../../hooks/useLogout'
 import { useNavigate } from 'react-router-dom';
-import { useAuthContext } from '../../hooks/useAuthContext';
 import "./UserPage.css";
+import ModelGrid from '../../components/ModelGrid';
 
 function UserPage() {
   const [models, setModels] = useState([]);
@@ -46,32 +47,15 @@ function UserPage() {
     return <p>Error: {error}</p>;
   }
 
-  const handleLogout = () => {
-    logout()
-    navigate('/')
-  }
-
-
   return (
-    <div className='user-page-container'>
-      <h1 className='user-page-header'> Hello, {userName}! </h1>
-      <br></br>
-      <button onClick={handleLogout}> Logout </button>
-      <h4 className='user-page-sub-header'> Your Current Models </h4>
-      <div className="model-card-container2">
-        {models && models.map((model) => (
-          <ModelCardv2 key={model._id} modelInfo={model} />
-        ))}
-
+      <div className='user-page-container'>
+        <h1 className='user-page-header'> Hello, {userName}! </h1>
+        <CreateModelButton></CreateModelButton>
+        <LogoutButton></LogoutButton>
+        <h4 className='user-page-sub-header'> Your Current Models </h4>
+        <ModelGrid modelData={models}></ModelGrid>
+        
       </div>
-      <div className="model-card-container">
-        {models && models.map((model) => (
-          <ModelCard key={model._id} modelInfo={model} />
-        ))}
-
-      </div>
-
-    </div>
 
   );
 

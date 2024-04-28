@@ -3,7 +3,7 @@ import './css/ModelCardv2.css';
 function ModelCardv2({modelInfo}) {
   return (
     <div className="card-container">
-      <a href="/" className="hero-image-container">
+      <a className="hero-image-container">
         <img className="hero-image" src="https://i.postimg.cc/NfR2yhNs/image-equilibrium.jpg" alt="Spinning glass cube" />
       </a>
       <main className="main-content">
