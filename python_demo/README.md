@@ -50,6 +50,12 @@ For comminucation to frontend that the script have finished executing, I am also
 
 all the options can be expressed as a json entity following -args option
 
+- Examples:
+- python analyse.py -csvp Dataset/adult.csv -id 3
+- python training.py -csvp Dataset/adult.csv -schemap 3/schema.json -id 3 -l income -p once -m RF
+- python testing.py -csvp Dataset/adult.csv -id 3
+  
+
 ## **model.py**, **training_process.py**, **evaluation.py**, **apply_preprocessor.py**, **parser.py**, **preprocess.py**
 
 They contain various Preprocessing, ML models, training process and evaluation methods we support. These are mapped with encodings and are passed between frontend and backend.
