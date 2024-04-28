@@ -25,6 +25,11 @@ That's it! To run the client-side part of the web application, run the following
 
 ```npm run dev```
 
+Install the chakra-ui
+```chakra-ui/react @emotion/react @emotion/styled framer-motion```
+
+
+
 To run the server-side part of the web application, run the following command inside of the ``server`` folder under the ``mern`` directory:
 
 ```node --env-file=config.env server```

@@ -1,0 +1,74 @@
+.makemodel-page-container {
+  padding-top: 100px;
+  height: 100vh;
+  width: 100vw;
+}
+
+.makemodel-page-header,
+.makemodel-page-sub-header {
+  color: black;
+  text-align: center;
+}
+
+.makemodel-page-container .logout-button-component {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  padding: 8px 15px;
+}
+
+.makemodel-page-container .start-training-button-component {
+  padding: 8px 15px;
+  display: flex;         
+  justify-content: center; 
+  width: 100%;
+}
+
+.model-name-input input {
+  width: 100%;
+  max-width: 450px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.makemodel-page-container {
+  padding-top: 60px;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column; 
+  align-items: center;
+}
+
+.makemodel-page-header {
+  color: black; 
+  margin: 0; 
+}
+
+.content-area {
+  width: 80%;
+  max-width: 500px; 
+  margin: 30px auto;
+  border: 1px solid #eee; 
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 5px rgba(0,0,0, 0.1);
+}
+
+.model-name-input, .upload-section {
+  margin-bottom: 20px;
+}
+
+.model-name-input label, .upload-section h4 {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+}
+
+.model-name-input input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}

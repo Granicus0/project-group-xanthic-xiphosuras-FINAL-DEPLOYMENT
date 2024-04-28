@@ -1,0 +1,14 @@
+.create-model-button-component {
+    
+    background-color: #30a74a; 
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease;
+}
+
+.create-model-button-component:hover {
+    background-color: #258039; 
+}

@@ -6,7 +6,7 @@ const router = express.Router();
 
 
 // Route to create a new model
-router.post('/', createModel);
+router.post('/createModel', createModel);
 
 // Route to get all models for a specific user
 router.get('/user/:userId', getModelsByUser);

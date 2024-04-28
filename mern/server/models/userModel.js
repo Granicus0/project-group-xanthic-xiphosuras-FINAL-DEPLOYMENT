@@ -31,8 +31,6 @@ const userSchema = new Schema({
 })
 
 
-
-
 // Creates a user and returns it.
 userSchema.statics.signup = async function (name, email, password) {
 
@@ -50,8 +48,17 @@ userSchema.statics.signup = async function (name, email, password) {
     if (!validator.isEmail(email)) {
         throw Error('Email is not valid')
     }
-    if (!validator.isStrongPassword(password)) {
-        throw Error('Choose a stronger password')
+
+    const passwordOptions = {
+        minLength: 3,        // at least 3 chars
+        minLowercase: 1,     // at least 1 lowercase letter
+        minUppercase: 1,     // at least 1 uppercase letter
+        minNumbers: 1,       // at least 1 number
+        minSymbols: 0        // no symbol required
+    };
+
+    if (!validator.isStrongPassword(password, passwordOptions)) {
+        throw Error('Choose a stronger password');
     }
 
     // Check if the email is already in use
@@ -60,6 +67,7 @@ userSchema.statics.signup = async function (name, email, password) {
         throw Error('Email already exists')
     }
 
+    
     // Use the bcrypt library to create a salt for the password hash
     const salt = await bcrypt.genSalt(10)
     // Use the bcrypt library to hash the actual password, adding the salt
