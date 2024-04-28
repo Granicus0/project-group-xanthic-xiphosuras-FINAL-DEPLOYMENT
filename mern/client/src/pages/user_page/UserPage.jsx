@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import LogoutButton from '../../components/LogoutButton'
 import CreateModelButton from '../../components/CreateModelButton'; 
-
-import { useLogout } from '../../hooks/useLogout'
-import { useNavigate } from 'react-router-dom';
 import "./UserPage.css";
 import ModelGrid from '../../components/ModelGrid';
 
@@ -16,7 +13,8 @@ function UserPage() {
   const json = JSON.parse(userDat);
   const userId = json._id;
   const userName = json.name;
-
+// TODO CHANGE THIS LATER SO THAT THE MODELS ARE UPDATED AS THE USER CREATES THEM. RIGHT NOW IF THE USER CREATES A NEW MODEL THE PAGE WONT REFRESH
+// UNLESS THEY LOG OUT AND BACK IN AGAIN
   useEffect(() => {
     const fetchModels = async () => {
       setIsLoading(true);

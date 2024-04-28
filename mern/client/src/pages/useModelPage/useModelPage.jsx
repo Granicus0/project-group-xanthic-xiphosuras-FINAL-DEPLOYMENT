@@ -5,12 +5,17 @@ import FileUpload from '../../components/FileUpload';
 import StartPredictingButton from '../../components/StartPredictingButton';
 import './useModelPage.css'; 
 
+// This is a react component page that shows the model the user has just chosen and allows them to basically start training
 const UseModelPage = () => {
     const location = useLocation();
+    // We don't pass in any props since this page will be called from the UserPage.jsx which doesn't contain this component. Instead we just pass in 
+    // props via a <Link/> and grab the modelInfo this way. This is generally NOT GOOD PRACTICE! But it makes things easier for now
     const modelInfo = location.state?.modelInfo;
 
+    // Destructing all that info into its constituents.
     const { model_name, model_address, metaData_address, model_description, model_type, user } = modelInfo || {};
 
+    // I can't be bothered commenting this part.
     return (
         <div className='usemodel-page-container'>
             <div className="header">
