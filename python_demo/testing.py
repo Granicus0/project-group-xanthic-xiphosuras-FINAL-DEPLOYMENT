@@ -35,6 +35,6 @@ if __name__ == "__main__":
     with open(path(dirname,f"{args['id']}\model.pickle"), "rb") as f:
         model = pickle.load(f)
     pred=model.predict(df.drop(columns=metadata["label"]))
-    metadata["test_result"]=get_evaluate(df[metadata["label"]],pred)
+    metadata["test_result"][f"test_{metadata['version']}"]=get_evaluate(df[metadata["label"]],pred)
     with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=4)

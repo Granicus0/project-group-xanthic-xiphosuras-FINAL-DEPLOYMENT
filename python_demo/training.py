@@ -40,6 +40,10 @@ if __name__ == "__main__":
         preproessor[column]=preprocess(df,column,type)
     process=get_process(args["p"])
     model, metadata["train_result"]=process(get_model_class(args["m"],schema[args["l"]]),df.drop(columns=args["l"]),df[args["l"]])
+    if "test_result" in metadata:
+        metadata["test_result"].clear()
+    else:
+        metadata["test_result"]={}
     if not os.path.exists(path(dirname,args["id"])):
         os.makedirs(path(dirname,args["id"]))
     pd.to_pickle(model,path(dirname,f"{args['id']}/model.pickle"))
