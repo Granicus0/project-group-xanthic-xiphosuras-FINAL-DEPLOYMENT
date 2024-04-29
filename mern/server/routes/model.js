@@ -1,6 +1,6 @@
 import express from 'express'
 import multer from 'multer';
-import { createModel, getModelsByUser, updateModel, deleteModel, getModelById, beginModelTraining } from '../controllers/aiModelController.js'
+import {getModelsByUser, updateModel, deleteModel, getModelById, beginModelTraining } from '../controllers/aiModelController.js'
 const router = express.Router();
 
 // Our model will have to give live updates back to the client during training.
