@@ -24,4 +24,3 @@ def get_model_class(model_type,problem_type):
         raise ValueError("The model type is not supported")
     else:
         raise ValueError("The dataset label desginated type should be either numeric or catelogue")
-    

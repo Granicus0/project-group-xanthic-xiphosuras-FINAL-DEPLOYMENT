@@ -8,6 +8,9 @@ from modules.parser import path,parse_arguments,parse_csv,parse_json,get_metadat
 from modules.training_process import get_process
 from modules.models import get_model_class
 
+import warnings
+warnings.simplefilter('ignore')
+
 # The main body of scripts when called. I am not sure whether python code can be embedded in Javascript environment,
 # so I assume we use command line call to execute the script. The script will process the argument passed by backend
 # and create a pickle file containing the model and a json file containing model's metadata. 
@@ -29,17 +32,22 @@ if __name__ == "__main__":
     dirname = os.getcwd()
     df=parse_csv(args)
     schema=parse_json(args,"schema",dirname)
-    df=df[schema.keys()]
+    extra=parse_json(args,"extra",dirname)
+
     metadata=get_metadata(args["id"],dirname)
-    metadata["schema"]=schema
-    metadata["label"]=args["l"]
+    metadata.update(schema)
+
+    schema=metadata["schema"]
+    label=metadata["_label"]
+    
+    df=df[[k for k in schema.keys() if k != "_label"]]
     preproessor={}
     for column, type in schema.items():
         if type=="redundant":
             df=df.drop(columns=column)
         preproessor[column]=preprocess(df,column,type)
     process=get_process(args["p"])
-    model, metadata["train_result"]=process(get_model_class(args["m"],schema[args["l"]]),df.drop(columns=args["l"]),df[args["l"]])
+    model, metadata["train_result"]=process(get_model_class(args["m"],schema[label]),df.drop(columns=label),df[label],**extra)
     if "test_result" in metadata:
         metadata["test_result"].clear()
     else:

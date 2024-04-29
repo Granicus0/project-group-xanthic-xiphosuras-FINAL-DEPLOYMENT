@@ -43,7 +43,7 @@ def parse_json(args,key,dirname):
         with open(path(dirname,args[key+"p"]), 'r') as file:
             entity = json.load(file)
     elif key in args:
-        entity=json.load(args[key])
+        entity=json.loads(args[key])
     return entity
 
 def get_metadata(id,dirname):

@@ -8,6 +8,9 @@ import pandas as pd
 from modules.parser import parse_arguments,parse_csv
 from sklearn.model_selection import train_test_split
 
+import warnings
+warnings.simplefilter('ignore')
+
 # Script format: python splite_dataset.py -p <dataset path name> -l <dataset label column name> 
 #                                        [-tr <training set size>] -te <testing set size>
 

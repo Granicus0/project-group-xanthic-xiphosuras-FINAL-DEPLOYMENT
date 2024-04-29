@@ -13,3 +13,4 @@ __pycache__/
 python_demo/dev_requirements.txt
 python_demo/dev_debug.ipynb
 config.env
+.venv

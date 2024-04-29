@@ -3,6 +3,8 @@
 import numpy as np
 import pandas as pd
 from modules.evaluation import get_evaluate
+from sklearn.utils._testing import ignore_warnings
+from sklearn.exceptions import ConvergenceWarning
 
 def get_process(process_type):
     if process_type=="once":
@@ -11,28 +13,28 @@ def get_process(process_type):
         return cross_validation_5
     if process_type=="cv10":
         return cross_validation_10
-
-def oneshot(model,train_X,train_Y,*args):
+    
+def oneshot(model,train_X,train_Y,**kwargs):
     result={"valid_result":{}}
-    real_model=model(*args)
+    real_model=model(**kwargs)
     real_model.fit(train_X,train_Y)
     pred_Y=real_model.predict(train_X)
     result.update(get_evaluate(train_Y,pred_Y))
     return real_model, result
 
-def cross_validation_5(model,train_X,train_Y,*args):
-    return cross_validation(model,train_X,train_Y,5,*args)
+def cross_validation_5(model,train_X,train_Y,**kwargs):
+    return cross_validation(model,train_X,train_Y,5,**kwargs)
 
-def cross_validation_10(model,train_X,train_Y,*args):
-    return cross_validation(model,train_X,train_Y,5,*args)
+def cross_validation_10(model,train_X,train_Y,**kwargs):
+    return cross_validation(model,train_X,train_Y,5,**kwargs)
 
-def cross_validation(model,train_X,train_Y,counts,*args):
+def cross_validation(model,train_X,train_Y,counts,**kwargs):
     folds_index=np.array_split(train_X.sample(frac=1).index,counts)
     result={"valid_result":{}}
     average_result={}
     for i in range(counts):
         fold_train_X,fold_test_X,fold_train_Y,fold_test_Y=get_fold_train_test(folds_index,train_X,train_Y,i)
-        real_model=model(*args)
+        real_model=model(**kwargs)
         real_model.fit(fold_train_X,fold_train_Y)
         fold_pred_Y=real_model.predict(fold_test_X)
         valid_result=get_evaluate(fold_test_Y,fold_pred_Y)
@@ -45,6 +47,7 @@ def cross_validation(model,train_X,train_Y,counts,*args):
     for key,value in average_result.items():
         average_result[key]/=counts
     result.update(average_result)
+    real_model
     return real_model, result
 
 

@@ -5,6 +5,9 @@ import pandas as pd
 import pickle
 from modules.parser import parse_arguments, path, parse_csv
 
+import warnings
+warnings.simplefilter('ignore')
+
 # The main body of scripts when called. I am not sure whether python code can be embedded in Javascript environment,
 # so I assume we use command line call to execute the script. The script will process the argument passed by backend
 # and create a json file of the default schema for the dataset. 
@@ -22,7 +25,8 @@ if __name__ == "__main__":
     dirname = os.getcwd()
     arguments = parse_arguments(sys.argv)
     #print("Parsed arguments:", arguments)
-    schema={}
+    json_data={"schema":{}}
+    schema=json_data["schema"]
     df=parse_csv(arguments)
     numeric_feautre_names=df.select_dtypes(include=["number"]).columns
     categorical_feature_names=df.select_dtypes(include=["object_"]).columns
@@ -33,7 +37,8 @@ if __name__ == "__main__":
             schema[cc]="redundant"
         else:
             schema[cc]="catelogue"
+    json_data["_label"]=categorical_feature_names[-1]
     if not os.path.exists(path(dirname,f"{arguments['id']}")):
         os.makedirs(path(dirname,f"{arguments['id']}"))
     with open(path(dirname,f'{arguments["id"]}\schema.json'), 'w', encoding='utf-8') as f:
-        json.dump(schema, f, ensure_ascii=False, indent=4)
+        json.dump(json_data, f, ensure_ascii=False, indent=4)
