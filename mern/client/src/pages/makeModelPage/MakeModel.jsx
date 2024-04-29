@@ -21,10 +21,6 @@ function MakeModel() {
         setUploadedFile(file);
     };
 
-    const handleSelectedColumn = (column) => {
-        setSelectedColumn(column);
-    };
-
     return (
         <div className='makemodel-page-container'>
             <div className="makemodel-header">
