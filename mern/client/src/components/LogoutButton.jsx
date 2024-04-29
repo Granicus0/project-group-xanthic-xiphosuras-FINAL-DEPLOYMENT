@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useLogout } from "../hooks/useLogout";
 import './css/LogoutButton.css'
 
+// Simple logout button component. Just uses our logout hook to log the user out, then navigates back to the front page
 const LogoutButton = () => {
     const { logout } = useLogout()
     const navigate = useNavigate()
