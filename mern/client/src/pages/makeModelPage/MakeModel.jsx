@@ -3,12 +3,14 @@ import LogoutButton from '../../components/LogoutButton';
 import "./MakeModel.css";
 import FileUpload from '../../components/FileUpload';
 import StartTrainingButton from '../../components/StartTrainingButton';
-
+import CSVViewer from '../../components/CSVViewer';
 // This is a page to *create* an ML model (NOT select a model and use it)
 function MakeModel() {
     const [modelName, setModelName] = useState('');
     const [modelType, setModelType] = useState('SVM');
     const [uploadedFile, setUploadedFile] = useState(null);
+    const [showCSV, setShowCSV] = useState(false);
+    const [selectedColumn, setSelectedColumn] = useState('');
 
     const userDat = localStorage.getItem('user')
     const json = JSON.parse(userDat);
@@ -17,6 +19,10 @@ function MakeModel() {
     // Used by the "FileUpload" component below. Scroll down and read what it does.
     const handleFileUpload = (file) => {
         setUploadedFile(file);
+    };
+
+    const handleSelectedColumn = (column) => {
+        setSelectedColumn(column);
     };
 
     return (
@@ -55,10 +61,22 @@ function MakeModel() {
 
                     {/* We pass in handleFileUpload, then this "FileUpload" component will actually give us the file */}
                     <FileUpload onFileUpload={handleFileUpload}></FileUpload>
+                    {/* Button to toggle CSV Viewer */}
+                    {uploadedFile && (
+                        <button className='makemodel-toggle-show-csv-button' onClick={() => setShowCSV(!showCSV)}>
+                            {showCSV ? 'Hide CSV Data' : 'Show CSV Data'}
+                        </button>
+                    )}
                 </div>
 
+                {/* Conditionally render CSVViewer */}
+                {showCSV && uploadedFile && <CSVViewer
+                    csvFile={uploadedFile}
+                    onColumnSelect={(column) => setSelectedColumn(column)}
+                />}
+
                 {/* Pass in model information to our StartTrainingButton component. */}
-                <StartTrainingButton modelInfo={{ modelName, modelType, uploadedFile, userId }}></StartTrainingButton>
+                <StartTrainingButton modelInfo={{ modelName, modelType, uploadedFile, userId, selectedColumn }}></StartTrainingButton>
             </div>
         </div>
     );

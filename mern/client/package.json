@@ -14,6 +14,8 @@
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@fortawesome/fontawesome-free": "^6.5.2",
+    "@mui/icons-material": "^5.15.15",
+    "@mui/material": "^5.15.15",
     "axios": "^1.6.8",
     "framer-motion": "^11.1.7",
     "gsap": "^3.12.5",
@@ -21,6 +23,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.3",
+    "react-papaparse": "^4.4.0",
     "socket.io-client": "^4.7.5",
     "three": "^0.163.0"
   },

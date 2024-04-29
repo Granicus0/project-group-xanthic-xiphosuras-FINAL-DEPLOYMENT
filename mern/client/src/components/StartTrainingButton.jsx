@@ -9,7 +9,8 @@ const StartTrainingButton = ({ modelInfo }) => {
     const navigate = useNavigate()
     const handleClick = () => {
         // Again, we are just passing model information to the hook. Keep in mind "uploadedFile" is LITERALLY a file object, please don't treat it like something else
-        trainModel(modelInfo.modelName, modelInfo.modelType, modelInfo.uploadedFile, modelInfo.userId) 
+        console.log("User selected: " + modelInfo.selectedColumn)
+        trainModel(modelInfo.modelName, modelInfo.modelType, modelInfo.uploadedFile, modelInfo.userId, modelInfo.selectedColumn) 
         navigate("/modelProgress")
     }
 
