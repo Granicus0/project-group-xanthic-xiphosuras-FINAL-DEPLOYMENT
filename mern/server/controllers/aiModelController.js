@@ -14,7 +14,7 @@ export const createModel = async (req, res) => {
     const { model_name, model_address, metaData_address, model_description, model_type, user } = req.body;
 
     try {
-        // Optionally check if the referenced user exists
+        //check if the referenced user exists
         const existingUser = await User.findById(user);
         if (!existingUser) {
             return res.status(404).json({ error: "User not found" });
@@ -40,6 +40,28 @@ export const beginModelTraining = async (req, res, io) => {
     const modelName = req.body.modelName;
     const modelType = req.body.modelType;
     const userId = req.body.userId;
+    let modelId; // Declare the variable outside the try-catch block to widen its scope
+
+    try {
+        // check if the referenced user exists
+        const existingUser = await User.findById(userId);
+        if (!existingUser) {
+            return res.status(404).json({ error: "User not found" });
+        }
+
+        // Create the model document in the database
+        const newModel = await Model.create({
+            model_name: modelName,
+            model_type: modelType,
+            user: userId  // This assumes that userId is correctly formatted as an ObjectId
+        });
+
+        // Accessing the ObjectId of the newly created model
+        modelId = newModel._id;
+
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
 
     console.log("Training request recieved for: " + modelName + " of type: " + modelType + " from: " + userId)
 
@@ -57,7 +79,7 @@ export const beginModelTraining = async (req, res, io) => {
 
     const analyzeCsvPythonProcess = spawn('python3', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
     const schemaPath = 'schemas/' + req.file.filename + '.json'
-    const pythonProcess = spawn('python3', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', 'userModels', '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', req.file.filename]);
+    const pythonProcess = spawn('python3', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', req.file.filename]);
 
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {
