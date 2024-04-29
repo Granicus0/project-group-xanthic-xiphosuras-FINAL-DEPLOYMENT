@@ -7,34 +7,6 @@ import { io } from 'socket.io-client'
 import fs from 'fs'
 import gfs from 'gridfs-stream'
 
-export const createModel = async (req, res) => {
-
-    logger.logRequestDetails(req);
-
-    const { model_name, model_address, metaData_address, model_description, model_type, user } = req.body;
-
-    try {
-        //check if the referenced user exists
-        const existingUser = await User.findById(user);
-        if (!existingUser) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
-        const model = new Model({
-            model_name,
-            model_address,
-            metaData_address,
-            model_description,
-            model_type,
-            user
-        });
-        await model.save();
-        res.status(201).json(model);
-    } catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-};
-
 export const beginModelTraining = async (req, res, io) => {
 
     const modelName = req.body.modelName;
