@@ -36,7 +36,7 @@ const CSVViewer = ({ csvFile, onColumnSelect }) => {
       {csvData.length > 0 && (
         <>
           <div className="dropdown-container">
-            <b>Select column for training:</b>
+            <b>Select What You'd Like to Predict:</b>
             <select
               className="dropdown"
               value={selectedColumn}

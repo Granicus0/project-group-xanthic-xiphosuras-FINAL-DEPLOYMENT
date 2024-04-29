@@ -1,5 +1,5 @@
 {
-    "version": 2,
+    "version": 15,
     "schema": {
         "fnlwgt": "numeric",
         "education-num": "numeric",
@@ -19,6 +19,6 @@
     },
     "label": "income",
     "train_result": {
-        "accuracy": 0.7387755102040816
+        "accuracy": 0.7397540983606558
     }
 }

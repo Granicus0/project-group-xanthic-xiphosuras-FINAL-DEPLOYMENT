@@ -18,8 +18,7 @@ const ModelProgress = () => {
     return (
         <>
             <div className="model-progress-container">
-                <h2>Model Training Progress</h2>
-
+                <h2>Model Training Log</h2>
                 <div className="model-training-output-container">
                     <div className="model-training-output">
                         <ul className="update-list">

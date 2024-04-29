@@ -1,20 +1,23 @@
 .dropdown-container {
     margin-bottom: 10px;
-  }
-  
-  .dropdown {
-    appearance: none;
-    padding: 8px;
-    font-size: 16px;
+}
+
+.dropdown {
+    width: 100%;
+    padding: 8px 12px;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 5px;
     background-color: #fff;
-    cursor: pointer;
-  }
-  
-  .dropdown:focus {
+    appearance: none;
+    background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23333'><polygon points='12 5 8 9 4 5'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+.dropdown:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
-  }
-  
+}
