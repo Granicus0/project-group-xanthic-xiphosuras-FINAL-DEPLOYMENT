@@ -4,7 +4,7 @@ import logger from '../logger.js';
 import mongoose from 'mongoose';
 import { spawn } from 'child_process'
 import { io } from 'socket.io-client'
-
+import fs from 'fs'
 
 export const createModel = async (req, res) => {
 
@@ -36,15 +36,28 @@ export const createModel = async (req, res) => {
 
 export const beginModelTraining = async (req, res, io) => {
 
-    const csvFile = req.file;
     const modelName = req.body.modelName;
     const modelType = req.body.modelType;
+    const userId = req.body.userId;
+
+    console.log("Training request recieved for: " + modelName + " of type: " + modelType + " from: " + userId)
 
     // files uploaded by the user are temporarily stored in /server/uploads. Use this folder to retrieve the CSV file.
     // Start a Python process. The relative path is just the server folder, NOT the current directory.
     // ****** NOTE: THIS IS A HARDCODED PATH JUST FOR EXPERIMENTAL PURPOSES. THE PYTHON RUNTIME IS CONFIRMED WORKING. ***************
     // ************ WE NEED TO CHANGE THIS TO NOT REFERENCE THE ADULT.CSV DATASET BUT RATHER THE CSV DATASET THAT THE USER HAS UPLOADED. *************
-    const pythonProcess = spawn('python3', ['python_demo/training.py', '-csvp', 'python_demo/Dataset/adult.csv', '-schemap', 'python_demo/schemas/adult_train_schema.json', '-id', '3', '-l', 'income', '-p', 'once', '-m', 'RF']);
+    
+    // Grab the CSV file the user has just uploaded
+    const csvFilePath = 'uploads/' + req.file.filename
+    console.log("Path of user uploaded file: " + csvFilePath)
+    const pyTrainFile = 'python_demo/training.py'
+    const pyAnalyseFile = 'python_demo/analyse.py'
+    const predictVariable = 'income'
+    const process = 'once'
+
+    const analyzeCsvPythonProcess = spawn('python3', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
+    const schemaPath = 'schemas/' + req.file.filename + '.json'
+    const pythonProcess = spawn('python3', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', 'userModels', '-l', predictVariable, '-p', process, '-m', modelType]);
 
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {

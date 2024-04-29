@@ -16,24 +16,30 @@ from modules.parser import parse_arguments, path, parse_csv
 # so the frontend request those files from backend. If we choose this method, we need to first create a new Model entity when user
 # first upload the dataset instead of when training the models
 
-# Script format: python splite_dataset.py -p <dataset path name>
+# Script format:    python splite_dataset.py -p <dataset path name>
+#                   python splite_dataset.py -p <dataset path name> -schema_file my_custom_schema.json 
 
 if __name__ == "__main__":
     dirname = os.getcwd()
     arguments = parse_arguments(sys.argv)
-    #print("Parsed arguments:", arguments)
-    schema={}
-    df=parse_csv(arguments)
-    numeric_feautre_names=df.select_dtypes(include=["number"]).columns
-    categorical_feature_names=df.select_dtypes(include=["object_"]).columns
+
+    # Extract the schema file name
+    schema_file_name = arguments.get('schema_file', 'schema.json')  # Default to 'schema.json'
+
+    schema = {}
+    df = parse_csv(arguments)
+    numeric_feautre_names = df.select_dtypes(include=["number"]).columns
+    categorical_feature_names = df.select_dtypes(include=["object_"]).columns
     for nc in numeric_feautre_names:
-        schema[nc]="numeric"
+        schema[nc] = "numeric"
     for cc in categorical_feature_names:
-        if max([len(n) for n in df[cc]])>=100:
-            schema[cc]="redundant"
+        if max([len(n) for n in df[cc]]) >= 100:
+            schema[cc] = "redundant"
         else:
-            schema[cc]="catelogue"
-    if not os.path.exists(path(dirname,f"{arguments['id']}")):
-        os.makedirs(path(dirname,f"{arguments['id']}"))
-    with open(path(dirname,f'{arguments["id"]}\schema.json'), 'w', encoding='utf-8') as f:
+            schema[cc] = "catalogue"
+
+    if not os.path.exists(path(dirname, f"{arguments['id']}")):
+        os.makedirs(path(dirname, f"{arguments['id']}"))
+
+    with open(path(dirname, f'{arguments["id"]}/{schema_file_name}'), 'w', encoding='utf-8') as f:
         json.dump(schema, f, ensure_ascii=False, indent=4)

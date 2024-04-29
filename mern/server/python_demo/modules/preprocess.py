@@ -6,7 +6,7 @@ from pandas.api.types import is_numeric_dtype
 def preprocess(df,column, type):
     if type=="numeric":
         return numeric(df,column)
-    if type=="catelogue" and is_string_dtype(df[column]):
+    if type=="catalogue" and is_string_dtype(df[column]):
         return catelogue(df,column)
 
 def numeric(df, column):

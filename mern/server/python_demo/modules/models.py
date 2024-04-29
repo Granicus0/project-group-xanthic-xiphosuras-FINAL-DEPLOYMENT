@@ -6,7 +6,7 @@ from sklearn.ensemble import RandomForestClassifier, RandomForestRegressor
 
 
 def get_model_class(model_type,problem_type):
-    if problem_type=="catelogue":
+    if problem_type=="catalogue":
         if model_type=="SVM":
             return SVC
         if model_type=="NN":

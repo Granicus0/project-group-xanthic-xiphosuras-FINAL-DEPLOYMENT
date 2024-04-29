@@ -7,8 +7,12 @@ import StartTrainingButton from '../../components/StartTrainingButton';
 // This is a page to *create* an ML model (NOT select a model and use it)
 function MakeModel() {
     const [modelName, setModelName] = useState('');
-    const [modelType, setModelType] = useState('MLP');
+    const [modelType, setModelType] = useState('SVM');
     const [uploadedFile, setUploadedFile] = useState(null);
+
+    const userDat = localStorage.getItem('user')
+    const json = JSON.parse(userDat);
+    const userId = json._id;
 
     // Used by the "FileUpload" component below. Scroll down and read what it does.
     const handleFileUpload = (file) => {
@@ -39,9 +43,9 @@ function MakeModel() {
                 <div className="makemodel-model-type-selection">
                     <h4>Select Model Type:</h4>
                     <select value={modelType} onChange={(e) => setModelType(e.target.value)}>
-                        <option value="MLP">MLP (Multilayer Perceptron)</option>
-                        <option value="NN">Neural Network</option>
-                        <option value="RandomForest">Random Forest Tree</option>
+                        <option value="SVM">SVM (Support Vector Machine)</option>
+                        <option value="NN">NN (Neural Network)</option>
+                        <option value="RF">RF (Random Forest Tree)</option>
                     </select>
                 </div>
 
@@ -54,7 +58,7 @@ function MakeModel() {
                 </div>
 
                 {/* Pass in model information to our StartTrainingButton component. */}
-                <StartTrainingButton modelInfo={{ modelName, modelType, uploadedFile }}></StartTrainingButton>
+                <StartTrainingButton modelInfo={{ modelName, modelType, uploadedFile, userId }}></StartTrainingButton>
             </div>
         </div>
     );

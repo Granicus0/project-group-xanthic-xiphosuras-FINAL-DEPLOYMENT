@@ -9,7 +9,7 @@ export const useModelTrain = () => {
     const [isLoading, setIsLoading] = useState(null)
 
     
-    const trainModel = async (modelName, modelType, uploadedFile) => {
+    const trainModel = async (modelName, modelType, uploadedFile, userId) => {
 
         setIsLoading(true)
         setError(null)
@@ -20,6 +20,7 @@ export const useModelTrain = () => {
         formData.append('csvFile', uploadedFile);
         formData.append('modelName', modelName);
         formData.append('modelType', modelType);
+        formData.append('userId', userId)
 
         try {
             const response = await axios.post('http://localhost:5050/api/models/createModel', formData, {
