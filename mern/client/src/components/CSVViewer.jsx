@@ -1,6 +1,6 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import CSVDataTable from './CSVDataTable';
+import './CSVViewer.css'; 
 
 const CSVViewer = ({ csvFile, onColumnSelect }) => {
   const [csvData, setCsvData] = useState([]);
@@ -35,20 +35,19 @@ const CSVViewer = ({ csvFile, onColumnSelect }) => {
     <div>
       {csvData.length > 0 && (
         <>
-          <div style={{ marginBottom: "10px" }}>
+          <div className="dropdown-container">
             <b>Select column for training:</b>
-            {csvData[0].map((header, index) => (
-              <button
-                key={index}
-                style={{ marginLeft: "10px" }}
-                onClick={() => handleColumnSelect(header)}
-                disabled={selectedColumn === header}
-              >
-                {header}
-              </button>
-            ))}
+            <select
+              className="dropdown"
+              value={selectedColumn}
+              onChange={(e) => handleColumnSelect(e.target.value)}
+            >
+              {csvData[0].map((header, index) => (
+                <option key={index} value={header}>{header}</option>
+              ))}
+            </select>
           </div>
-          <CSVDataTable data={csvData} />
+          {/* <CSVDataTable data={csvData} /> */}
         </>
       )}
     </div>

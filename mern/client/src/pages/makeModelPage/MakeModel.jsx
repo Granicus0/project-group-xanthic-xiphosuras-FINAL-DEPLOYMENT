@@ -58,15 +58,15 @@ function MakeModel() {
                     {/* We pass in handleFileUpload, then this "FileUpload" component will actually give us the file */}
                     <FileUpload onFileUpload={handleFileUpload}></FileUpload>
                     {/* Button to toggle CSV Viewer */}
-                    {uploadedFile && (
+                    {/* {uploadedFile && (
                         <button className='makemodel-toggle-show-csv-button' onClick={() => setShowCSV(!showCSV)}>
                             {showCSV ? 'Hide CSV Data' : 'Show CSV Data'}
                         </button>
-                    )}
+                    )} */}
                 </div>
 
                 {/* Conditionally render CSVViewer */}
-                {showCSV && uploadedFile && <CSVViewer
+                {uploadedFile && <CSVViewer
                     csvFile={uploadedFile}
                     onColumnSelect={(column) => setSelectedColumn(column)}
                 />}
