@@ -34,6 +34,9 @@ const UseModelPage = () => {
                             <span className="info-label">Type:</span> {model_type}
                         </div>
                     </div>
+                    <div className="info-item">
+                        <span className="info-label">Trained Label:</span> {model_address}
+                    </div>
                     {model_description && (
                         <div className="model-description">
                             <span className="info-label">Description:</span> {model_description}

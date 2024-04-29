@@ -12,6 +12,7 @@ export const beginModelTraining = async (req, res, io) => {
     const modelName = req.body.modelName;
     const modelType = req.body.modelType;
     const userId = req.body.userId;
+    const predictVariable = req.body.selectedColumn
     let modelId; // Declare the variable outside the try-catch block to widen its scope
 
     try {
@@ -25,7 +26,8 @@ export const beginModelTraining = async (req, res, io) => {
         const newModel = await Model.create({
             model_name: modelName,
             model_type: modelType,
-            user: userId  // This assumes that userId is correctly formatted as an ObjectId
+            user: userId,  // This assumes that userId is correctly formatted as an ObjectId
+            model_address : predictVariable //This isn't model_address, but instead it's the label that the user want to predict.
         });
 
         // Accessing the ObjectId of the newly created model
@@ -44,14 +46,13 @@ export const beginModelTraining = async (req, res, io) => {
     console.log("Path of user uploaded file: " + csvFilePath)
     const pyTrainFile = 'python_demo/training.py'
     const pyAnalyseFile = 'python_demo/analyse.py'
-    const predictVariable = req.body.selectedColumn
     console.log("Selected variable for prediction: " + predictVariable)
 
     const process = 'once'
 
-    const analyzeCsvPythonProcess = spawn('python3', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
+    const analyzeCsvPythonProcess = spawn('python', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
     const schemaPath = 'schemas/' + req.file.filename + '.json'
-    const pythonProcess = spawn('python3', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', req.file.filename]);
+    const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', modelId]);
 
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {
