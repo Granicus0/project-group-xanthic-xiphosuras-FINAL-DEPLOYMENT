@@ -4,7 +4,22 @@
   width: 100vw;
 }
 
-.makemodel-
+.makemodel-toggle-show-csv-button {
+  background-color: #000000;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+  width: 150px;
+  height: 25px;
+  margin-top: 10px;
+}
+
+.makemodel-toggle-show-csv-button:hover {
+  background-color: #3b3b3b;
+}
 
 .makemodel-page-header,
 .makemodel-page-sub-header {
@@ -21,8 +36,8 @@
 
 .makemodel-page-container .start-training-button-component {
   padding: 8px 15px;
-  display: flex;         
-  justify-content: center; 
+  display: flex;
+  justify-content: center;
   width: 100%;
 }
 
@@ -39,30 +54,32 @@
   height: 100vh;
   width: 100vw;
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
 }
 
 .makemodel-page-header {
-  color: black; 
-  margin: 0; 
+  color: black;
+  margin: 0;
 }
 
 .makemodel-content-area {
   width: 80%;
-  max-width: 500px; 
+  max-width: 500px;
   margin: 30px auto;
-  border: 1px solid #eee; 
+  border: 1px solid #eee;
   border-radius: 8px;
   padding: 20px;
-  box-shadow: 0 2px 5px rgba(0,0,0, 0.1);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
-.makemodel-model-name-input, .makemodel-upload-section {
+.makemodel-model-name-input,
+.makemodel-upload-section {
   margin-bottom: 20px;
 }
 
-.makemodel-model-name-input label, .makemodel-upload-section h4 {
+.makemodel-model-name-input label,
+.makemodel-upload-section h4 {
   display: block;
   margin-bottom: 5px;
   font-weight: 600;
@@ -84,20 +101,20 @@
 }
 
 .makemodel-model-type-selection select {
-  width: 100%; 
+  width: 100%;
   padding: 8px 12px;
-  border: 1px solid #ccc; 
-  border-radius: 5px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
   background-color: #fff;
-  appearance: none; 
-  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23333'><polygon points='12 5 8 9 4 5'/></svg>"); 
+  appearance: none;
+  background-image: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='%23333'><polygon points='12 5 8 9 4 5'/></svg>");
   background-repeat: no-repeat;
-  background-position: right 10px center; 
+  background-position: right 10px center;
   margin-bottom: 15px;
 
-} 
+}
 
 .makemodel-model-type-selection select:focus {
   outline: none;
-  box-shadow: 0 0 5px rgba(0, 150, 255, 0.5); 
+  box-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
 }

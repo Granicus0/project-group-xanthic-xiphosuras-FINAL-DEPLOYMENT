@@ -23,7 +23,7 @@ warnings.simplefilter('ignore')
 # first upload the dataset instead of when training the models
 
 # python training.py [-csvp <Dataset file path> | -csv <Dataset data>] [-schemap <schema file path> | -schema <schema data>]
-#                     -id <model id> -l <dataset label column name> -p <training process type> -m <model types>
+#                     -id <model id> -l <dataset label column name> -p <training process type> -m <model types> -pickle <pickle file name>
 
 if __name__ == "__main__":
     args = parse_arguments(sys.argv)
@@ -48,6 +48,8 @@ if __name__ == "__main__":
             df=df.drop(columns=column)
         preproessor[column]=preprocess(df,column,type)
         print(f"Preprocessing complete for column '{column}'.", flush=True)  
+        print(f"Preprocessing complete for column '{column}'.", flush=True) 
+        print(f"Preprocessing complete for column '{column}'.", flush=True) 
 
     process=get_process(args["p"])
     print("Starting model training...", flush=True)
@@ -58,7 +60,7 @@ if __name__ == "__main__":
         metadata["test_result"]={}
     if not os.path.exists(path(dirname,args["id"])):
         os.makedirs(path(dirname,args["id"]))
-    pd.to_pickle(model,path(dirname,f"{args['id']}/model.pickle"))
-    pd.to_pickle(preproessor,path(dirname,f"{args['id']}/preprocess.pickle"))
+    pd.to_pickle(model,path(dirname,f"{args['id']}/{args['pickle']}.pickle"))
+    pd.to_pickle(preproessor,path(dirname,f"{args['id']}/{args['pickle']}-preprocess.pickle"))
     with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=4)

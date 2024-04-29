@@ -5,6 +5,7 @@ import mongoose from 'mongoose';
 import { spawn } from 'child_process'
 import { io } from 'socket.io-client'
 import fs from 'fs'
+import gfs from 'gridfs-stream'
 
 export const createModel = async (req, res) => {
 
@@ -44,20 +45,19 @@ export const beginModelTraining = async (req, res, io) => {
 
     // files uploaded by the user are temporarily stored in /server/uploads. Use this folder to retrieve the CSV file.
     // Start a Python process. The relative path is just the server folder, NOT the current directory.
-    // ****** NOTE: THIS IS A HARDCODED PATH JUST FOR EXPERIMENTAL PURPOSES. THE PYTHON RUNTIME IS CONFIRMED WORKING. ***************
-    // ************ WE NEED TO CHANGE THIS TO NOT REFERENCE THE ADULT.CSV DATASET BUT RATHER THE CSV DATASET THAT THE USER HAS UPLOADED. *************
-    
     // Grab the CSV file the user has just uploaded
     const csvFilePath = 'uploads/' + req.file.filename
     console.log("Path of user uploaded file: " + csvFilePath)
     const pyTrainFile = 'python_demo/training.py'
     const pyAnalyseFile = 'python_demo/analyse.py'
-    const predictVariable = 'income'
+    const predictVariable = req.body.selectedColumn
+    console.log("Selected variable for prediction: " + predictVariable)
+
     const process = 'once'
 
     const analyzeCsvPythonProcess = spawn('python3', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
     const schemaPath = 'schemas/' + req.file.filename + '.json'
-    const pythonProcess = spawn('python3', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', 'userModels', '-l', predictVariable, '-p', process, '-m', modelType]);
+    const pythonProcess = spawn('python3', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', 'userModels', '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', req.file.filename]);
 
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {
@@ -67,7 +67,7 @@ export const beginModelTraining = async (req, res, io) => {
     // THIS is how we communicate live data back to the client.
     // In the python files, wherever you want to output data, make sure you print it like this:
 
-        // ``` print("Print something here", flush=True) ```
+    // ``` print("Print something here", flush=True) ```
 
     // Setting flush=True flushes the buffer immediately and lets our backend capture these inputs
     // inside this function through 'stdout'
@@ -80,13 +80,12 @@ export const beginModelTraining = async (req, res, io) => {
         // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
         // This 'training_update' string is special! Notice how this is the *exact same string* that is inside of 
         // client/pages/modelProgressPage/ModelProgress.jsx
-        io.emit('training_update', update); 
+        io.emit('training_update', update);
     });
 
-    // On process completion just send back a 200 OK
     pythonProcess.on('close', (code) => {
         console.log(`Model training finished. Python process exited with code ${code}`);
-        res.status(200).send('Model training finished');
+        res.status(200).send("Model tarining complete");
     });
 
 };
