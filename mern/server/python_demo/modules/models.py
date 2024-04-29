@@ -23,5 +23,4 @@ def get_model_class(model_type,problem_type):
             return RandomForestRegressor
         raise ValueError("The model type is not supported")
     else:
-        raise ValueError("The dataset label desginated type should be either numeric or catelogue")
-    
+        raise ValueError("The dataset label desginated type should be either numeric or catalogue")

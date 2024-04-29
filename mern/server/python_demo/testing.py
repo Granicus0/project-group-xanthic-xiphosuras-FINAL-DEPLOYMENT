@@ -7,6 +7,9 @@ from modules.apply_preprocessor import apply_preprocess
 from modules.evaluation import get_evaluate
 from modules.parser import path,parse_arguments, get_metadata, parse_csv
 
+import warnings
+warnings.simplefilter('ignore')
+
 # The main body of scripts when called. I am not sure whether python code can be embedded in Javascript environment,
 # so I assume we use command line call to execute the script. The script will process the argument passed by backend
 # and create a json file recording the results. 
@@ -34,7 +37,7 @@ if __name__ == "__main__":
         apply_preprocess(df,column, type,preprocess)
     with open(path(dirname,f"{args['id']}\model.pickle"), "rb") as f:
         model = pickle.load(f)
-    pred=model.predict(df.drop(columns=metadata["label"]))
-    metadata["test_result"]=get_evaluate(df[metadata["label"]],pred)
+    pred=model.predict(df.drop(columns=metadata["_label"]))
+    metadata["test_result"][f"test_{metadata['version']}"]=get_evaluate(df[metadata["_label"]],pred)
     with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=4)

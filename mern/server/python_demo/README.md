@@ -25,16 +25,22 @@ This folder contains the relevant python modules required for training and testi
 ## Process types:
 
 - **"once"** : Train the models with all of the training data once, and evaluate its predictions against label values of all training data
+- **"cv5"** : Perform 5-fold cross validation on the training data, use average metrics to evaluate the model's performance
+- **"cv10"** : Perform 10-fold cross validation on the training data, use average metrics to evaluate the model's performance
 
 ## Metrics:
 
-- **"accuracy"** : How much of the model's prediction match the real world value in datasets. $P(\hat{y}=y)$
+The metrics includes **"accuracy"**, **precision**, **recall**, and **f1**, will include **ROC Curve**
 
 # Structure
 
-## **analyse.py**,**training.py** and **testing.py**
+## **analyse.py**,**training.py**, **testing.py** and **train_test_split.py**
 
-They are the main scripts that handles generating default dataset schema for user to edit on frontend,  and subsequently training models and testing models
+They are the main scripts for the project:
+    - **analyse.py**: create the default dataset schema of the uploaded dataset, will send to backend to send to frontend to ask user to edit it before training. It will default save the last columb as label 
+    - **train_test_split.py**: create training set and testing set of the uploaded dataset with given testing set size [0,1] and training set size [0,1], will send to backend to send to frontend to let user download them for training and testing use.
+    -  **training.py**: training a model with given parameters, will save models, preprocessors at server and send its metadata (with results contained in it) to backend to send to frontend to display
+    -  **testing.py**: training a model with given parameters,send its metadata (with results contained in it) to backend to send to frontend to display
 
 The main body of scripts when called. I am not sure whether python code can be embedded in Javascript environment, so I assume we use command line call to execute the script. The script will process the argument passed by backendand create pickle files and json files at relavent positions. 
 
@@ -44,9 +50,15 @@ For comminucation to frontend that the script have finished executing, I am also
 
 ### Command Format:
 
-- **analyse.py** : python analyse.py -p <dataset path name>
-- **training.py** : python training.py [-csvp <Dataset file path> | -csv <Dataset data>] [-schemap <schema file path> | -schema <schema data>] -id <model id> -l <dataset label column name> -p <training process type> -m <model types>
-- **testing.py** : python training.py [-csvp <Dataset file path> | -csv <Dataset data>] -id <model id>
+- **analyse.py** : python analyse.py -csvp \<dataset path name\> (-id \<model id to store schema, *will be deprecated*\>)
+    - python analyse.py -csvp Dataset/adult.csv -csvp Dataset/adult.csv -id 3
+- **train_test_split.py** : python train_test_split.py [-csvp \<Dataset file path\> | -csv \<Dataset data\>] (-l \<dataset label column name, will be deprecated\> -n \<created csv file name, *will be deprecated*\>) -tr \<the percentage size of training dataset, *optional*\> -te \<the percentage size of testing dataset\>
+    - python train_test_split.py -csvp Dataset/BCP.csv -n BCP -tr 0.4 -te 0.4 [-schemap \<schema file path\> | -schema \<schema data\>]
+- **training.py** : python training.py [-csvp \<Dataset file path\> | -csv \<Dataset data\>] [-schemap \<schema file path\> | -schema \<schema data\>] -id \<model id\> -p \<training process type\> -m \<model types\>
+    - python training.py -csvp Dataset/adult.csv -schemap 3/schema.json -id 3 -l income -p once -m RF
+- **testing.py** : python training.py [-csvp \<Dataset file path\> | -csv \<Dataset data\>] -id \<model id\>
+    - python testing.py -csvp Dataset/adult.csv -id 3
+
 
 all the options can be expressed as a json entity following -args option
 
@@ -65,10 +77,6 @@ They contain various Preprocessing, ML models, training process and evaluation m
 The mapping between encoding and methods can be seen in *get_model_class*, *get_process* and *get_evalute* methods
 
 There might be more modules that I need to be added, so the numbers of extra modules are not definitive.
-
-## ***Dataset*** and **split_dataset.py**
-
-The folder contain readily available datasets, which are used to test the trainig and testing scripts. **split_dataset.py** is the Python script I used to perform training and testing set splits on them.
 
 ## **requirements.txt**
 
