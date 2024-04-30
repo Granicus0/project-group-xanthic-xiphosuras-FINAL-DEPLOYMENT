@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler, OrdinalEncoder
 from pandas.api.types import is_numeric_dtype, is_string_dtype
 
-def preprocess(df, column, type):
+def create_preprocess(df, column, type):
     if type=="numeric":
         if not is_numeric_dtype(df[column]):
             raise ValueError(f"Dataset's column {column} should be 'numeric', but it contains string values")
@@ -31,3 +31,18 @@ def catalogue(df,column):
     df[column]=ode.fit_transform(data) 
     return ode
 
+
+def apply_preprocess(df,column,type,preprosses):
+    if type=="redundant":
+        df.drop(columns=column,inplace=True)
+        return
+
+    data = df[[column]]
+    if type=="numeric" and not is_numeric_dtype(df[column]):
+        raise ValueError(f"Dataset's column {column} should be 'numeric', but it contains string values")
+    elif type=="catelogue":
+        if not is_string_dtype(df[column]):
+            data = data.astype(str)
+
+    #apply preprocessors
+    df[column]=preprosses[column].transform(data)

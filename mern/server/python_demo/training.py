@@ -2,8 +2,7 @@ import sys
 import os
 import json
 import pandas as pd
-from io import StringIO 
-from modules.preprocess import preprocess
+from modules.preprocess import create_preprocess
 from modules.parser import path,parse_arguments,parse_csv,parse_json,get_metadata
 from modules.training_process import get_process
 from modules.models import get_model_class
@@ -27,7 +26,7 @@ warnings.simplefilter('ignore')
 # python training.py [-csvp <Dataset file path> | -csv <Dataset data>] [-schemap <schema file path> | -schema <schema data>]
 #                     -id <model id> -l <dataset label column name> -p <training process type> -m <model types> -pickle <pickle file name>
 # example:
-# python3 training.py -csvp 'Dataset/adult_test.csv' -schemap ../schemas/82b8389e60270007121854410f1ec4e6.json -id 82b8389e60270007121854410f1ec4e6 -m NN -p once -pickle "82b8389e60270007121854410f1ec4e6"     
+# python3 training.py -csvp 'Dataset/adult_train.csv' -id 82b8389e60270007121854410f1ec4e6 -m NN -p once -pickle "82b8389e60270007121854410f1ec4e6"     
 if __name__ == "__main__":
     args = parse_arguments(sys.argv)
     #print("Parsed arguments:", args)
@@ -59,7 +58,7 @@ if __name__ == "__main__":
     for column, type in schema.items():
         if type=="redundant":
             df=df.drop(columns=column)
-        preproessor[column]=preprocess(df,column,type)
+        preproessor[column]= create_preprocess(df,column,type)
         print(f"Preprocessing complete for column '{column}'.", flush=True)  
 
 

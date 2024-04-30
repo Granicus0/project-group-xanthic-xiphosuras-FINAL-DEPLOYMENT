@@ -3,9 +3,9 @@ import os
 import json
 import pandas as pd
 import pickle
-from modules.apply_preprocessor import apply_preprocess
+from modules.preprocess import apply_preprocess
 from modules.evaluation import get_evaluate
-from modules.parser import path,parse_arguments, get_metadata, parse_csv
+from modules.parser import path, parse_arguments, get_metadata, parse_csv
 from io import StringIO
 import warnings
 warnings.simplefilter('ignore')
@@ -54,16 +54,19 @@ if __name__ == "__main__":
         pred=model.predict(df)
     
     if df_have_label:
-        metadata["test_result"][f"test_{metadata['version']}"]=get_evaluate(df[metadata["_label"]],pred)
+        evaluate_result = get_evaluate(df[metadata["_label"]],pred)
+        metadata["test_result"][f"test_{metadata['version']}"] = evaluate_result
         with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
             json.dump(metadata, f, ensure_ascii=False, indent=4)
 
+
     # postprocess pred result 
     pred = preprocess[metadata["_label"]].inverse_transform(pd.DataFrame({"pred": pred})).flatten()
+
+    
     pred = pd.DataFrame({"pred": pred})
     csv_string = StringIO()
     pred.to_csv(csv_string, index=False)
     csv_string = csv_string.getvalue()
     print(csv_string)
-
     
