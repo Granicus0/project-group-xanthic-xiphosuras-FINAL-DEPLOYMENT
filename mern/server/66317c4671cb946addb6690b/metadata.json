@@ -1,0 +1,36 @@
+{
+    "version": 1,
+    "schema": {
+        "fnlwgt": "numeric",
+        "education-num": "numeric",
+        "capital-gain": "numeric",
+        "capital-loss": "numeric",
+        "hours-per-week": "numeric",
+        "age": "catalogue",
+        "workclass": "catalogue",
+        "education": "catalogue",
+        "marital-status": "catalogue",
+        "occupation": "catalogue",
+        "relationship": "catalogue",
+        "race": "catalogue",
+        "sex": "catalogue",
+        "native-country": "catalogue",
+        "income": "catalogue"
+    },
+    "_label": "income",
+    "train_result": {
+        "valid_result": {},
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall_score": 1.0,
+        "f1": 1.0
+    },
+    "test_result": {
+        "test_1": {
+            "accuracy": 0.8326530612244898,
+            "precision": 0.7346938775510204,
+            "recall_score": 0.5625,
+            "f1": 0.6371681415929203
+        }
+    }
+}

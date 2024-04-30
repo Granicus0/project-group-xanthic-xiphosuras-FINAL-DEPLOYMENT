@@ -21,9 +21,9 @@ export const useModelPredict = () =>{
                     'Content-Type': 'multipart/form-data' // Important for file uploads
                 }
             });
-            console.log("Training started: ", response);
+            console.log("Prediction started: ", response);
         } catch (error) {
-            console.error("Error starting training:", error);
+            console.error("Error starting predicting:", error);
         }
 
     }
