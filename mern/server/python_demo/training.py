@@ -8,6 +8,7 @@ from modules.parser import path,parse_arguments,parse_csv,parse_json,get_metadat
 from modules.training_process import get_process
 from modules.models import get_model_class
 from modules.extras import get_default_extra
+from modules.schemas import get_default_schemas
 
 import warnings
 warnings.simplefilter('ignore')
@@ -33,7 +34,11 @@ if __name__ == "__main__":
     #data=[row.split(",") for row in arguments["csv"].split("\n")]
     dirname = os.getcwd()
     df=parse_csv(args)
-    schema=parse_json(args,"schema",dirname)
+
+    # get schema
+    schema = parse_json(args,"schema",dirname)
+    if schema is None:
+        schema=get_default_schemas(df)
     
 
     metadata=get_metadata(args["id"],dirname)
@@ -49,21 +54,20 @@ if __name__ == "__main__":
         extra.update(addition_extra)
 
 
-    df=df[[k for k in schema.keys() if k != "_label"]]
+    df=df[schema.keys()]
     preproessor={}
     for column, type in schema.items():
         if type=="redundant":
             df=df.drop(columns=column)
         preproessor[column]=preprocess(df,column,type)
         print(f"Preprocessing complete for column '{column}'.", flush=True)  
-        print(f"Preprocessing complete for column '{column}'.", flush=True) 
-        print(f"Preprocessing complete for column '{column}'.", flush=True) 
 
 
     process=get_process(args["p"])
     print("Starting model training...", flush=True)
     model, metadata["train_result"]=process(get_model_class(args["m"],schema[label]),df.drop(columns=label),df[label],**extra)
-    metadata["test_result"]={}
+
+    metadata["test_result"]={} # clear the result of old model
 
     if not os.path.exists(path(dirname,args["id"])):
         os.makedirs(path(dirname,args["id"]))

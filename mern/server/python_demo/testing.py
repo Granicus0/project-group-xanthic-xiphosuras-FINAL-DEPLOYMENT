@@ -6,7 +6,7 @@ import pickle
 from modules.apply_preprocessor import apply_preprocess
 from modules.evaluation import get_evaluate
 from modules.parser import path,parse_arguments, get_metadata, parse_csv
-
+from io import StringIO
 import warnings
 warnings.simplefilter('ignore')
 
@@ -23,22 +23,47 @@ warnings.simplefilter('ignore')
 
 # python testing.py [-csvp <Dataset file path> | -csv <Dataset data>] -id <model id>
 
+#example:
+# python testing.py -csvp 'Dataset/adult_test.csv' -id 82b8389e60270007121854410f1ec4e6
+
 if __name__ == "__main__":
     args = parse_arguments(sys.argv)
-    #print("Parsed arguments:", arguments)
-    #data=[row.split(",") for row in arguments["csv"].split("\n")]
     dirname = os.getcwd()
-    df=parse_csv(args)
+    
     metadata=get_metadata(args["id"],dirname)
+    
+    df=parse_csv(args)
+    df_have_label = metadata["_label"] in df.columns # if the df do not have label, we only make pred, do not evaluate the model
+
+    if not df_have_label:
+        metadata["schema"].pop(metadata["_label"])
     df=df[metadata["schema"].keys()]
+
     with open(path(dirname,f"{args['id']}/{args['id']}-preprocess.pickle"), "rb") as f:
         preprocess = pickle.load(f)
+
     for column, type in metadata["schema"].items():
         apply_preprocess(df,column, type,preprocess)
+
     with open(path(dirname,f"{args['id']}/{args['id']}.pickle"), "rb") as f:
         model = pickle.load(f)
-    pred=model.predict(df.drop(columns=metadata["_label"]))
+    pred = None
+    if df_have_label:
+        pred=model.predict(df.drop(columns=metadata["_label"]))
+    else:
+        pred=model.predict(df)
     
-    metadata["test_result"][f"test_{metadata['version']}"]=get_evaluate(df[metadata["_label"]],pred)
-    with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
-        json.dump(metadata, f, ensure_ascii=False, indent=4)
+    if df_have_label:
+        metadata["test_result"][f"test_{metadata['version']}"]=get_evaluate(df[metadata["_label"]],pred)
+        with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
+            json.dump(metadata, f, ensure_ascii=False, indent=4)
+
+    # postprocess pred result 
+    pred = preprocess[metadata["_label"]].inverse_transform(pd.DataFrame({"pred": pred})).flatten()
+    pred = pd.DataFrame({"pred": pred})
+    csv_string = StringIO()
+    pred.to_csv(csv_string, index=False)
+    csv_string = csv_string.getvalue()
+    print(csv_string)
+
+    
