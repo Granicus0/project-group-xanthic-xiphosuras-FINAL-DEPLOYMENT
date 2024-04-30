@@ -39,13 +39,13 @@ if __name__ == "__main__":
         metadata["schema"].pop(metadata["_label"])
     df=df[metadata["schema"].keys()]
 
-    with open(path(dirname,f"{args['id']}/{args['id']}-preprocess.pickle"), "rb") as f:
+    with open(path(dirname,f"{args['id']}/preprocess.pickle"), "rb") as f:
         preprocess = pickle.load(f)
 
     for column, type in metadata["schema"].items():
         apply_preprocess(df,column, type,preprocess)
 
-    with open(path(dirname,f"{args['id']}/{args['id']}.pickle"), "rb") as f:
+    with open(path(dirname,f"{args['id']}/model.pickle"), "rb") as f:
         model = pickle.load(f)
     pred = None
     if df_have_label:
