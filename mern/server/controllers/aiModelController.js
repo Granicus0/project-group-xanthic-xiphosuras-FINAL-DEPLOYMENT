@@ -9,7 +9,34 @@ import gfs from 'gridfs-stream'
 
 export const makrPrediction = async (req, res, io) => {
     const modelId = req.body._id;
-    
+    const csvFilePath = 'uploads/' + req.file.filename
+    const pyPredictFile = 'python_demo/testing.py'
+    const pythonProcess = spawn('python', [pyPredictFile, '-csvp', csvFilePath, '-id', modelId]);
+   
+    // Log any errors from executing the python script (bruh this saved so much trouble...)
+    pythonProcess.stderr.on('data', (data) => {
+        console.error(`Python error: ${data}`);
+    });
+
+
+    pythonProcess.stdout.on('data', (data) => {
+        // ANY data that has been printed to the console from ANY of the python files executed will be captured here and converted to a string
+        const update = data.toString();
+        // Log the output to the console for our own sake (debugging mainly)
+        console.log(`Python output: ${update}`);
+
+        // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
+        // This 'predict_update' string is special! Notice how this is the *exact same string* that is inside of 
+        // client/pages/modelProgressPage/ModelProgress.jsx
+        io.emit('predict_update', update);
+    });
+
+    pythonProcess.on('close', (code) => {
+        console.log(`Model prediction finished. Python process exited with code ${code}`);
+        res.status(200).send("Model tarining complete");
+    });
+
+
 }
 
 export const beginModelTraining = async (req, res, io) => {

@@ -7,6 +7,8 @@ import Log_signin from './pages/login_page/Login_sign';
 import MakeModel from './pages/makeModelPage/MakeModel';
 import UseModel from './pages/useModelPage/useModelPage.jsx';
 import ModelProgress from './pages/modelProgressPage/ModelProgress.jsx';
+import ModelPredict from './pages/modelPredictPage/ModelPredict';
+
 const App = () => {
   return (
 
@@ -51,6 +53,11 @@ const App = () => {
           <Route
             path="/modelProgress"
             element={<ModelProgress/>}
+          />
+
+          <Route
+            path="/modelPredict"
+            element={<ModelPredict/>}
           />
         </Routes>
       </BrowserRouter>
