@@ -33,7 +33,10 @@ def parse_csv(args):
     if "csvp" in args:
         df=pd.read_csv(args["csvp"],index_col=0)
     elif "csv" in args:
-        df=[row.split(",") for row in args["csv"].split("\n")]
+        # fix the problem of output is inconsistent, input csvp get pd, input csv get "list[list[]]"
+        csv_string = args["csv"]
+        df = pd.read_csv(StringIO(csv_string))
+        #df=[row.split(",") for row in args["csv"].split("\n")]
     return df
 
 # Helper method to read csv file with -csvp option or read the whole csv out of the string

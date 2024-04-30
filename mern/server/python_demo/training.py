@@ -7,6 +7,7 @@ from modules.preprocess import preprocess
 from modules.parser import path,parse_arguments,parse_csv,parse_json,get_metadata
 from modules.training_process import get_process
 from modules.models import get_model_class
+from modules.extras import get_default_extra
 
 import warnings
 warnings.simplefilter('ignore')
@@ -24,23 +25,30 @@ warnings.simplefilter('ignore')
 
 # python training.py [-csvp <Dataset file path> | -csv <Dataset data>] [-schemap <schema file path> | -schema <schema data>]
 #                     -id <model id> -l <dataset label column name> -p <training process type> -m <model types> -pickle <pickle file name>
-
+# example:
+# python3 training.py -csvp 'Dataset/adult_test.csv' -schemap ../schemas/82b8389e60270007121854410f1ec4e6.json -id 82b8389e60270007121854410f1ec4e6 -m NN -p once -pickle "82b8389e60270007121854410f1ec4e6"     
 if __name__ == "__main__":
     args = parse_arguments(sys.argv)
-    #print("Parsed arguments:", arguments)
+    #print("Parsed arguments:", args)
     #data=[row.split(",") for row in arguments["csv"].split("\n")]
     dirname = os.getcwd()
     df=parse_csv(args)
     schema=parse_json(args,"schema",dirname)
-    extra=parse_json(args,"extra",dirname)
-    if extra is None:
-        extra={}
+    
+
     metadata=get_metadata(args["id"],dirname)
     metadata.update(schema)
 
     schema=metadata["schema"]
     label=metadata["_label"]
-    
+
+
+    extra = get_default_extra(args["m"],schema[label])
+    addition_extra = parse_json(args,"extra",dirname)
+    if addition_extra is not None:
+        extra.update(addition_extra)
+
+
     df=df[[k for k in schema.keys() if k != "_label"]]
     preproessor={}
     for column, type in schema.items():
@@ -51,13 +59,12 @@ if __name__ == "__main__":
         print(f"Preprocessing complete for column '{column}'.", flush=True) 
         print(f"Preprocessing complete for column '{column}'.", flush=True) 
 
+
     process=get_process(args["p"])
     print("Starting model training...", flush=True)
     model, metadata["train_result"]=process(get_model_class(args["m"],schema[label]),df.drop(columns=label),df[label],**extra)
-    if "test_result" in metadata:
-        metadata["test_result"].clear()
-    else:
-        metadata["test_result"]={}
+    metadata["test_result"]={}
+
     if not os.path.exists(path(dirname,args["id"])):
         os.makedirs(path(dirname,args["id"]))
     pd.to_pickle(model,path(dirname,f"{args['id']}/{args['pickle']}.pickle"))
