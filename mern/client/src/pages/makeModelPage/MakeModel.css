@@ -42,6 +42,7 @@
 }
 
 .model-name-input input {
+  color:black;
   width: 100%;
   max-width: 450px;
   padding: 10px;
@@ -50,7 +51,7 @@
 }
 
 .makemodel-page-container {
-  padding-top: 60px;
+  padding-top: 10px;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -66,7 +67,7 @@
 .makemodel-content-area {
   width: 80%;
   max-width: 500px;
-  margin: 30px auto;
+  margin: 10px auto;
   border: 1px solid #eee;
   border-radius: 8px;
   padding: 20px;
@@ -75,7 +76,7 @@
 
 .makemodel-model-name-input,
 .makemodel-upload-section {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 
 .makemodel-model-name-input label,
@@ -93,7 +94,11 @@
 }
 
 .makemodel-model-type-selection {
-  margin-top: 20px;
+  margin-top: 5px;
+  padding: 5px;
+  border: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .makemodel-model-type-selection h4 {
@@ -117,4 +122,9 @@
 .makemodel-model-type-selection select:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(0, 150, 255, 0.5);
+}
+
+.webgl2{
+  position:relative;
+  width: 500px;
 }
