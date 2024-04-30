@@ -58,7 +58,7 @@ const UseModelPage = () => {
                     <FileUpload onFileUpload={handleFileUpload}></FileUpload>
                 </div>
 
-                <StartPredictingButton modelInfo={{_id}}></StartPredictingButton>
+                <StartPredictingButton modelInfo={{_id, uploadedFile}}></StartPredictingButton>
 
             </div>
         </div>
