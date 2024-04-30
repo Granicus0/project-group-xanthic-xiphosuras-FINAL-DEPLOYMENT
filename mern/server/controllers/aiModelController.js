@@ -7,6 +7,11 @@ import { io } from 'socket.io-client'
 import fs from 'fs'
 import gfs from 'gridfs-stream'
 
+export const makrPrediction = async (req, res, io) => {
+    const modelId = req.body._id;
+    
+}
+
 export const beginModelTraining = async (req, res, io) => {
 
     const modelName = req.body.modelName;
