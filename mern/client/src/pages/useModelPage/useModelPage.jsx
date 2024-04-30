@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import LogoutButton from '../../components/LogoutButton';
 import FileUpload from '../../components/FileUpload';
@@ -11,9 +11,13 @@ const UseModelPage = () => {
     // We don't pass in any props since this page will be called from the UserPage.jsx which doesn't contain this component. Instead we just pass in 
     // props via a <Link/> and grab the modelInfo this way. This is generally NOT GOOD PRACTICE! But it makes things easier for now
     const modelInfo = location.state?.modelInfo;
-
+    const [uploadedFile, setUploadedFile] = useState(null);
     // Destructing all that info into its constituents.
-    const { model_name, model_address, metaData_address, model_description, model_type, user } = modelInfo || {};
+    const { _id, model_name, model_address, metaData_address, model_description, model_type, user } = modelInfo || {};
+
+    const handleFileUpload = (file) => {
+        setUploadedFile(file);
+    };
 
     // I can't be bothered commenting this part.
     return (
@@ -25,8 +29,13 @@ const UseModelPage = () => {
 
             <div className="content-area">
                 <div className="usemodel-model-info">
+                
                     <h3>Model Details</h3>
+                    <div className="info-item">
+                            <span className="info-label">ID:</span> {_id}
+                        </div>
                     <div className="model-info-grid">
+                    
                         <div className="info-item">
                             <span className="info-label">Name:</span> {model_name}
                         </div>
@@ -46,10 +55,10 @@ const UseModelPage = () => {
 
                 <div className="upload-section">
                     <h4> Upload your testing dataset: </h4>
-                    <FileUpload></FileUpload>
+                    <FileUpload onFileUpload={handleFileUpload}></FileUpload>
                 </div>
 
-                <StartPredictingButton></StartPredictingButton>
+                <StartPredictingButton modelInfo={{_id}}></StartPredictingButton>
 
             </div>
         </div>

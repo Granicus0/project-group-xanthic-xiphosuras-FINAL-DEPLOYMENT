@@ -3,7 +3,8 @@ import './css/StartPredictingButton.css'
 
 // A button to start predicting once a user has chosen a model on their model page.
 // ************NOT YET IMPLEMENTED*************
-const StartPredictingButton = () => {
+const StartPredictingButton = ({modelInfo}) => {
+    modelID = modelInfo._id
     const navigate = useNavigate()
     const handleClick = () => {
         
