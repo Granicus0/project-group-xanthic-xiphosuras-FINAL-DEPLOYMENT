@@ -74,3 +74,5 @@ if __name__ == "__main__":
     pd.to_pickle(preproessor,path(dirname,f"{args['id']}/preprocess.pickle"))
     with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=4)
+
+    

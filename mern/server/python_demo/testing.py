@@ -32,8 +32,11 @@ if __name__ == "__main__":
     
     metadata=get_metadata(args["id"],dirname)
     
+    
     df=parse_csv(args)
-    df_have_label = metadata["_label"] in df.columns # if the df do not have label, we only make pred, do not evaluate the model
+    row_df = df.copy()
+    # if the df do not have label, we only make pred, do not evaluate the model
+    df_have_label = metadata["_label"] in df.columns 
 
     if not df_have_label:
         metadata["schema"].pop(metadata["_label"])
@@ -62,11 +65,12 @@ if __name__ == "__main__":
 
     # postprocess pred result 
     pred = preprocess[metadata["_label"]].inverse_transform(pd.DataFrame({"pred": pred})).flatten()
-
+    row_df["Pred_" + metadata["_label"]] = pred
     
-    pred = pd.DataFrame({"pred": pred})
-    csv_string = StringIO()
-    pred.to_csv(csv_string, index=False)
-    csv_string = csv_string.getvalue()
-    print(csv_string)
+    for key, value in evaluate_result.items():
+        print(f"{key}: {value:.3%}")
+    
+    print(row_df.to_string())
+
+
     
