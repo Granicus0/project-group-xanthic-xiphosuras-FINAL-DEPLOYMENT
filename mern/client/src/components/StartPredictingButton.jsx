@@ -9,7 +9,7 @@ const StartPredictingButton = ({modelInfo}) => {
     const navigate = useNavigate()
     const handleClick = () => {
          predictModel(modelInfo._id, modelInfo.uploadedFile)
-        
+         navigate("/modelPredict")
         }
 
     return (
