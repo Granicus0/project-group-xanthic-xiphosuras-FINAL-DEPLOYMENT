@@ -247,11 +247,12 @@ function MakeModel() {
     tl.play();
 
     return (
-        <div className='makemodel-page-container'>
-            <div className="makemodel-header">
-                <BacktofileButton></BacktofileButton>
-                <h2 className='makemodel-page-header'>Create a New ML Model</h2>
-            </div>
+        <div className='scrolllabel-container'>
+            <div className='makemodel-page-container'>
+                <div className="makemodel-header">
+                    <BacktofileButton></BacktofileButton>
+                    <h2 className='makemodel-page-header'>Create a New ML Model</h2>
+                </div>
 
             {/* An area for the user to type in what they want to name this model they're about to make */}
             <div className="makemodel-content-area">
@@ -299,8 +300,9 @@ function MakeModel() {
                     onColumnSelect={(column) => setSelectedColumn(column)}
                 />}
 
-                {/* Pass in model information to our StartTrainingButton component. */}
-                <StartTrainingButton modelInfo={{ modelName, modelType, uploadedFile, userId, selectedColumn }}></StartTrainingButton>
+                    {/* Pass in model information to our StartTrainingButton component. */}
+                    <StartTrainingButton modelInfo={{ modelName, modelType, uploadedFile, userId, selectedColumn }}></StartTrainingButton>
+                </div>
             </div>
         </div>
     );

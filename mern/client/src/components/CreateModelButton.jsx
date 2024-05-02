@@ -13,7 +13,7 @@ const CreateNewModelButton = () => {
     }
 
     return (
-        <button className='create-model-button-component' onClick={handleClick}>
+        <button className='create-model-button-component black-text' onClick={handleClick}>
             Create New Model 
         </button>
     )
