@@ -61,7 +61,7 @@
 
 .makemodel-page-header {
   color: black;
-  margin: 0;
+  margin-bottom: -15px;
 }
 
 .makemodel-content-area {
@@ -72,6 +72,7 @@
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  transform: scale(0.95);
 }
 
 .makemodel-model-name-input,

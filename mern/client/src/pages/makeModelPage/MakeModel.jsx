@@ -130,6 +130,8 @@ function MakeModel() {
         });
     
         const controls = new OrbitControls(camera, canvasRef2.current);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.05;
         controls.enableRotate = true;
         controls.enableZoom = false;
         controls.enablePan = false;
@@ -143,9 +145,6 @@ function MakeModel() {
             window.requestAnimationFrame(animate);
         };
         animate();
-
-
-        //setModelList([nngroup, svmgroup, rfgroup])
 
         const model_list = [
             nngroup, 
@@ -171,9 +170,28 @@ function MakeModel() {
             "RF": "This model perform good on Regression tasks."
         };
 
+        
         var model_index = 0;
         var currentM = model_list[model_index]; 
         var currentM_name = modelTypes_list[model_index];
+        var prevM_name = currentM_name;
+        var prevM_index = 0;
+
+        document.getElementById('model-type-select').addEventListener('change', function() {
+            currentM_name = this.value;
+            const currentM_index = modelTypes_list.indexOf(currentM_name) % modelTypes_list.length;
+            model_index = currentM_index;
+            console.log(currentM_index);
+
+            currentM = model_list[currentM_index];
+            const prevM = model_list[prevM_index];
+            setObecjtInvisible(prevM);
+            setObecjtVisible(currentM, modelTypes_tit_dict[currentM_name], modelTypes_des_dict[currentM_name]);
+            setModelType(currentM_name);
+            prevM_index = currentM_index;
+            prevM_name = currentM_name;
+        });
+
         
         window.addEventListener('wheel', onScroll);
 
@@ -183,20 +201,20 @@ function MakeModel() {
             }
             var itemAtIndex = model_list[model_index];
             //event.deltaY = 100 - next, -100 - previous
-            if(event.deltaY === 100){
+            if(event.deltaY >0){
                 model_index = (model_index+1) % model_list.length;
-                setObecjtInvisible(itemAtIndex);
-                setObecjtVisible(model_list[model_index], modelTypes_tit_dict[modelTypes_list[model_index]], modelTypes_des_dict[modelTypes_list[model_index]]);
-                setModelType(modelTypes_list[model_index]);
+                
             }
-            else if(event.deltaY === -100){
+            else if(event.deltaY <0){
                 model_index = (model_index-1+model_list.length) % model_list.length;
-                setObecjtInvisible(itemAtIndex);
-                setObecjtVisible(model_list[model_index], modelTypes_tit_dict[modelTypes_list[model_index]], modelTypes_des_dict[modelTypes_list[model_index]]);
-                setModelType(modelTypes_list[model_index]);
             }
+            setObecjtInvisible(itemAtIndex);
+            setObecjtVisible(model_list[model_index], modelTypes_tit_dict[modelTypes_list[model_index]], modelTypes_des_dict[modelTypes_list[model_index]]);
+            setModelType(modelTypes_list[model_index]);
             currentM = model_list[model_index];
             currentM_name = modelTypes_list[model_index];
+            prevM_index = model_index;
+            prevM_name = modelTypes_list[model_index];
         }
 
         return () => {
@@ -206,24 +224,27 @@ function MakeModel() {
             scene.remove(svmgroup);
             scene.remove(rfgroup);
             window.removeEventListener("resize", () => { }); // Remove any resize event listeners
+            window.removeEventListener("wheel", () => { });
           };
     }, []);
 
     function setObecjtInvisible(ml_model){
-        tl.to(ml_model.scale, {duration: 0.3, x: 0, y: 0, z: 0});
-        var title = document.getElementsByClassName('nm-model-des-title')[0];
-        title.innerHTML = "";
+        tl.to(ml_model.scale,{duration: 0.3, x: 0, y: 0, z: 0});
+        // var title = document.getElementsByClassName('nm-model-des-title')[0];
+        // title.innerHTML = "";
         var desc = document.getElementsByClassName('ml-model-description')[0];
         desc.innerHTML = "";
     }
 
     function setObecjtVisible(ml_model, ml_model_tit, ml_model_des){
         tl.to(ml_model.scale, {duration: 0.3, x: 1, y: 1, z: 1});
-        var title = document.getElementsByClassName('nm-model-des-title')[0];
-        title.innerHTML = ml_model_tit;
+        // var title = document.getElementsByClassName('nm-model-des-title')[0];
+        // title.innerHTML = ml_model_tit;
         var desc = document.getElementsByClassName('ml-model-description')[0];
         desc.innerHTML = ml_model_des;
     }
+
+    tl.play();
 
     return (
         <div className='makemodel-page-container'>
@@ -248,12 +269,11 @@ function MakeModel() {
                 {/* An area for the user to select the model type. By default it's MLP as per the state hook at the top */}
                 <div className="makemodel-model-type-selection">
                     <h4>Select Model Type: (Scroll to change model type)</h4>
-                    <h4 className="nm-model-des-title">Neural Network</h4>
-                    {/*<select value={modelType} onChange={(e) => setModelType(e.target.value)}>
+                    <select id='model-type-select' value={modelType} onChange={(e) => {setModelType(e.target.value)}}>
                         <option value="NN">NN (Neural Network)</option>
                         <option value="SVM">SVM (Support Vector Machine)</option>
                         <option value="RF">RF (Random Forest Tree)</option>
-                    </select>*/}
+                    </select>
                     <canvas ref={canvasRef2} className="webgl2"></canvas>
                     <p className='ml-model-description'>This model perform good on NLP tasks.</p>
                     
