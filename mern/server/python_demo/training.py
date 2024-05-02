@@ -7,7 +7,7 @@ from modules.parser import path,parse_arguments,parse_csv,parse_json,get_metadat
 from modules.training_process import get_process
 from modules.models import get_model_class
 from modules.extras import get_default_extra
-from modules.schemas import get_default_schemas
+from modules.schemas import get_schemas
 
 import warnings
 warnings.simplefilter('ignore')
@@ -23,7 +23,7 @@ warnings.simplefilter('ignore')
 # so the frontend request those files from backend. If we choose this method, we need to first create a new Model entity when user
 # first upload the dataset instead of when training the models
 
-# python training.py [-csvp <Dataset file path> | -csv <Dataset data>] [-schemap <schema file path> | -schema <schema data>]
+# python training.py [-csvp <Dataset file path> | -csv <Dataset data>]
 #                     -id <model id> -l <dataset label column name> -p <training process type> -m <model types>
 # example:
 # python training.py -csvp 'Dataset/adult_train.csv' -id 82b8389e60270007121854410f1ec4e6 -m NN -p once -schema '{"schema": {"age": "catalogue", "workclass": "catalogue", "fnlwgt": "numeric", "education": "catalogue", "education-num": "numeric", "marital-status": "catalogue", "occupation": "catalogue", "relationship": "catalogue", "race": "catalogue", "sex": "catalogue", "capital-gain": "numeric", "capital-loss": "numeric", "hours-per-week": "numeric", "native-country": "catalogue", "income": "catalogue"}, "_label": "hours-per-week"}'
@@ -35,10 +35,11 @@ if __name__ == "__main__":
     df=parse_csv(args)
 
     # get schema
-    schema = parse_json(args,"schema",dirname)
-    if schema is None:
-        schema=get_default_schemas(df)
-    print(json.dumps(schema))
+    if "l" in args.keys():
+        schema = get_schemas(df, args["l"])
+    else:
+        schema = get_schemas(df)
+
 
     metadata=get_metadata(args["id"],dirname)
     metadata.update(schema)
@@ -52,20 +53,20 @@ if __name__ == "__main__":
     if addition_extra is not None:
         extra.update(addition_extra)
 
-
+    print("Starting data preprocessing...", flush=True)
     df=df[schema.keys()]
     preproessor={}
     for column, type in schema.items():
         if type=="redundant":
             df=df.drop(columns=column)
         preproessor[column]= create_preprocess(df,column,type)
-        print(f"Preprocessing complete for column '{column}'.", flush=True)  
+
 
 
     process=get_process(args["p"])
     print("Starting model training...", flush=True)
-    model, metadata["train_result"]=process(get_model_class(args["m"],schema[label]),df.drop(columns=label),df[label], schema[label],**extra)
-
+    model, evaluate_result=process(get_model_class(args["m"],schema[label]),df.drop(columns=label),df[label], schema[label],**extra)
+    metadata["train_result"] = evaluate_result
     metadata["test_result"]={} # clear the result of old model
 
     if not os.path.exists(path(dirname,args["id"])):
@@ -74,5 +75,10 @@ if __name__ == "__main__":
     pd.to_pickle(preproessor,path(dirname,f"{args['id']}/preprocess.pickle"))
     with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
         json.dump(metadata, f, ensure_ascii=False, indent=4)
+    
+    print("Evaluate Result: ")
+    for key, value in evaluate_result.items():
+        if not(key == "valid_result" and len(value)==0):
+            print(f"    {key}: {round(value,4)}")
 
     

@@ -8,8 +8,8 @@ def create_preprocess(df, column, type):
             raise ValueError(f"Dataset's column {column} should be 'numeric', but it contains string values")
         return numeric(df,column)
     elif type=="catalogue":
-        if  df[column].unique().shape[0]>30 and is_numeric_dtype(df[column]):
-            raise ValueError(f"There are too many uniques numbers for dataset's column {column}. You may confuse it with numeric column")
+        #if  len(df[column].unique())>30 and is_numeric_dtype(df[column]):
+            #raise ValueError(f"There are too many uniques numbers for dataset's column {column}. You may confuse it with numeric column")
         return catalogue(df,column)
     else:
         raise TypeError(f"Dataset's column {column} get a unknown type '{type}'")

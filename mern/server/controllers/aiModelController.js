@@ -77,15 +77,18 @@ export const beginModelTraining = async (req, res, io) => {
     const csvFilePath = 'uploads/' + req.file.filename
     console.log("Path of user uploaded file: " + csvFilePath)
     const pyTrainFile = 'python_demo/training.py'
-    const pyAnalyseFile = 'python_demo/analyse.py'
+    //const pyAnalyseFile = 'python_demo/analyse.py'
     console.log("Selected variable for prediction: " + predictVariable)
 
     const process = 'once'
 
-    const analyzeCsvPythonProcess = spawn('python', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
-    const schemaPath = 'schemas/' + req.file.filename + '.json'
-    const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', modelId]);
 
+    // we do not need to use python_demo/analyse.py to generate schemas anymore it will be done in training.py
+    //const analyzeCsvPythonProcess = spawn('python', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
+    //const schemaPath = 'schemas/' + req.file.filename + '.json'
+    //const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', modelId]);
+    const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', modelId]);
+    
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Python error: ${data}`);

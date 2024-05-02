@@ -6,14 +6,10 @@ def get_evaluate(ground_truth, predict, problem_type):
     result={}
     if problem_type == "catalogue":
         result['accuracy']=accuracy_score(ground_truth, predict)
-        if ground_truth.unique().shape[0]<=2 and predict.unique().shape[0]<=2: # if is binary catalogue
-            result['precision']=precision_score(ground_truth,predict)
-            result['recall_score']=recall_score(ground_truth,predict)
-            result['f1']=f1_score(ground_truth,predict)
-        else:
-            result['precision']=precision_score(ground_truth,predict,average="weighted")
-            result['recall_score']=recall_score(ground_truth,predict,average="weighted")
-            result['f1']=f1_score(ground_truth,predict, average="weighted")
+
+        result['precision']=precision_score(ground_truth,predict,average="weighted")
+        result['recall_score']=recall_score(ground_truth,predict,average="weighted")
+        result['f1']=f1_score(ground_truth,predict, average="weighted")
 
             
             

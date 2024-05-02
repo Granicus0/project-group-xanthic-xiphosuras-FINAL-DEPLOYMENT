@@ -69,8 +69,8 @@ if __name__ == "__main__":
     row_df["Pred_" + label] = pred
 
     if df_have_label: 
-        for key, value in evaluate_result.items():
-            print(f"{key}: {value:.3%}")
+        for key, value in evaluate_result.items(): 
+            print(f"{key}: {value}")
     
     print(row_df.to_string())
 

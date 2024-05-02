@@ -26,8 +26,8 @@ if __name__ == "__main__":
     dirname = os.getcwd()
     arguments = parse_arguments(sys.argv)
     #print("Parsed arguments:", arguments)
-    json_data={"schema":{}}
-    schema=json_data["schema"]
+
+    schema={}
     df=parse_csv(arguments)
     # Extract the schema file name
     schema_file_name = arguments.get('schema_file', 'schema.json')
@@ -35,13 +35,17 @@ if __name__ == "__main__":
     categorical_feature_names=df.select_dtypes(include=["object_"]).columns
     for nc in numeric_feautre_names:
         schema[nc] = "numeric"
+    
     for cc in categorical_feature_names:
         if max([len(n) for n in df[cc]]) >= 100:
             schema[cc] = "redundant"
         else:
             schema[cc]="catalogue"
-    json_data["_label"]=categorical_feature_names[-1]
+    
+    json_data = {"schema":schema, "_label":categorical_feature_names[-1]}
+    
     if not os.path.exists(path(dirname,f"{arguments['id']}")):
         os.makedirs(path(dirname,f"{arguments['id']}"))
+    
     with open(path(dirname,f'{arguments["id"]}/{schema_file_name}'), 'w', encoding='utf-8') as f:
         json.dump(json_data, f, ensure_ascii=False, indent=4)
