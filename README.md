@@ -10,8 +10,9 @@ This is a project that utilizes the [MERN](https://www.mongodb.com/mern-stack) s
 
 ```npm install```
 
-### install Three and gsap in /client
+### install Three and gsap, socket.io in /client
 ```npm i three gsap```
+```npm install socket.io```
 
 ### Install TailwindCSS, PostCSS and Autoprefixer
 - Run the following commands inside of the ``mern`` directory:
