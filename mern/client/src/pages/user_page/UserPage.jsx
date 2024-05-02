@@ -3,6 +3,7 @@ import LogoutButton from '../../components/LogoutButton'
 import CreateModelButton from '../../components/CreateModelButton'; 
 import "./UserPage.css";
 import ModelGrid from '../../components/ModelGrid';
+import UserSelectButton from '../../components/UserSelectButton';
 
 function UserPage() {
   const [models, setModels] = useState([]);
@@ -44,19 +45,26 @@ function UserPage() {
   }
 
   return (
+    <div className='scrolllabel-container'>
+      <div className='navbar'>
+        <div className='left'>
+          <LogoutButton />
+        </div>
+        <div className='right'>
+          <CreateModelButton />
+        </div>
+      </div>
       <div className='user-page-container'>
         <h1 className='user-page-header'> Hello, {userName}! </h1>
-        <CreateModelButton></CreateModelButton>
-        <LogoutButton></LogoutButton>
-        <h4 className='user-page-sub-header'> Your Current Models </h4>
+        <h4 className='user-page-sub-header1'> Your Current Models </h4>
         <br></br>
-        <h5 className='user-page-sub-header'> Click one to make some predictions! </h5>
-        <ModelGrid modelData={models}></ModelGrid>
-
+        <h5 className='user-page-sub-header2'> Click one to make some predictions! </h5>
+        <div>
+        <UserSelectButton modelData={models} />
+        </div>  
       </div>
-
+    </div>
   );
-
 }
 
 export default UserPage;

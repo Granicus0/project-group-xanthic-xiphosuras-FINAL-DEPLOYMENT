@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import LogoutButton from '../../components/LogoutButton';
+import BacktofileButton from '../../components/BacktofileButton';
 import FileUpload from '../../components/FileUpload';
 import StartPredictingButton from '../../components/StartPredictingButton';
 import './useModelPage.css'; 
@@ -23,7 +23,7 @@ const UseModelPage = () => {
     return (
         <div className='usemodel-page-container'>
             <div className="header">
-                <LogoutButton></LogoutButton>
+                <BacktofileButton></BacktofileButton>
                 <h2 className='usemodel-page-header'>Start predicting with your model!</h2>
             </div>
 
