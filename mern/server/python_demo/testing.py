@@ -31,44 +31,46 @@ if __name__ == "__main__":
     dirname = os.getcwd()
     
     metadata=get_metadata(args["id"],dirname)
-    
+    schema = metadata["schema"]
+    label = metadata["_label"]
     
     df=parse_csv(args)
     row_df = df.copy()
     # if the df do not have label, we only make pred, do not evaluate the model
-    df_have_label = metadata["_label"] in df.columns 
+    df_have_label = label in df.columns
 
     if not df_have_label:
-        metadata["schema"].pop(metadata["_label"])
-    df=df[metadata["schema"].keys()]
-
+        schema.pop(label)
+    
+    df=df[schema.keys()]
     with open(path(dirname,f"{args['id']}/preprocess.pickle"), "rb") as f:
         preprocess = pickle.load(f)
 
-    for column, type in metadata["schema"].items():
+    for column, type in schema.items():
         apply_preprocess(df,column, type,preprocess)
 
     with open(path(dirname,f"{args['id']}/model.pickle"), "rb") as f:
         model = pickle.load(f)
     pred = None
     if df_have_label:
-        pred=model.predict(df.drop(columns=metadata["_label"]))
+        pred=model.predict(df.drop(columns=label))
     else:
         pred=model.predict(df)
     
     if df_have_label:
-        evaluate_result = get_evaluate(df[metadata["_label"]],pred)
+        evaluate_result = get_evaluate(df[label],pred, schema[label])
         metadata["test_result"][f"test_{metadata['version']}"] = evaluate_result
         with open(path(dirname,f"{args['id']}/metadata.json"), 'w', encoding='utf-8') as f:
             json.dump(metadata, f, ensure_ascii=False, indent=4)
 
 
     # postprocess pred result 
-    pred = preprocess[metadata["_label"]].inverse_transform(pd.DataFrame({"pred": pred})).flatten()
-    row_df["Pred_" + metadata["_label"]] = pred
-    
-    for key, value in evaluate_result.items():
-        print(f"{key}: {value:.3%}")
+    pred = preprocess[label].inverse_transform(pd.DataFrame({"pred": pred})).flatten()
+    row_df["Pred_" + label] = pred
+
+    if df_have_label: 
+        for key, value in evaluate_result.items():
+            print(f"{key}: {value:.3%}")
     
     print(row_df.to_string())
 

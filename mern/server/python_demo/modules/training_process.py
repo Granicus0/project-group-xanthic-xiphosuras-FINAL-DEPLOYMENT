@@ -14,21 +14,21 @@ def get_process(process_type):
     if process_type=="cv10":
         return cross_validation_10
     
-def oneshot(model,train_X,train_Y,**kwargs):
+def oneshot(model,train_X,train_Y, problem_type,**kwargs):
     result={"valid_result":{}}
     real_model=model(**kwargs)
     real_model.fit(train_X,train_Y)
     pred_Y=real_model.predict(train_X)
-    result.update(get_evaluate(train_Y,pred_Y))
+    result.update(get_evaluate(train_Y,pred_Y, problem_type))
     return real_model, result
 
-def cross_validation_5(model,train_X,train_Y,**kwargs):
-    return cross_validation(model,train_X,train_Y,5,**kwargs)
+def cross_validation_5(model,train_X,train_Y,problem_type,**kwargs):
+    return cross_validation(model,train_X,train_Y,problem_type,5,**kwargs)
 
-def cross_validation_10(model,train_X,train_Y,**kwargs):
-    return cross_validation(model,train_X,train_Y,5,**kwargs)
+def cross_validation_10(model,train_X,train_Y,problem_type,**kwargs):
+    return cross_validation(model,train_X,train_Y,problem_type,5,**kwargs)
 
-def cross_validation(model,train_X,train_Y,counts,**kwargs):
+def cross_validation(model,train_X,train_Y,problem_type,counts,**kwargs):
     folds_index=np.array_split(train_X.sample(frac=1).index,counts)
     result={"valid_result":{}}
     average_result={}
@@ -37,7 +37,7 @@ def cross_validation(model,train_X,train_Y,counts,**kwargs):
         real_model=model(**kwargs)
         real_model.fit(fold_train_X,fold_train_Y)
         fold_pred_Y=real_model.predict(fold_test_X)
-        valid_result=get_evaluate(fold_test_Y,fold_pred_Y)
+        valid_result=get_evaluate(fold_test_Y,fold_pred_Y, problem_type)
         result["valid_result"][f"epoch_{i+1}"]=valid_result
         for key,value in valid_result.items():
             if key in average_result:

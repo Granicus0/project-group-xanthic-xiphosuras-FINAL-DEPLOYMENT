@@ -26,7 +26,7 @@ warnings.simplefilter('ignore')
 # python training.py [-csvp <Dataset file path> | -csv <Dataset data>] [-schemap <schema file path> | -schema <schema data>]
 #                     -id <model id> -l <dataset label column name> -p <training process type> -m <model types>
 # example:
-# python3 training.py -csvp 'Dataset/adult_train.csv' -id 82b8389e60270007121854410f1ec4e6 -m NN -p once
+# python training.py -csvp 'Dataset/adult_train.csv' -id 82b8389e60270007121854410f1ec4e6 -m NN -p once -schema '{"schema": {"age": "catalogue", "workclass": "catalogue", "fnlwgt": "numeric", "education": "catalogue", "education-num": "numeric", "marital-status": "catalogue", "occupation": "catalogue", "relationship": "catalogue", "race": "catalogue", "sex": "catalogue", "capital-gain": "numeric", "capital-loss": "numeric", "hours-per-week": "numeric", "native-country": "catalogue", "income": "catalogue"}, "_label": "hours-per-week"}'
 if __name__ == "__main__":
     args = parse_arguments(sys.argv)
     #print("Parsed arguments:", args)
@@ -38,7 +38,7 @@ if __name__ == "__main__":
     schema = parse_json(args,"schema",dirname)
     if schema is None:
         schema=get_default_schemas(df)
-    
+    print(json.dumps(schema))
 
     metadata=get_metadata(args["id"],dirname)
     metadata.update(schema)
@@ -64,7 +64,7 @@ if __name__ == "__main__":
 
     process=get_process(args["p"])
     print("Starting model training...", flush=True)
-    model, metadata["train_result"]=process(get_model_class(args["m"],schema[label]),df.drop(columns=label),df[label],**extra)
+    model, metadata["train_result"]=process(get_model_class(args["m"],schema[label]),df.drop(columns=label),df[label], schema[label],**extra)
 
     metadata["test_result"]={} # clear the result of old model
 
