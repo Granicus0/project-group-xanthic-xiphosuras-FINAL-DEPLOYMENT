@@ -24,6 +24,7 @@
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.51.3",
     "react-papaparse": "^4.4.0",
+    "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "three": "^0.163.0"
   },
