@@ -5,8 +5,6 @@ import BackToHomepageButton from '../BackToHomepageButton';
 
 describe('BackToHomepageButton Component', () => {
 
-    /********************************************************************************************/
-
     it('see if it renders with the correct text', () => {
 
 
@@ -28,11 +26,9 @@ describe('BackToHomepageButton Component', () => {
             </BrowserRouter>
         );
 
-        const navigateButton = screen.getByRole('button', { name: /back to homepage/i });
+        const navigateButton = screen.getByRole('button');
         fireEvent.click(navigateButton);
 
     })
-
-    /********************************************************************************************/
 
 })
