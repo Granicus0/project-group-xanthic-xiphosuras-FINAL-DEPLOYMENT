@@ -24,18 +24,21 @@ function UserSelectButton({ modelData }) {
     return (
         <div>
             <div className='seclectButton-container'>
-              <div className="button-group">
+                
+              <div className="button-group" >
+              <button className="filterbuttonlabel" style={{border: '0px'}}>Filter:
+                </button>
                 <button className="modelbutton" onClick={() => setActiveTab('default')}>All Models
                 </button>
                 <button className="modelbutton" onClick={() => setActiveTab('NN')}>
-                    <img src="/src/assets/image/neural network logo.jpg" alt="Icon" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+                    <img src="/src/assets/image/neural network logo.jpg" alt="Icon" style={{ width: '20px', height: '20px', marginRight: '5px', verticalAlign: 'middle' }} />
                     Neural Network
                 </button>
                 <button className="modelbutton" onClick={() => setActiveTab('SVM')}>
-                    <img src="/src/assets/image/SVM logo.jpg" alt="Icon" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+                    <img src="/src/assets/image/SVM logo.jpg" alt="Icon" style={{ width: '20px', height: '20px', marginRight: '5px', verticalAlign: 'middle' }} />
                     Support Vector Machine</button>
                 <button className="modelbutton" onClick={() => setActiveTab('RF')}>
-                    <img src="/src/assets/image/RF logo.png" alt="Icon" style={{ width: '20px', height: '20px', marginRight: '5px' }} />
+                    <img src="/src/assets/image/RF logo.png" alt="Icon" style={{ width: '20px', height: '20px', marginRight: '5px', verticalAlign: 'middle' }} />
                     Random Forest</button>
                 
               </div>

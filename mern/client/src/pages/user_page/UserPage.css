@@ -35,15 +35,13 @@
 }
 .user-page-sub-header1 {
     font-size: large;
-    font-family:sans-serif;
     color: black;
     text-align: center;
 }
 .user-page-sub-header2 {
     font-size: medium;
-    font-weight:500;
+    font-weight:350;
     color: black;
-    text-align: left;
-
+    text-align: center;
 }
 

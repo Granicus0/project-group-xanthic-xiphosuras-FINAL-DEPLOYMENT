@@ -7,11 +7,10 @@
     padding: 6px 12px; 
     border-radius: 6px; 
     font-size: 14px;
-    font-weight: 600; 
+    font-weight: 300; 
     text-align: center;
     text-decoration: none; 
     display: inline-block;
-    font-family: -apple-system;
 }
 
 .logout-button-component:hover {

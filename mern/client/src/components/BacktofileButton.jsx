@@ -7,7 +7,7 @@ const BacktofileButton = () => {
         navigate('/user')
     }
     return (
-        <button className='logout-button-component' onClick={handleClick}> Back to file </button>
+        <button className='logout-button-component' onClick={handleClick}> Back to homepage </button>
     )
 }
 
