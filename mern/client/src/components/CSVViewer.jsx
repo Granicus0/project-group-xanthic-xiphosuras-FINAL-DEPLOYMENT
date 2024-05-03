@@ -3,7 +3,7 @@ import './css/CSVViewer.css';
 
 const CSVViewer = ({ csvFile, onColumnSelect }) => {
   const [csvData, setCsvData] = useState([]);
-  const [selectedColumn, setSelectedColumn] = useState(null);
+  const [selectedColumn, setSelectedColumn] = useState('');
 
   useEffect(() => {
     if (csvFile) {
