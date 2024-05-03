@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import './css/LogoutButton.css'
+import './css/BackToHomepageButton.css'
 
 const BackToHomepageButton = () => {
     const navigate = useNavigate()
@@ -7,7 +7,7 @@ const BackToHomepageButton = () => {
         navigate('/user')
     }
     return (
-        <button className='logout-button-component' onClick={handleClick}> Back to homepage </button>
+        <button className='back-to-homepage-button-component' onClick={handleClick}> Back to homepage </button>
     )
 }
 
