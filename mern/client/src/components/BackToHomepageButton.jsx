@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import './css/LogoutButton.css'
 
-const BacktofileButton = () => {
+const BackToHomepageButton = () => {
     const navigate = useNavigate()
     const handleClick = () => {
         navigate('/user')
@@ -11,4 +11,4 @@ const BacktofileButton = () => {
     )
 }
 
-export default BacktofileButton
+export default BackToHomepageButton
