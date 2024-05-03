@@ -30,7 +30,10 @@ if __name__ == "__main__":
     args = parse_arguments(sys.argv)
     dirname = os.getcwd()
     
-    metadata=get_metadata(args["id"],dirname)
+    metadata=get_metadata(args["id"],dirname, auto_generate=False)
+    if metadata == None:
+        raise KeyError(f"model[{id}] not exsit, please train the model before test")
+
     schema = metadata["schema"]
     label = metadata["_label"]
     
