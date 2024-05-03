@@ -51,11 +51,14 @@ def parse_json(args,key,dirname):
         
     return entity
 
-def get_metadata(id,dirname):
+def get_metadata(id,dirname, auto_generate=True):
     absolute_path=path(dirname,f"{id}/metadata.json")
     if os.path.exists(absolute_path):
         with open(absolute_path, 'r') as file:
             metadata = json.load(file)
             metadata["version"]+=1
         return metadata
-    return { "version":0 }
+    elif auto_generate:
+        return { "version":0 }
+    else:
+        return None
