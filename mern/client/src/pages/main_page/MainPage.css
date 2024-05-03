@@ -164,7 +164,7 @@ nav a {
   box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
   margin: 30px auto;    
   width: 100%;
-
+  opacity: 0;
   z-index: 2;
   position: relative;
   font-size: x-large;

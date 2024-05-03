@@ -129,10 +129,10 @@ const MainPage = () => {
     animate();
 
     const tl = gsap.timeline();
-    tl.to(".about-description", { opacity: 0 });
-    tl.to(".about-description-header", { opacity: 0 });
-    tl.to(".about-description-container", { opacity: 0 });
-    tl.to(".return_button", { y: "-1000%" });
+    tl.fromTo(".about-description", { opacity: 0 }, { opacity: 0 });
+    tl.fromTo(".about-description-header", { opacity: 0 }, { opacity: 0 });
+    tl.fromTo(".about-description-container", { opacity: 0 }, { opacity: 0 });
+    tl.fromTo(".return_button", { y: "-1000%" }, { y: "-1000%" });
     tl.fromTo("nav", { y: "-100%" }, { y: "0%" })
     tl.fromTo(meshgroup.position, { x: 0, y: -100, z: 0 }, { x: 0, y: 0, z: 0, duration: 2, ease: "power2.out" }, "-=1.5")
     tl.fromTo(".title1", { opacity: 0 }, { opacity: 1 });
