@@ -20,6 +20,23 @@ function ModelCardv2({modelInfo}) {
     default:
       imageUrl = "https://i.postimg.cc/NfR2yhNs/image-equilibrium.jpg"; //
   }
+
+
+  const handleRemove = async () => {
+    if (!window.confirm(`Are you sure you want to delete ${modelInfo.model_name}?`)) {
+      return; // User canceled the action
+    }
+    try {
+      const response = await fetch(`http://localhost:5050/api/models/${modelInfo._id}`, {
+        method: 'DELETE'
+      });
+      if (!response.ok) throw new Error('Failed to delete the model');
+    } catch (error) {
+      console.error('Error:', error);
+      setError('Failed to delete the model. Please try again.');
+    }
+  };
+
   return (
     <div className="card-container">
       {/*A link to the "/useModel" path where a user can use one of their models. The state={{modelInfo}} is essentially passing in a prop to this page but in a different way */}
@@ -35,6 +52,9 @@ function ModelCardv2({modelInfo}) {
           <div className="time-left">
             <p>3 days left</p>
           </div>
+          <button className="remove-button" onClick={handleRemove}>
+          Remove
+        </button>
         </div>
       </main>
     </div>

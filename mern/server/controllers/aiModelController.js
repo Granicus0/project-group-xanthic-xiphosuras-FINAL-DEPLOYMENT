@@ -5,6 +5,8 @@ import mongoose from 'mongoose';
 import { spawn } from 'child_process'
 import { io } from 'socket.io-client'
 import fs from 'fs'
+import path from 'path';
+import { fileURLToPath } from 'url';
 import gfs from 'gridfs-stream'
 
 export const makrPrediction = async (req, res, io) => {
@@ -174,16 +176,38 @@ export const updateModel = async (req, res) => {
 // Delete a model
 export const deleteModel = async (req, res) => {
     logger.logRequestDetails(req);
+    
+    const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
     const { id } = req.params;
+
     if (!mongoose.Types.ObjectId.isValid(id)) {
         return res.status(404).json({ error: 'No such model' })
     }
+
+    const modelDir = path.join(__dirname, '..', id);
+
     try {
         const model = await Model.findByIdAndDelete(id);
         if (!model) {
             return res.status(404).json({ error: "Model not found" });
         }
+
+        // Check if the directory exists and remove it
+        try {
+            await fs.promises.access(modelDir, fs.constants.F_OK);
+            await fs.promises.rm(modelDir, { recursive: true, force: true }); // `rm` with options for recursive and force
+            console.log(`Directory ${modelDir} deleted successfully`);
+        } catch (dirError) {
+            if (dirError.code === 'ENOENT') {
+                // ENOENT is the error code for "No such file or directory", ignore it
+                console.log(`Directory does not exist, no action needed: ${modelDir}`);
+            } else {
+                // Log other errors that might indicate more serious problems
+                console.error(`Error while attempting to delete directory: ${dirError}`);
+            }
+        }
+        
         res.status(200).json({ message: "Model deleted successfully" });
     } catch (error) {
         res.status(400).json({ error: error.message });
