@@ -263,13 +263,14 @@ function MakeModel() {
                         id="model-name"
                         value={modelName}
                         onChange={(e) => setModelName(e.target.value)}
-                        placeholder="Enter model name"
+                        placeholder="Enter model name:"
                     />
                 </div>
 
                 {/* An area for the user to select the model type. By default it's MLP as per the state hook at the top */}
+                
+                <h4 className='makemodel-model-type-selection-header'>Select Model Type: (Scroll to change model type)</h4>
                 <div className="makemodel-model-type-selection">
-                    <h4>Select Model Type: (Scroll to change model type)</h4>
                     <select id='model-type-select' value={modelType} onChange={(e) => {setModelType(e.target.value)}}>
                         <option value="NN">NN (Neural Network)</option>
                         <option value="SVM">SVM (Support Vector Machine)</option>

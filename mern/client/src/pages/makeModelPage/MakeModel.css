@@ -4,7 +4,7 @@
 
 }
 .makemodel-page-container {
-  padding-top: 100px;
+  padding-top: 20px;
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -34,6 +34,12 @@
 .makemodel-page-sub-header {
   color: black;
   text-align: center;
+  font-weight: bold;
+  font-size: 25px;
+}
+
+.makemodel-model-type-selection-header{
+  font-weight: bold;
 }
 
 .makemodel-page-container .logout-button-component {
@@ -57,17 +63,6 @@
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
-}
-
-.makemodel-page-container {
-  padding-top: 100px;
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-
-  
 }
 
 .makemodel-page-header {

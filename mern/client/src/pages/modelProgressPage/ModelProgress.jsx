@@ -12,6 +12,8 @@ const ModelProgress = () => {
             setTrainingUpdates(prevUpdates => [...prevUpdates, update]);
         });
 
+        
+
         return () => socket.disconnect();
     }, []);
 
