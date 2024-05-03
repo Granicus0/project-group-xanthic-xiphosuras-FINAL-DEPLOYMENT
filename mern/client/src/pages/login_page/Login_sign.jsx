@@ -148,7 +148,7 @@ const LoginSignup = () => {
   return (
     <div className="loginf">
       <a href="/" className="back_home_link">
-        Back to Home
+        Back to main page
       </a>
       <div className="container">
         <div className="form-box">
