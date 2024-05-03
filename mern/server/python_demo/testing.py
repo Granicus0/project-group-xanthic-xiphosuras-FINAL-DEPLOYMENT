@@ -29,10 +29,10 @@ warnings.simplefilter('ignore')
 if __name__ == "__main__":
     args = parse_arguments(sys.argv)
     dirname = os.getcwd()
-    
-    metadata=get_metadata(args["id"],dirname, auto_generate=False)
+    model_id = args["id"]
+    metadata=get_metadata(model_id,dirname, auto_generate=False)
     if metadata == None:
-        raise KeyError(f"model[{id}] not exsit, please train the model before test")
+        raise KeyError(f"model {model_id} not exsit, please train the model before test")
 
     schema = metadata["schema"]
     label = metadata["_label"]
