@@ -21,7 +21,7 @@ describe('BackToHomepageButton Component', () => {
 
     });
 
-    it('see if button works', () => {
+    it('see if button is present and clickable', () => {
         render(
             <BrowserRouter>
                 <BackToHomepageButton />

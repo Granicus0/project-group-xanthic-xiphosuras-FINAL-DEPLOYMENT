@@ -9,13 +9,13 @@ function ModelCardv2({modelInfo}) {
   
   switch (modelInfo.model_type) {
     case 'NN':
-      imageUrl = '/src/assets/image/neural network logo.jpg';  // 
+      imageUrl = '/src/assets/image/neural-network-logo.jpg';  // 
       break;
     case 'RF':
-      imageUrl = '/src/assets/image/RF logo.png';  // 
+      imageUrl = '/src/assets/image/RF-logo.png';  // 
       break;
     case 'SVM':
-      imageUrl = '/src/assets/image/SVM logo.jpg';  //
+      imageUrl = '/src/assets/image/SVM-logo.jpg';  //
       break;
     default:
       imageUrl = "https://i.postimg.cc/NfR2yhNs/image-equilibrium.jpg"; //
