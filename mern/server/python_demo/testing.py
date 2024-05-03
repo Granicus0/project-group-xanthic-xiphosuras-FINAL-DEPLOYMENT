@@ -72,12 +72,14 @@ if __name__ == "__main__":
     row_df["Pred_" + label] = pred
 
     if df_have_label: 
+        print("Evaluate:")
         for key, value in evaluate_result.items(): 
             print(f"{key}: {value}")
     
     csv_string_buffer = StringIO()
     df.to_csv(csv_string_buffer, index=False)
     csv_string = csv_string_buffer.getvalue()
+    print("\nResult:")
     print(csv_string)
 
 
