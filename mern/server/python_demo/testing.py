@@ -79,7 +79,7 @@ if __name__ == "__main__":
     csv_string_buffer = StringIO()
     df.to_csv(csv_string_buffer, index=False)
     csv_string = csv_string_buffer.getvalue()
-    print("\nResult:")
+    print("Result:")
     print(csv_string)
 
 

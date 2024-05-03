@@ -26,7 +26,7 @@ warnings.simplefilter('ignore')
 # python training.py [-csvp <Dataset file path> | -csv <Dataset data>]
 #                     -id <model id> -l <dataset label column name> -p <training process type> -m <model types>
 # example:
-# python training.py -csvp 'Dataset/adult_train.csv' -id 82b8389e60270007121854410f1ec4e6 -m NN -p once -schema '{"schema": {"age": "catalogue", "workclass": "catalogue", "fnlwgt": "numeric", "education": "catalogue", "education-num": "numeric", "marital-status": "catalogue", "occupation": "catalogue", "relationship": "catalogue", "race": "catalogue", "sex": "catalogue", "capital-gain": "numeric", "capital-loss": "numeric", "hours-per-week": "numeric", "native-country": "catalogue", "income": "catalogue"}, "_label": "hours-per-week"}'
+# python training.py -csvp 'Dataset/adult_train.csv' -id 82b8389e60270007121854410f1ec4e6 -m NN -p once
 if __name__ == "__main__":
     args = parse_arguments(sys.argv)
     #print("Parsed arguments:", args)
