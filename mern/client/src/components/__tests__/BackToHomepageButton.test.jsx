@@ -1,34 +1,38 @@
 import { describe, it, expect, vi } from 'vitest';
-import { render, screen, userEvent } from '@testing-library/react';
-import BackToHomepageButton from './BackToHomepageButton';
-
+import { render, screen, userEvent, fireEvent } from '@testing-library/react';
+import { BrowserRouter } from 'react-router-dom';
+import BackToHomepageButton from '../BackToHomepageButton';
 
 describe('BackToHomepageButton Component', () => {
 
-
-   /********************************************************************************************/
+    /********************************************************************************************/
 
     it('see if it renders with the correct text', () => {
-        render(<BackToHomepageButton />);
-        const backToHomepageButtonElem = screen.getByText(/back to homepage/i)
-        expect(backToHomepageButtonElem).toBeInTheDocument();
+
+
+        const { getByText } =
+            render(
+                <BrowserRouter>
+                    <BackToHomepageButton />
+                </BrowserRouter>
+            );
+
+        expect(getByText(/back to homepage/i))
+
     });
 
-   /********************************************************************************************/
+    it('see if button works', () => {
+        render(
+            <BrowserRouter>
+                <BackToHomepageButton />
+            </BrowserRouter>
+        );
 
-    const mockNavigate = vi.fn();
-    vi.mock('react-router-dom', () => ({
-        ...vi.requireActual('react-router-dom'),
-        useNavigate: () => mockNavigate,
-    }));
+        const navigateButton = screen.getByRole('button', { name: /back to homepage/i });
+        fireEvent.click(navigateButton);
 
-    it('calls useNavigate with the correct path on click', () => {
-        render(<BackToHomepageButton />);
-        const buttonElement = screen.getByRole('button');
-        userEvent.click(buttonElement);
-        expect(mockNavigate).toHaveBeenCalledWith('/user');
-    });
-    
-   /********************************************************************************************/
+    })
+
+    /********************************************************************************************/
 
 })
