@@ -6,5 +6,9 @@ export default defineConfig({
   plugins: [react()],
   server:{
     open:true, //automatic
+  },
+  test: {
+    globals: true,
+    environment: 'jsdom'
   }
 })

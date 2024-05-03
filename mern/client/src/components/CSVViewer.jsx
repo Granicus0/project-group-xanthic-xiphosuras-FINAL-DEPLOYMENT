@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CSVDataTable from './CSVDataTable';
-import './CSVViewer.css'; 
+import './css/CSVViewer.css'; 
 
 const CSVViewer = ({ csvFile, onColumnSelect }) => {
   const [csvData, setCsvData] = useState([]);
