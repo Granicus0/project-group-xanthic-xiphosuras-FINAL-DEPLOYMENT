@@ -32,39 +32,43 @@ const ModelPredict = () => {
     }, [predictUpdates]);
 
     if (!headers.length || !rows.length) {
-        return <div>Loading data or no data available...</div>;
+        return <div>Loading data or no data available</div>;
     }
 
     return (
         <div className="predict-page-container">
-            <BackToHomepageButton></BackToHomepageButton>
-            <h3 className="header-text">Predict Result</h3>
+            <div className='predict-header'>
+                <BackToHomepageButton></BackToHomepageButton>
+                <h3 className="header-text">Predict Result</h3>
+            </div>
             <div className="result-text-container">
                 <p>{preResultText}</p>
             </div>
 
             <div className='model-predict-output-container'>
-            <h2 className="header-table">Predict Dataset</h2>
-                <table className="data-table">
-                    <thead>
-                        <tr>
-                            {headers.map((header, index) => (
-                                <th key={index}>{header}</th> 
-                            ))}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {rows.map((row, index) => (
-                            <tr key={index}>
-                                {row.map((cell, cellIndex) => (
-                                    <td key={cellIndex}>{cell}</td>
+                <h2 className="header-table">Predict Dataset</h2>
+                <div className="table-container">
+                    <table className="data-table">
+                        <thead>
+                            <tr>
+                                {headers.map((header, index) => (
+                                    <th key={index}>{header}</th> 
                                 ))}
                             </tr>
-                        ))}
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            {rows.map((row, index) => (
+                                <tr key={index}>
+                                    {row.map((cell, cellIndex) => (
+                                        <td key={cellIndex}>{cell}</td>
+                                    ))}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </div>
-            </div>
+        </div>
        
     );
 };
