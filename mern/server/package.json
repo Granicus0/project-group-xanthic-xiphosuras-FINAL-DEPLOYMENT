@@ -4,10 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-
-    "test": "jest"
-    "dev":"node --env-file=config.env server"
-
+    "test": "jest",
+    "dev": "node --env-file=config.env server"
   },
   "keywords": [],
   "author": "",
