@@ -110,10 +110,41 @@
     background-color: #f0f8ff; 
     color: #000000; 
     font-weight: bold; 
+    font-size: 15px;
 }
 
 .highlight-cell {
     background-color: #f0f8ff; 
 }
+
+
+
+/* 加载容器样式 */
+.loading-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column; /* 垂直居中 */
+    height: 100vh; /* 使容器充满整个视口高度 */
+  }
+  
+  /* 加载文字样式 */
+  .loading-text {
+    margin-bottom: 20px; /* 文字与加载动画之间的间距 */
+    font-size: 18px; /* 文字大小 */
+    color: #333; /* 文字颜色 */
+  }
+  
+  /* 加载动画容器样式 */
+  .loading-spinner {
+    transform: scale(2); /* 放大加载动画 */
+  }
+  
+  /* 加载动画颜色 */
+  .react-spinner_loader,
+  .react-spinner_bar {
+    background-color: #acacac !important; /* 设置加载动画颜色 */
+  }
+  
 
 

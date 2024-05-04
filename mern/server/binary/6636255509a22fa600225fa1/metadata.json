@@ -1,5 +1,5 @@
 {
-    "version": 1,
+    "version": 2,
     "schema": {
         "Sample code number": "numeric",
         "Clump Thickness": "numeric",
@@ -13,18 +13,23 @@
         "Mitoses": "numeric",
         "Class": "numeric"
     },
-    "_label": "Bland Chromatin",
+    "_label": "Bare Nuclei",
     "train_result": {
         "valid_result": {},
-        "mean_squared_error": 0.017322440216521587,
-        "mean_absolute_error": 0.10004411354862816,
-        "r2_score": 0.765843709191488
+        "mean_squared_error": 0.029924876894161453,
+        "mean_absolute_error": 0.11992278636270334,
+        "r2_score": 0.8294241288565233
     },
     "test_result": {
         "test_1": {
-            "mean_squared_error": 0.018485982307374825,
-            "mean_absolute_error": 0.10378821629579492,
-            "r2_score": 0.7534214610435831
+            "mean_squared_error": 0.029924876894161453,
+            "mean_absolute_error": 0.11992278636270334,
+            "r2_score": 0.8294241288565233
+        },
+        "test_2": {
+            "mean_squared_error": 0.029924876894161453,
+            "mean_absolute_error": 0.11992278636270334,
+            "r2_score": 0.8294241288565233
         }
     }
 }

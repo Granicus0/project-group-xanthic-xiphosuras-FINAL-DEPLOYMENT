@@ -1,0 +1,30 @@
+{
+    "version": 1,
+    "schema": {
+        "Sample code number": "numeric",
+        "Clump Thickness": "numeric",
+        "Uniformity of Cell Size": "numeric",
+        "Uniformity of Cell Shape": "numeric",
+        "Marginal Adhesion": "numeric",
+        "Single Epithelial Cell Size": "numeric",
+        "Bare Nuclei": "numeric",
+        "Bland Chromatin": "numeric",
+        "Normal Nucleoli": "numeric",
+        "Mitoses": "numeric",
+        "Class": "numeric"
+    },
+    "_label": "Single Epithelial Cell Size",
+    "train_result": {
+        "valid_result": {},
+        "mean_squared_error": 0.023481354486561766,
+        "mean_absolute_error": 0.09026331629740918,
+        "r2_score": 0.6145818363783028
+    },
+    "test_result": {
+        "test_1": {
+            "mean_squared_error": 0.02236325783039653,
+            "mean_absolute_error": 0.09391713579453174,
+            "r2_score": 0.6036025267437453
+        }
+    }
+}
