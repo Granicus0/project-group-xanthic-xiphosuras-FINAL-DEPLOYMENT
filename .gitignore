@@ -11,6 +11,8 @@ __pycache__/
 9/
 10/
 
+uploads/
+
 config.env
 .venv
 
