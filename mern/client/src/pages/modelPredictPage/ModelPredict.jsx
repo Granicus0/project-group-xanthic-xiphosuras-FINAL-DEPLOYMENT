@@ -46,7 +46,7 @@ const ModelPredict = () => {
             </div>
 
             <div className='model-predict-output-container'>
-                <h2 className="header-table">Predict Dataset</h2>
+                <p className="table-header">Predict Dataset</p>
                 <div className="table-container">
                     <table className="data-table">
                         <thead>
