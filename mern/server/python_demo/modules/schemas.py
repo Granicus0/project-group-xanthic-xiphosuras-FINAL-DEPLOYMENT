@@ -14,7 +14,7 @@ def get_schemas(df, label = None):
     if label == None:
         label = columns[-1] 
     elif label not in columns:
-        raise TypeError(f"Did not find the column {label} in dataset")
+        raise TypeError(f"Did not find the column \"{label}\" in dataset {columns}")
     
     schema = {}
     for column in columns:

@@ -63,11 +63,4 @@ export const signupUser = async (req, res) => {
 
 };
 
-// Test the base API route
-export const testUser = async (req, res) => {
-    logger.logRequestDetails(req);
-
-    res.json({ msg: 'Base API route works! Note this does not mean the other routes function properly' })
-};
-
 

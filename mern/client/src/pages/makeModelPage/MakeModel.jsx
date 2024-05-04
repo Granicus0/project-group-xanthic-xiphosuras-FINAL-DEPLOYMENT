@@ -298,7 +298,7 @@ function MakeModel() {
                 {/* Conditionally render CSVViewer */}
                 {uploadedFile && <CSVViewer
                     csvFile={uploadedFile}
-                    onColumnSelect={(column) => setSelectedColumn(column)}
+                    onColumnSelect={(column) => setSelectedColumn(column.trim())}
                 />}
 
                     {/* Pass in model information to our StartTrainingButton component. */}

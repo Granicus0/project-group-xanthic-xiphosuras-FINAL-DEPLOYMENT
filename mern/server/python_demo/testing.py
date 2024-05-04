@@ -72,10 +72,15 @@ if __name__ == "__main__":
     row_df["Pred_" + label] = pred
 
     if df_have_label: 
+        print("Evaluate:")
         for key, value in evaluate_result.items(): 
             print(f"{key}: {value}")
     
-    print(row_df.to_string())
+    csv_string_buffer = StringIO()
+    row_df.to_csv(csv_string_buffer, index=False)
+    csv_string = csv_string_buffer.getvalue()
+    print("Result:")
+    print(csv_string)
 
 
     
