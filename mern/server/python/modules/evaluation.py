@@ -11,8 +11,6 @@ def get_evaluate(ground_truth, predict, problem_type):
         result['recall_score']=recall_score(ground_truth,predict,average="weighted")
         result['f1']=f1_score(ground_truth,predict, average="weighted")
 
-            
-            
     elif problem_type == "numeric":
         result['mean_squared_error'] = mean_squared_error(ground_truth,predict)
         result['mean_absolute_error'] = mean_absolute_error(ground_truth,predict)

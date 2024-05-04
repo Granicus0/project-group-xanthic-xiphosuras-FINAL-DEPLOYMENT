@@ -37,8 +37,8 @@ if __name__ == "__main__":
     schema = metadata["schema"]
     label = metadata["_label"]
     
-    df=parse_csv(args)
-    row_df = df.copy()
+    row_df = parse_csv(args)
+    df = row_df.copy()
     # if the df do not have label, we only make pred, do not evaluate the model
     df_have_label = label in df.columns
 
@@ -50,7 +50,10 @@ if __name__ == "__main__":
         preprocess = pickle.load(f)
 
     for column, type in schema.items():
-        apply_preprocess(df,column, type,preprocess)
+        if type=="redundant":
+            df=df.drop(columns=column)
+        else:
+            apply_preprocess(df,column, type,preprocess)
 
     with open(path(dirname,f"binary/{args['id']}/model.pickle"), "rb") as f:
         model = pickle.load(f)
