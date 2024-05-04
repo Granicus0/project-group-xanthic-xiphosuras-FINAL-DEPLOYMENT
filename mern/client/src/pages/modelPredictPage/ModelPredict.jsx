@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import './ModelPredict.css';
-import { BarLoader } from 'react-spinners'; // 引入加载动画
+import { BarLoader } from 'react-spinners'; 
 
 
 const ModelPredict = () => {
@@ -11,7 +11,7 @@ const ModelPredict = () => {
     const [headers, setHeaders] = useState([]);
     const [rows, setRows] = useState([]);
     const [preResultText, setPreResultText] = useState("");
-    const [loading, setLoading] = useState(true); // 控制加载动画显示
+    const [loading, setLoading] = useState(true); 
 
     useEffect(() => {
         const socket = io('http://localhost:5050');
@@ -36,16 +36,16 @@ const ModelPredict = () => {
             setHeaders(rearrangedHeaders);
             setRows(rearrangedRows);
             setPreResultText(lines.slice(0, resultIndex).join('\n'));
-            setLoading(false); // 数据加载完成，隐藏加载动画
+            setLoading(false);
             }
         }
     }, [predictUpdates]);
     if (loading) {
         return (
             <div className="loading-container">
-                <div className="loading-text">Predicting Data...</div> {/* 文字 */}
+                <div className="loading-text">Predicting Data...</div> 
                 <div className="loading-spinner">
-                    <BarLoader loading={loading} /> {/* 加载动画 */}
+                    <BarLoader loading={loading} /> 
                 </div>
             </div>
         );
