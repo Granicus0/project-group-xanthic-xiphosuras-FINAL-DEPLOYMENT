@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from 'react';
 import LogoutButton from '../../components/LogoutButton';
-import BacktofileButton from '../../components/BacktofileButton';
+import BackToHomepageButton from '../../components/BackToHomepageButton';
 import "./MakeModel.css";
 import FileUpload from '../../components/FileUpload';
 import StartTrainingButton from '../../components/StartTrainingButton';
@@ -250,7 +250,7 @@ function MakeModel() {
         <div className='scrolllabel-container'>
             <div className='makemodel-page-container'>
                 <div className="makemodel-header">
-                    <BacktofileButton></BacktofileButton>
+                    <BackToHomepageButton></BackToHomepageButton>
                     <h2 className='makemodel-page-header'>Create a New ML Model</h2>
                 </div>
 

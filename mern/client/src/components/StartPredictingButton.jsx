@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import './css/StartPredictingButton.css' 
+import './css/StartPredictingButton.css'
 import { useModelPredict } from "../hooks/useModelPredict";
 import EmptyDataAlert from "./EmptyDataalter";
 import { useDisclosure } from '@chakra-ui/react'
@@ -21,6 +21,7 @@ const StartPredictingButton = ({modelInfo}) => {
             navigate("/modelPredict")
         }
     }
+
     return (
         <>
             <button className='start-predicting-button-component' onClick={handleClick}>
