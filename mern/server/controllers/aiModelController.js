@@ -89,7 +89,7 @@ export const beginModelTraining = async (req, res, io) => {
     //const analyzeCsvPythonProcess = spawn('python', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
     //const schemaPath = 'schemas/' + req.file.filename + '.json'
     //const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', modelId]);
-    const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType]);
+    const pythonProcess = spawn('python', ['-u', pyTrainFile, '-csvp', csvFilePath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType]);
 
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {
