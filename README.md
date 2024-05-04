@@ -30,8 +30,8 @@ That's it! To run the client-side part of the web application, run the following
 
 ```npm run dev```
 
-Install the chakra-ui
-```chakra-ui/react @emotion/react @emotion/styled framer-motion```
+Install React Spinners
+```npm install react-spinners```
 
 
 
