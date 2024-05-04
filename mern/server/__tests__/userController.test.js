@@ -66,7 +66,6 @@ describe('Login and Signup API endpoints', () => {
             }
         });
 
-        // Add more test cases for edge cases, error handling, etc.
     });
 
 });
