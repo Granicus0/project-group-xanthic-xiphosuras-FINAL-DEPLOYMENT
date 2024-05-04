@@ -1,0 +1,77 @@
+
+.predict-page-container {
+    padding-top: 50px;
+    height: 100vh;
+    width: 100vw;
+}
+.predict-page-container .logout-button-component {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    padding: 8px 15px;
+}
+.header-text {
+    font-size: 24px;
+    color: #333; 
+    text-align: center; 
+    margin: 10px 0; 
+    font-family: 'Arial', sans-serif; 
+    font-weight: bold; 
+}
+.result-text-container {
+    text-align: center;
+    margin: 20px auto; 
+    width: 40%; 
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+    border-radius: 8px;
+    white-space: pre-wrap; 
+    overflow-wrap: break-word; 
+    text-align: justify;
+    font-size: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.model-predict-output-container {
+    max-width: 60%; 
+    margin: 20px auto; 
+    overflow-x: auto; 
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2); 
+    padding: 20px; 
+    border-radius: 8px; 
+}
+
+.data-table {
+    width: 100%; 
+    border-collapse: collapse; 
+}
+
+.data-table th, .data-table td {
+    border: 1px solid #ccc; 
+    padding: 10px; 
+    white-space: nowrap;
+    text-align: center; 
+    font-family: 'Arial', sans-serif; 
+}
+
+.data-table thead th {
+    background-color: #282829; 
+    color: white; 
+    font-size: 10px; 
+}
+
+.data-table tbody td {
+    font-size: 10px; 
+    color: #333; 
+}
+
+.data-table tbody tr:nth-child(odd) {
+    background-color: #f9f9f9; 
+}
+
+.data-table tbody tr:hover {
+    background-color: #f1f1f1; 
+}

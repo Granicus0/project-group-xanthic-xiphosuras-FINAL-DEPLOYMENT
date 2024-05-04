@@ -12,7 +12,7 @@ import gfs from 'gridfs-stream'
 export const makrPrediction = async (req, res, io) => {
     const modelId = req.body._id;
     const csvFilePath = 'uploads/' + req.file.filename
-    const pyPredictFile = 'python_demo/testing.py'
+    const pyPredictFile = 'python/testing.py'
     const pythonProcess = spawn('python', [pyPredictFile, '-csvp', csvFilePath, '-id', modelId]);
    
     // Log any errors from executing the python script (bruh this saved so much trouble...)
@@ -78,14 +78,14 @@ export const beginModelTraining = async (req, res, io) => {
     // Grab the CSV file the user has just uploaded
     const csvFilePath = 'uploads/' + req.file.filename
     console.log("Path of user uploaded file: " + csvFilePath)
-    const pyTrainFile = 'python_demo/training.py'
-    //const pyAnalyseFile = 'python_demo/analyse.py'
+    const pyTrainFile = 'python/training.py'
+    //const pyAnalyseFile = 'python/analyse.py'
     console.log("Selected variable for prediction: " + predictVariable)
 
     const process = 'once'
 
 
-    // we do not need to use python_demo/analyse.py to generate schemas anymore it will be done in training.py
+    // we do not need to use python/analyse.py to generate schemas anymore it will be done in training.py
     //const analyzeCsvPythonProcess = spawn('python', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
     //const schemaPath = 'schemas/' + req.file.filename + '.json'
     //const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', modelId]);
@@ -185,7 +185,7 @@ export const deleteModel = async (req, res) => {
         return res.status(404).json({ error: 'No such model' })
     }
 
-    const modelDir = path.join(__dirname, '..', id);
+    const modelDir = path.join(__dirname, '../binary', id);
 
     try {
         const model = await Model.findByIdAndDelete(id);

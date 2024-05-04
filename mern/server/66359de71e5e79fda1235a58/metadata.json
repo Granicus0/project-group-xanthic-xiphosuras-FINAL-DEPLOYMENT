@@ -1,0 +1,29 @@
+{
+    "version": 1,
+    "schema": {
+        "Clump Thickness": "numeric",
+        "Uniformity of Cell Size": "numeric",
+        "Uniformity of Cell Shape": "numeric",
+        "Marginal Adhesion": "numeric",
+        "Single Epithelial Cell Size": "numeric",
+        "Bare Nuclei": "numeric",
+        "Bland Chromatin": "numeric",
+        "Normal Nucleoli": "numeric",
+        "Mitoses": "numeric",
+        "Class": "numeric"
+    },
+    "_label": "Class",
+    "train_result": {
+        "valid_result": {},
+        "mean_squared_error": 0.01758690507216468,
+        "mean_absolute_error": 0.07404272315095392,
+        "r2_score": 0.9226874574973705
+    },
+    "test_result": {
+        "test_1": {
+            "mean_squared_error": 0.020286407470037075,
+            "mean_absolute_error": 0.07615085943929394,
+            "r2_score": 0.9141717482546913
+        }
+    }
+}

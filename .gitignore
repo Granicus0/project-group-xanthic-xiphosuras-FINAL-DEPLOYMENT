@@ -11,6 +11,9 @@ __pycache__/
 9/
 10/
 
+uploads/
+Dataset/
+
 config.env
 .venv
 
