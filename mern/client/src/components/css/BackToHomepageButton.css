@@ -1,0 +1,17 @@
+.back-to-homepage-button-component {
+    background-color: #000000;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 6px 12px; 
+    border-radius: 6px; 
+    font-size: 14px;
+    font-weight: 300; 
+    text-align: center;
+    text-decoration: none; 
+    display: inline-block;
+}
+
+.back-to-homepage-button-component:hover {
+    background-color: #3b3b3b;
+}
