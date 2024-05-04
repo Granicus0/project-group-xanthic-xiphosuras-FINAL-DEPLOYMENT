@@ -24,9 +24,16 @@ const ModelPredict = () => {
             const lines = predictUpdates[0].split('\n');
             const resultIndex = lines.findIndex(line => line.includes("Result:"));
             if (resultIndex !== -1) {
-                setPreResultText(lines.slice(0, resultIndex).join('\n'));
-                setHeaders(lines[resultIndex + 1].split(','));
-                setRows(lines.slice(resultIndex + 2).map(line => line.split(',')));
+            const originalHeaders = lines[resultIndex + 1].split(',');
+            const originalRows = lines.slice(resultIndex + 2).map(line => line.split(','));
+
+            // Rearrange headers and rows
+            const rearrangedHeaders = [...originalHeaders.slice(-1), ...originalHeaders.slice(0, -1)];
+            const rearrangedRows = originalRows.map(row => [...row.slice(-1), ...row.slice(0, -1)]);
+
+            setHeaders(rearrangedHeaders);
+            setRows(rearrangedRows);
+            setPreResultText(lines.slice(0, resultIndex).join('\n'));
             }
         }
     }, [predictUpdates]);
@@ -52,7 +59,7 @@ const ModelPredict = () => {
                         <thead>
                             <tr>
                                 {headers.map((header, index) => (
-                                    <th key={index}>{header}</th> 
+                                    <th key={index} className={index === 0 ? 'highlight-column' : ''}>{header}</th> 
                                 ))}
                             </tr>
                         </thead>
@@ -60,7 +67,7 @@ const ModelPredict = () => {
                             {rows.map((row, index) => (
                                 <tr key={index}>
                                     {row.map((cell, cellIndex) => (
-                                        <td key={cellIndex}>{cell}</td>
+                                        <td key={cellIndex} className={cellIndex === 0 ? 'highlight-cell' : ''}>{cell}</td>
                                     ))}
                                 </tr>
                             ))}

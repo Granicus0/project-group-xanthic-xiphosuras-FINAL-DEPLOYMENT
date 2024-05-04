@@ -1,0 +1,30 @@
+{
+    "version": 1,
+    "schema": {
+        "Sample code number": "numeric",
+        "Clump Thickness": "numeric",
+        "Uniformity of Cell Size": "numeric",
+        "Uniformity of Cell Shape": "numeric",
+        "Marginal Adhesion": "numeric",
+        "Single Epithelial Cell Size": "numeric",
+        "Bare Nuclei": "numeric",
+        "Bland Chromatin": "numeric",
+        "Normal Nucleoli": "numeric",
+        "Mitoses": "numeric",
+        "Class": "numeric"
+    },
+    "_label": "Bland Chromatin",
+    "train_result": {
+        "valid_result": {},
+        "mean_squared_error": 0.017322440216521587,
+        "mean_absolute_error": 0.10004411354862816,
+        "r2_score": 0.765843709191488
+    },
+    "test_result": {
+        "test_1": {
+            "mean_squared_error": 0.018485982307374825,
+            "mean_absolute_error": 0.10378821629579492,
+            "r2_score": 0.7534214610435831
+        }
+    }
+}
