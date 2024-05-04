@@ -33,12 +33,13 @@ if __name__ == "__main__":
     #data=[row.split(",") for row in arguments["csv"].split("\n")]
     dirname = os.getcwd()
     df=parse_csv(args)
-
+    
     # get schema
     if "l" in args.keys():
         schema = get_schemas(df, args["l"])
     else:
         schema = get_schemas(df)
+    
 
 
     metadata=get_metadata(args["id"],dirname)
@@ -59,13 +60,14 @@ if __name__ == "__main__":
     for column, type in schema.items():
         if type=="redundant":
             df=df.drop(columns=column)
-        preproessor[column]= create_preprocess(df,column,type)
+        else:
+            preproessor[column]= create_preprocess(df,column,type)
 
-
-
+    #Train Model
     process=get_process(args["p"])
     print("Starting model training...", flush=True)
-    model, evaluate_result=process(get_model_class(args["m"],schema[label]),df.drop(columns=label),df[label], schema[label],**extra)
+    X_train, y_train = df.drop(columns=label), df[label]
+    model, evaluate_result=process(get_model_class(args["m"],schema[label]),X_train, y_train, schema[label],**extra)
     metadata["train_result"] = evaluate_result
     metadata["test_result"]={} # clear the result of old model
 
