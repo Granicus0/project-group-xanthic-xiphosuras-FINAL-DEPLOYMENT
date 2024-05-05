@@ -30,6 +30,11 @@
   background-color: #3b3b3b;
 }
 
+.back-button{
+  position: fixed;
+  left:20px;
+}
+
 .makemodel-page-header,
 .makemodel-page-sub-header {
   color: black;

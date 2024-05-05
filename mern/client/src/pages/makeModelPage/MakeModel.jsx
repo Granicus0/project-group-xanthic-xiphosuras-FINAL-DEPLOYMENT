@@ -250,7 +250,9 @@ function MakeModel() {
         <div className='scrolllabel-container'>
             <div className='makemodel-page-container'>
                 <div className="makemodel-header">
-                    <BackToHomepageButton></BackToHomepageButton>
+                    <div className="back-button">
+                        <BackToHomepageButton></BackToHomepageButton>
+                    </div>
                     <h2 className='makemodel-page-header'>Create a New ML Model</h2>
                 </div>
 

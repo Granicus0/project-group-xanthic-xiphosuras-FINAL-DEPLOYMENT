@@ -48,7 +48,7 @@ function UserSelectButton({ modelData }) {
                         <img src="/src/assets/image/RF-logo.png" alt="Icon" style={{ width: '20px', height: '20px', marginRight: '5px', verticalAlign: 'middle' }} />
                         Random Forest</button>
                 </div>
-                {showModels()}  // Call `showModels` function to render the ModelGrid based on selected model type             
+                {showModels()}             
             </div>
         </div>
     );

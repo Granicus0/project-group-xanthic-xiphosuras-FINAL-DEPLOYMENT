@@ -44,9 +44,6 @@ function ModelCardv2({modelInfo}) {
           <div className="coin-base">
             <h2>{modelInfo.model_type}</h2>
           </div>
-          <div className="time-left">
-            <p>3 days left</p>
-          </div>
           <button className="remove-button" onClick={handleRemove} disabled={isLoading}>
             {isLoading ? 'Removing...' : 'Remove'}
           </button>

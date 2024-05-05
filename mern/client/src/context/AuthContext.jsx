@@ -36,7 +36,7 @@ export const AuthContextProvider = ({ children }) => {
   // Provide the authentication state and dispatcher to child components
   return (
     <AuthContext.Provider value={{ ...state, dispatch }}>
-      {children} // Render child components that will have access to AuthContext
+      {children}
     </AuthContext.Provider>
   )
 }

@@ -5,16 +5,19 @@ import * as d3 from 'd3';
 import { LiveLinechart } from '../../components/LiveLinechart';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import { float } from 'three/examples/jsm/nodes/shadernode/shadernode';
+import { BarLoader } from 'react-spinners'; 
+import NavToPredictpageButton from '../../components/NavToPredictpageButton';
 
 const ModelProgress = () => {
     const [trainingUpdates, setTrainingUpdates] = useState([]);
     const [chartData, setChartData] = useState([]);
     const [resultData, setResultData] = useState([]);
+    const [loading, setLoading] = useState(true); 
     const svgRef = useRef(null);
     const width = 500;
     const height = 300;
     const margin = { top: 20, right: 20, bottom: 30, left: 50 };
-    const td_width = window.innerWidth * 0.45;
+    const td_width = window.innerWidth * 0.6;
 
     useEffect(() => {
         const socket = io('http://localhost:5050');
@@ -50,29 +53,29 @@ const ModelProgress = () => {
                 return acc;
             }, []);
             setResultData(data2);
+            setLoading(false);
         });
         return () => socket.disconnect();
     }, []);
+
+    if (loading) {
+        return (
+            <div className="loading-container">
+                <div className="loading-text">Training Model...</div> 
+                <div className="loading-spinner">
+                    <BarLoader loading={loading} /> 
+                </div>
+            </div>
+        );
+    }
+
     return (
         <>
-            {/* <div className="model-progress-container">
-                <div className="left-half">
-                    <h2>Model Training Log</h2>
-                    <div className="model-training-output-container">
-                        <div className="model-training-output">
-                            <ul className="update-list">
-                                {trainingUpdates.map((update, index) => (
-                                    <li key={index}>
-                                        <pre>{update}</pre>
-                                    </li>
-                                ))}
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div> */}
             <div className="training-container">
                 <BackToHomepageButton />
+                <div className="predict-right-button">
+                    <NavToPredictpageButton />
+                </div>
                 <div className="training-info-container">
                     <h2 style={{float: 'left'}}>Model Training Process</h2>
                     <div className="chart-container">
@@ -83,7 +86,7 @@ const ModelProgress = () => {
                     
                     <table className='summary-table'>
                         <tr>
-                            <td style={{ width: {td_width}, height: "100px", verticalAlign: 'top', textAlign: 'left', paddingRight: '20px' }}>
+                            <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingRight: '20px' }}>
                                 <h4>Training Summary</h4>
                                 <div className="summary-container">
                                     {resultData.length > 0 && (
@@ -96,7 +99,7 @@ const ModelProgress = () => {
                                     )}
                                 </div>
                             </td>
-                            <td style={{ width: {td_width}, height: "100px", verticalAlign: 'top', textAlign: 'left', paddingLeft: '20px' }}>
+                            <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingLeft: '20px' }}>
                                 <h4>Model Training Log</h4>
                                 <div className="model-training-output-container">
                                     <ul className="update-list">
