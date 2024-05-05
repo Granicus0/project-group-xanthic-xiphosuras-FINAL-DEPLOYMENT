@@ -1,0 +1,45 @@
+{
+    "version": 4,
+    "schema": {
+        "Sample code number": "numeric",
+        "Clump Thickness": "numeric",
+        "Uniformity of Cell Size": "numeric",
+        "Uniformity of Cell Shape": "numeric",
+        "Marginal Adhesion": "numeric",
+        "Single Epithelial Cell Size": "numeric",
+        "Bare Nuclei": "numeric",
+        "Bland Chromatin": "numeric",
+        "Normal Nucleoli": "numeric",
+        "Mitoses": "numeric",
+        "Class": "numeric"
+    },
+    "_label": "Marginal Adhesion",
+    "train_result": {
+        "valid_result": {},
+        "mean_squared_error": 0.006055781501364709,
+        "mean_absolute_error": 0.048755490483162515,
+        "r2_score": 0.9401347177804197
+    },
+    "test_result": {
+        "test_1": {
+            "mean_squared_error": 0.006098851040821837,
+            "mean_absolute_error": 0.0491200324412003,
+            "r2_score": 0.9403778709818472
+        },
+        "test_2": {
+            "mean_squared_error": 0.006098851040821837,
+            "mean_absolute_error": 0.0491200324412003,
+            "r2_score": 0.9403778709818472
+        },
+        "test_3": {
+            "mean_squared_error": 0.006098851040821837,
+            "mean_absolute_error": 0.0491200324412003,
+            "r2_score": 0.9403778709818472
+        },
+        "test_4": {
+            "mean_squared_error": 0.006098851040821837,
+            "mean_absolute_error": 0.0491200324412003,
+            "r2_score": 0.9403778709818472
+        }
+    }
+}

@@ -1,0 +1,35 @@
+{
+    "version": 2,
+    "schema": {
+        "Sample code number": "numeric",
+        "Clump Thickness": "numeric",
+        "Uniformity of Cell Size": "numeric",
+        "Uniformity of Cell Shape": "numeric",
+        "Marginal Adhesion": "numeric",
+        "Single Epithelial Cell Size": "numeric",
+        "Bare Nuclei": "numeric",
+        "Bland Chromatin": "numeric",
+        "Normal Nucleoli": "numeric",
+        "Mitoses": "numeric",
+        "Class": "numeric"
+    },
+    "_label": "Clump Thickness",
+    "train_result": {
+        "valid_result": {},
+        "mean_squared_error": 0.030175214456753405,
+        "mean_absolute_error": 0.1425876692307893,
+        "r2_score": 0.7056216007030218
+    },
+    "test_result": {
+        "test_1": {
+            "mean_squared_error": 0.030175214456753405,
+            "mean_absolute_error": 0.1425876692307893,
+            "r2_score": 0.7056216007030218
+        },
+        "test_2": {
+            "mean_squared_error": 0.030175214456753405,
+            "mean_absolute_error": 0.1425876692307893,
+            "r2_score": 0.7056216007030218
+        }
+    }
+}
