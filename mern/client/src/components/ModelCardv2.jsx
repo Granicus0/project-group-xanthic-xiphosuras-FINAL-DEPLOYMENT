@@ -28,6 +28,7 @@ function ModelCardv2({modelInfo}) {
     const success = await deleteModel(modelInfo._id);
     if (success) {
       console.log("Model deleted successfully.");
+      window.location.reload();
       // Optionally trigger a refresh or redirect here
     }
   };
@@ -40,7 +41,9 @@ function ModelCardv2({modelInfo}) {
       </Link>
       <main className="main-content">
         <h1><a>{modelInfo.model_name}</a></h1>
-        <div className="flex-row">
+        
+      </main>
+      <div className="flex-row">
           <div className="coin-base">
             <h2>{modelInfo.model_type}</h2>
           </div>
@@ -48,7 +51,6 @@ function ModelCardv2({modelInfo}) {
             {isLoading ? 'Removing...' : 'Remove'}
           </button>
         </div>
-      </main>
     </div>
   );
 }

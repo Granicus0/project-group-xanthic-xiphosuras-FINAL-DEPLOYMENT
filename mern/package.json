@@ -5,6 +5,7 @@
     "tailwindcss": "^3.4.3"
   },
   "dependencies": {
-    "@tremor/react": "^3.16.2"
+    "@tremor/react": "^3.16.2",
+    "d3": "^7.9.0"
   }
 }

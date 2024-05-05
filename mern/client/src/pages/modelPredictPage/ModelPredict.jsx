@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
@@ -40,6 +39,7 @@ const ModelPredict = () => {
             }
         }
     }, [predictUpdates]);
+
     if (loading) {
         return (
             <div className="loading-container">
@@ -54,7 +54,30 @@ const ModelPredict = () => {
     if (!headers.length || !rows.length) {
         return <div>Loading data or no data available</div>;
     }
+    
+    const generateCsvContent = () => {
+        let csvContent = "data:text/csv;charset=utf-8,";
+        const cleanedHeaders = headers.map(header => header.replace(/[\r\n]+/g, ' '));
+        csvContent += cleanedHeaders.join(",") + "\n"; 
+        rows.forEach(row => {
+            const cleanedRow = row.map(cell => cell.replace(/[\r\n]+/g, ' '));
+            csvContent += cleanedRow.join(",") + "\n";
+        });
+        return csvContent;
+    };
 
+    
+    const handleDownloadCsv = () => {
+        const csvContent = generateCsvContent();
+        const encodedUri = encodeURI(csvContent);
+        const link = document.createElement("a");
+        link.setAttribute("href", encodedUri);
+        link.setAttribute("download", "predict_data.csv");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
+    
     return (
         <div className="predict-page-container">
             <div className='predict-header'>
@@ -66,7 +89,10 @@ const ModelPredict = () => {
             </div>
 
             <div className='model-predict-output-container'>
-                <p className="table-header">Predict Dataset</p>
+                <div className="table-header">
+                    <p className='table-header-text'>Predict Dataset</p>
+                    <button onClick={handleDownloadCsv} className="download-button">Download CSV</button>
+                </div>
                 <div className="table-container">
                     <table className="data-table">
                         <thead>
@@ -88,8 +114,7 @@ const ModelPredict = () => {
                     </table>
                 </div>
             </div>
-        </div>
-       
+        </div> 
     );
 };
 
