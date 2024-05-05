@@ -28,6 +28,7 @@ function ModelCardv2({modelInfo}) {
     const success = await deleteModel(modelInfo._id);
     if (success) {
       console.log("Model deleted successfully.");
+      window.location.reload();
       // Optionally trigger a refresh or redirect here
     }
   };
