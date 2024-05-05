@@ -1,10 +1,14 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 import './css/BackToHomepageButton.css'
+import useGetModel from '../hooks/useGetModel';
 
-const NavToPredictpageButton = () => {
+const NavToPredictpageButton = async (Model_id) => {
     const navigate = useNavigate()
+    // const { getModel, isLoading, error } = useGetModel();
     
+    // const success = await getModel(Model_id);
+    // console.log(getModel)
     // Define `handleClick` function that navigates to the '/user' route when called
     const handleClick = () => {
         navigate('/useModel')

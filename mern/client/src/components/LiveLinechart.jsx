@@ -55,8 +55,8 @@ export function LiveLinechart({data}) {
               .on('mousemove', event => {
                 setTooltip(prevState => ({
                   ...prevState,
-                  x: event.pageX + 10,
-                  y: event.pageY - 50
+                  x: event.pageX - 100,
+                  y: event.pageY - 100
                 }));
               })
               .on('mouseout', () => {

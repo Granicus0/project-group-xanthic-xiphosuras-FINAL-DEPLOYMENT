@@ -82,5 +82,5 @@ if __name__ == "__main__":
     for key, value in evaluate_result.items():
         if not(key == "valid_result" and len(value)==0):
             print(f"    {key}: {round(value,4)}")
-
+    print("Modelid: " + args['id'])
     
