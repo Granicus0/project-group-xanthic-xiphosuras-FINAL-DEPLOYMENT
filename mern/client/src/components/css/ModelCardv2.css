@@ -7,8 +7,8 @@
   overflow: hidden;
   text-align: center;
   position: relative;
-  height: auto; /* 根据内容调整高度或设置一个固定高度 */
-  padding-bottom: 20px; /* 确保底部有足够空间 */
+  height: auto; 
+  padding-bottom: 20px;
 }
 
 
@@ -78,6 +78,6 @@ overflow-wrap: break-word;
   width: 70px; 
   height: 30px; 
 }
-.modelbutton:hover {
+.remove-button:hover {
 background-color: #e1e4e8; 
 }

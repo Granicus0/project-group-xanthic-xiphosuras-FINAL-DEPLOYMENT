@@ -73,6 +73,10 @@ if __name__ == "__main__":
     # postprocess pred result 
     pred = preprocess[label].inverse_transform(pd.DataFrame({"pred": pred})).flatten()
     row_df["Pred_" + label] = pred
+    
+    if schema[label] == 'numeric':
+
+        row_df["Pred_" + label]=row_df["Pred_" + label].round(3)
 
     if df_have_label: 
         print("Evaluate:")
