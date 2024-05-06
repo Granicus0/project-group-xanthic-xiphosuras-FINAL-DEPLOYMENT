@@ -1,0 +1,1 @@
+cp -r src/assets/image src/assets/models src/assets/textures ./dist/assets

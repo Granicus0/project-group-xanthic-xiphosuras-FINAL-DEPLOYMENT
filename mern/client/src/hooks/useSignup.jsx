@@ -9,6 +9,7 @@ export const useSignup = () => {
     const [isLoading, setIsLoading] = useState(null)
     const { dispatch } = useAuthContext()
     const navigate = useNavigate()
+    const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
 
     const signup = async (name, email, password) => {
         try {
@@ -21,7 +22,7 @@ export const useSignup = () => {
             setError(null)
 
             // This is our actual API request. 
-            const response = await fetch('http://localhost:5050/api/user/signup', {
+            const response = await fetch(`${baseApiRoute}/api/user/signup`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name, email, password })

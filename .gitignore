@@ -20,3 +20,4 @@ config.env
 dev_debug.ipynb
 dev_requirements.txt
 binary/
+dist/
