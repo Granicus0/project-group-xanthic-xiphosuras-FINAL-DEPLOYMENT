@@ -23,11 +23,7 @@ const io = new Server(server, {
     }
 });
 
-app.use(cors(
-  {
-    origin: process.env.FRONTEND_ORIGIN
-  }
-));
+app.use(cors());
 
 // Allows us to grab data from request objects (express will parse request objects into a JSON)
 app.use(express.json());
