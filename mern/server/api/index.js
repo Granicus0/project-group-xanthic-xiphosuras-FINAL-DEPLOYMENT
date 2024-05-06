@@ -23,7 +23,10 @@ const io = new Server(server, {
   }
 });
 
-app.use(cors());
+app.use(cors({
+  origin: process.env.FRONTEND_ORIGIN, 
+  credentials: true, 
+})); 
 
 app.use((req, res, next) => {
   const origin = req.get('referer');
