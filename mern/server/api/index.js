@@ -26,6 +26,8 @@ const io = new Server(server, {
 app.use(cors({
   origin: process.env.FRONTEND_ORIGIN, 
   credentials: true, 
+  methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'] 
+
 })); 
 
 app.use((req, res, next) => {
