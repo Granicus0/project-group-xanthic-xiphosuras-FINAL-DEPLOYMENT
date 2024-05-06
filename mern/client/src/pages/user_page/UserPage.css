@@ -1,8 +1,14 @@
 .scrolllabel-container {
-    height: calc(90vh-50px);
+    height: calc(100hv-50px);
     overflow: auto;
-
+    margin-top: 50px;
 }
+
+.scrolllabel-container::-webkit-scrollbar {
+    width: 0; 
+    background: transparent; 
+}
+  
 .navbar {
     height: 50px; 
     background-color: #f6f8fa; 
@@ -12,19 +18,26 @@
     display: flex;
     justify-content: space-between; 
     align-items: center; 
+    position: fixed; 
+    width: 100%; 
+    z-index: 1000;
+    top: 0;  
+    left: 0;
 }
+
 .left {
     order: 1; 
   }
   
-  .right {
+.right {
     order: 2; 
   }
 
 .user-page-container {
     margin: auto; 
     padding-top: 50px;
-    height: 90vh;
+    padding-bottom: 20px; 
+    height: calc(100vh - 50px);  
     width: 90vw;
     text-align: center
 }
@@ -33,11 +46,13 @@
     color: black;
     text-align: center;
 }
+
 .user-page-sub-header1 {
     font-size: large;
     color: black;
     text-align: center;
 }
+
 .user-page-sub-header2 {
     font-size: medium;
     font-weight:350;

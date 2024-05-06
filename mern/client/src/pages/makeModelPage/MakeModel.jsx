@@ -246,17 +246,16 @@ function MakeModel() {
 
     tl.play();
 
-    return (
-        <div className='scrolllabel-container'>
-            <div className='makemodel-page-container'>
-                <div className="makemodel-header">
-                    <div className="back-button">
-                        <BackToHomepageButton></BackToHomepageButton>
-                    </div>
-                    <h2 className='makemodel-page-header'>Create a New ML Model</h2>
+    return (        
+        <div className='makemodel-page-container'>
+            <div className="makemodel-header">
+                <div className="back-button">
+                    <BackToHomepageButton></BackToHomepageButton>
                 </div>
+                <h2 className='makemodel-page-header'>Create a New ML Model</h2>
+            </div>
 
-            {/* An area for the user to type in what they want to name this model they're about to make */}
+        {/* An area for the user to type in what they want to name this model they're about to make */}
             <div className="makemodel-content-area">
                 <div className="model-name-input">
                     <label htmlFor="model-name">Model Name:</label>
@@ -305,9 +304,9 @@ function MakeModel() {
 
                     {/* Pass in model information to our StartTrainingButton component. */}
                     <StartTrainingButton modelInfo={{ modelName, modelType, uploadedFile, userId, selectedColumn }}></StartTrainingButton>
-                </div>
             </div>
         </div>
+        
     );
 }
 
