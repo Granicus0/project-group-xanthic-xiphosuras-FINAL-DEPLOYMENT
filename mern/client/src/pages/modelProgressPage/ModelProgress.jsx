@@ -33,7 +33,8 @@ const ModelProgress = () => {
             // setChartData(data);
             const data2 = update.split("\n").reduce((acc, line) => {
                 // console.log(line);
-                if (line.includes(":") &&  !(line.includes("Evaluate"))) {
+                if (line.includes(":") &&  !line.includes("Evaluate") && !line.includes("id")) {
+                    console.log(line);
                     const summary_name = line.split(":")[0];
                     const summary_value = parseFloat(line.split(":")[1]);
                     // console.log(summary_name, summary_value);
@@ -77,11 +78,17 @@ const ModelProgress = () => {
                     {/* <NavToPredictpageButton Model_id = {ModelID} /> */}
                 </div>
                 <div className="training-info-container">
-                    <h2 style={{float: 'left'}}>Model Training Process</h2>
+                    <h2 style={{float: 'left', marginTop: '5px', marginBottom: '10px'}}>Model Training Process</h2>
                     <div className="chart-container">
                             {/* Our graph will go on the right half of the screen */}
                             {/* <svg ref={svgRef} width={width} height={height} /> */}
-                            <LiveLinechart data={chartData} />
+                            {chartData.length > 0 ? (
+                                <LiveLinechart data={chartData} />
+                                ) : (
+                                <div className="no-updates-placeholder">
+                                    No training updates available for this model.
+                                </div>
+                            )}
                     </div>
                     
                     <table className='summary-table'>

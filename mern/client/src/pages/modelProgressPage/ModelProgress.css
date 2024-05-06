@@ -132,3 +132,12 @@ td p{
   right:20px;
   top:20px;
 }
+
+.no-updates-placeholder{
+  width: auto;
+  height: 350px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 30px;
+}
