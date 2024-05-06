@@ -42,6 +42,7 @@ app.use(express.json());
 app.use('/api/user', userRoutes)
 app.use('/api/models', modelRoutes(io));
 app.use('/api/TEST', (req, res) => {
+  console.log("Reached test api (/api/TEST)")
   res.json({ msg: 'Base API route works! Note this does not mean the other routes function properly' })
 })
 
