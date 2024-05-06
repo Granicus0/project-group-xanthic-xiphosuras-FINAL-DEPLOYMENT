@@ -41,6 +41,9 @@ app.use(express.json());
 // These are our *BASE* API routes. 
 app.use('/api/user', userRoutes)
 app.use('/api/models', modelRoutes(io));
+app.use('/api/TEST', (req, res) => {
+  res.json({ msg: 'Base API route works! Note this does not mean the other routes function properly' })
+})
 
 
 // Connect to MongoDB via Mongoose
