@@ -6,6 +6,7 @@ const useGetModel = () => {
   // State variable `isLoading` to track the loading status
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState('');
+  const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
 
   // Define an asynchronous function `getModel` to handle the deletion of a model by its ID
   const getModel = async (modelId) => {
@@ -13,7 +14,7 @@ const useGetModel = () => {
     setIsLoading(true);
     try {
       // Make an HTTP get request to a specified endpoint with the model ID
-      const response = await fetch(`http://localhost:5050/api/models/${modelId}`, {
+      const response = await fetch(`${baseApiRoute}/api/models/${modelId}`, {
         method: 'GET'
       });
       // After the request, set `isLoading` to false indicating the process has ended

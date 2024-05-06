@@ -3,6 +3,9 @@ import { useState } from 'react';
 
 // Define a custom hook called `useDeleteModel` for deleting a model entity
 const useDeleteModel = () => {
+
+  const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
+
   // State variable `isLoading` to track the loading status
   const [isLoading, setIsLoading] = useState(false);
   // State variable `error` to store any error messages that may occur during the delete process
@@ -19,7 +22,7 @@ const useDeleteModel = () => {
     setIsLoading(true);
     try {
       // Make an HTTP DELETE request to a specified endpoint with the model ID
-      const response = await fetch(`http://localhost:5050/api/models/${modelId}`, {
+      const response = await fetch(`${baseApiRoute}/api/models/${modelId}`, {
         method: 'DELETE'
       });
       // After the request, set `isLoading` to false indicating the process has ended

@@ -7,7 +7,7 @@ import axios from 'axios'
 export const useModelTrain = () => {
     const [error, setError] = useState(null)
     const [isLoading, setIsLoading] = useState(null)
-
+    const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
     
     const trainModel = async (modelName, modelType, uploadedFile, userId, selectedColumn) => {
 
@@ -24,7 +24,7 @@ export const useModelTrain = () => {
         formData.append('selectedColumn', selectedColumn);
 
         try {
-            const response = await axios.post('http://localhost:5050/api/models/createModel', formData, {
+            const response = await axios.post(`${baseApiRoute}/api/models/createModel`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // Important for file uploads
                 }

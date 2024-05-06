@@ -6,9 +6,11 @@ import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import './MainPage.css'
 
 const MainPage = () => {
+  const assetsFolder = import.meta.env.VITE_ASSETS_FOLDER;
+  
 
   const canvasRef = useRef(null);
-  const logo_r = "src/assets/textures/logo.svg";
+  const logo_r = assetsFolder + "/textures/logo.svg";
   useEffect(() => {
     const scene = new THREE.Scene();
     const meshgroup = new THREE.Group();
@@ -20,7 +22,7 @@ const MainPage = () => {
     const lightcube2 = ["mesh_27", "mesh_30", "mesh_33"];
     const loader = new GLTFLoader();
     loader.load(
-      'src/assets/models/clip_model4.gltf',
+      assetsFolder + '/models/clip_model4.gltf',
       function (gltf) {
         const mesh = gltf.scene
         mesh.scale.set(0.5, 0.5, 0.5)
@@ -212,7 +214,7 @@ const MainPage = () => {
           To get started, create an account, and instantly start training your own models.
         </p>
         <br></br>
-        <p clasName="about-description">
+        <p className="about-description">
         Happy (machine) learning!
         </p>
 

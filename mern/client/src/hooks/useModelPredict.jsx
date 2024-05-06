@@ -11,6 +11,7 @@ export const useModelPredict = () => {
     const [error, setError] = useState(null)
     // State variable `isLoading` to indicate whether a prediction is in progress
     const [isLoading, setIsLoading] = useState(null)
+    const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
 
     // Define an asynchronous function `predictModel` to send a file for prediction
     const predictModel = async (_id, uploadedFile) => {
@@ -26,7 +27,7 @@ export const useModelPredict = () => {
 
         try {
             // Make a POST request using axios to the server's prediction endpoint
-            const response = await axios.post('http://localhost:5050/api/models/predictModel', formData, {
+            const response = await axios.post(`${baseApiRoute}/api/models/predictModel`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data' // Set content type for file upload
                 }
