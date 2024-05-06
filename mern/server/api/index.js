@@ -18,13 +18,13 @@ const io = new Server(server, {
   // policies. If you don't know what CORS is you can visit this link: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
   // This basically allows the frontend to bypass CORS for GET and POST requests (remember the front-end is hosted on port 5173, and our backend server is hosted on port 5050)
   cors: {
-    origin: process.env.FRONTEND_ORIGIN,
+    origin: '*',
     methods: ["GET", "POST"]
   }
 });
 
 app.use(cors({
-  origin: process.env.FRONTEND_ORIGIN, 
+  origin: '*', 
   credentials: true, 
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'] 
 
