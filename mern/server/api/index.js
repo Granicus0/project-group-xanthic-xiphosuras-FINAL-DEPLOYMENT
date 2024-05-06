@@ -1,8 +1,8 @@
 import express from "express";
 import cors from "cors";
 import mongoose from 'mongoose'
-import userRoutes from './routes/user.js'
-import modelRoutes from './routes/model.js';
+import userRoutes from '../routes/user.js'
+import modelRoutes from '../routes/model.js';
 import { createServer } from 'http'
 import { Server } from 'socket.io'
 
@@ -17,13 +17,23 @@ const io = new Server(server, {
   // It's very important you leave this. Our React front end *cannot* communicate with the server as it's hosted on a different origin which violates CORS
   // policies. If you don't know what CORS is you can visit this link: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
   // This basically allows the frontend to bypass CORS for GET and POST requests (remember the front-end is hosted on port 5173, and our backend server is hosted on port 5050)
-    cors: {
-        origin: process.env.FRONTEND_ORIGIN, 
-        methods: ["GET", "POST"]
-    }
+  cors: {
+    origin: process.env.FRONTEND_ORIGIN,
+    methods: ["GET", "POST"]
+  }
 });
 
 app.use(cors());
+
+app.use((req, res, next) => {
+  const origin = req.get('referer');
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
+  res.setHeader('Access-Control-Allow-Credentials', true);
+  if (req.method === 'OPTIONS') res.sendStatus(200);
+  else next();
+});
 
 // Allows us to grab data from request objects (express will parse request objects into a JSON)
 app.use(express.json());
