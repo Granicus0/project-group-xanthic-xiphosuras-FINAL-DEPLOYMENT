@@ -28,19 +28,6 @@ app.use(cors());
 // Allows us to grab data from request objects (express will parse request objects into a JSON)
 app.use(express.json());
 
-app.use((req, res, next) => {
-  if (req.method === 'OPTIONS') {
-    res.set({
-      'Access-Control-Allow-Origin': process.env.FRONTEND_ORIGIN,
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',  
-      'Access-Control-Allow-Headers': 'Content-Type, Authorization' 
-    });
-    return res.sendStatus(200); 
-  }
-
-  next(); 
-});
-
 // These are our *BASE* API routes. 
 app.use('/api/user', userRoutes)
 app.use('/api/models', modelRoutes(io));
