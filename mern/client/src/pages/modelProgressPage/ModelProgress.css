@@ -81,7 +81,7 @@
 }
 
 .summary-table{
-  height: 200px;
+  height: auto;
   display: flex;
   justify-content: center;
   text-align: center;

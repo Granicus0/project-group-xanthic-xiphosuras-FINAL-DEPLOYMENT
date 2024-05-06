@@ -2,10 +2,13 @@ import React from 'react';
 import './css/ModelCardv2.css';
 import { Link } from 'react-router-dom';
 import useDeleteModel from '../hooks/useDeleteModel';
+import DeleteDataAlert from './DeleteDataalter';
+import { useDisclosure } from '@chakra-ui/react'
 
 // This component is just a neat UI element that displays information about a user's model. It takes in modelInfo, which just has a 
 // model_name and model_type string and displays it. This card component is present on the user page when they log in.
 function ModelCardv2({modelInfo}) {
+  const { isOpen, onOpen, onClose } = useDisclosure()
   let imageUrl;
   
   switch (modelInfo.model_type) {
@@ -50,6 +53,7 @@ function ModelCardv2({modelInfo}) {
           <button className="remove-button" onClick={handleRemove} disabled={isLoading}>
             {isLoading ? 'Removing...' : 'Remove'}
           </button>
+          <DeleteDataAlert Button_info={{ isOpen, onClose }}/>
         </div>
     </div>
   );

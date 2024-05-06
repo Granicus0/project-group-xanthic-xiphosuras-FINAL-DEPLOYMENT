@@ -20,21 +20,23 @@ const ModelProgress = () => {
 
         socket.on('training_update', (update) => {
             setTrainingUpdates(prevUpdates => [...prevUpdates, update]);
-            console.log(update);
             const data = update.split("\n").reduce((acc, line) => {
                 if (line.includes("Iteration")) {
                     const iteration = parseInt(line.split(" ")[1]);
                     const loss = parseFloat(line.split("loss = ")[1]);
+                    console.log(iteration, loss);
                     acc.push({ iteration, loss });
                 }
                 return acc;
             }, []);
-            setChartData(data);
+            setChartData(prevData => [...prevData, ...data]);
+            // setChartData(data);
             const data2 = update.split("\n").reduce((acc, line) => {
                 // console.log(line);
                 if (line.includes(":") &&  !(line.includes("Evaluate"))) {
                     const summary_name = line.split(":")[0];
                     const summary_value = parseFloat(line.split(":")[1]);
+                    // console.log(summary_name, summary_value);
                     acc.push({ summary_name, summary_value });
                 }
                 return acc;
