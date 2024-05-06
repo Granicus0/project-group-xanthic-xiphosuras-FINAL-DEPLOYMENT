@@ -14,9 +14,9 @@ const useDeleteModel = () => {
   // Define an asynchronous function `deleteModel` to handle the deletion of a model by its ID
   const deleteModel = async (modelId) => {
     // Use a confirmation dialog to ensure user wants to proceed with deletion
-    if (!window.confirm("Are you sure you want to delete this model?")) {
-      return false; // If user cancels, return false and do not proceed
-    }
+    // if (!window.confirm("Are you sure you want to delete this model?")) {
+    //   return false; // If user cancels, return false and do not proceed
+    // }
 
     // Set `isLoading` to true indicating the start of a deletion process
     setIsLoading(true);

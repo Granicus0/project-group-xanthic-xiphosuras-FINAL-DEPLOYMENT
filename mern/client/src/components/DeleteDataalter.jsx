@@ -13,7 +13,7 @@ import {
   } from '@chakra-ui/react'
 
 // Define a React functional component `EmptyDataAlert` that takes `Button_info` as a prop
-const DeleteDataAlert = ({Button_info}) => {
+const DeleteDataAlert = ({Button_info, handleDelete }) => {
     return (
         // ChakraProvider component to enable Chakra UI styling within the AlertDialog
         <ChakraProvider>
@@ -29,19 +29,25 @@ const DeleteDataAlert = ({Button_info}) => {
                     <AlertDialogContent>
                         {/* Header of the dialog with custom font settings */}
                         <AlertDialogHeader fontSize="lg" fontWeight="bold">
-                            No Data Found
+                            Delete Model
                         </AlertDialogHeader>
                         {/* Close button in the header */}
                         <AlertDialogCloseButton />
                         {/* Body of the dialog containing a message */}
                         <AlertDialogBody>
-                            Please upload a file first!
+                            Are you sure? You can't undo this action afterwards.
                         </AlertDialogBody>
                         {/* Footer of the dialog containing a close button */}
                         <AlertDialogFooter>
                             {/* Button that triggers the `onClose` function when clicked */}
                             <Button onClick={Button_info.onClose}>
-                                Close
+                                No
+                            </Button>
+                            <Button colorScheme='red' ml={3}onClick={() => {
+                                handleDelete();  // Call the delete function
+                                onClose();       // Close the dialog after deletion
+                            }}>
+                                Yes
                             </Button>
                         </AlertDialogFooter>
                     </AlertDialogContent>

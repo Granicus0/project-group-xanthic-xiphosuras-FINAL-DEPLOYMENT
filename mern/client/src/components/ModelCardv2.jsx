@@ -50,10 +50,10 @@ function ModelCardv2({modelInfo}) {
           <div className="coin-base">
             <h2>{modelInfo.model_type}</h2>
           </div>
-          <button className="remove-button" onClick={handleRemove} disabled={isLoading}>
+          <button className="remove-button" onClick={onOpen} disabled={isLoading}>
             {isLoading ? 'Removing...' : 'Remove'}
           </button>
-          <DeleteDataAlert Button_info={{ isOpen, onClose }}/>
+          <DeleteDataAlert Button_info={{ isOpen, onClose }} handleDelete={handleRemove}/>
         </div>
     </div>
   );
