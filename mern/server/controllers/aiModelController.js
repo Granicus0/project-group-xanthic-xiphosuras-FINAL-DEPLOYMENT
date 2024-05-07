@@ -10,6 +10,7 @@ import { fileURLToPath } from 'url';
 import gfs from 'gridfs-stream'
 import { ObjectId, UUID } from 'mongodb';
 import db from '../db/connection.js';
+import { mode } from 'd3';
 
 export const makrPrediction = async (req, res, io) => {
     const modelId = req.body._id;
@@ -56,7 +57,7 @@ export const beginModelTraining = async (req, res, io) => {
     if (!existingUser) {
         return res.status(404).json({ error: "User not found" });
     }
-
+    res.status(200).json({ model_id: modelId })
     console.log("Training request recieved for: " + modelName + " of type: " + modelType + " from: " + userId)
 
     // files uploaded by the user are temporarily stored in /server/uploads. Use this folder to retrieve the CSV file.
@@ -93,12 +94,11 @@ export const beginModelTraining = async (req, res, io) => {
         // ANY data that has been printed to the console from ANY of the python files executed will be captured here and converted to a string
         const update = data.toString();
         // Log the output to the console for our own sake (debugging mainly)
-        console.log(`Python output: ${update}`);
 
         // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
         // This 'training_update' string is special! Notice how this is the *exact same string* that is inside of 
         // client/pages/modelProgressPage/ModelProgress.jsx
-        io.emit('training_update@'+userId, update);
+        io.emit('training_update@'+modelId, update);
     });
 
     pythonProcess.on('close', async (code) => {

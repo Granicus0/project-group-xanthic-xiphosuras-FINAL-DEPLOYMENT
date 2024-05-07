@@ -30,12 +30,15 @@ export const useModelTrain = () => {
                 }
             });
             console.log("Training started: ", response);
+
+
+            return response.data.model_id
         } catch (error) {
             console.error("Error starting training:", error);
         }
-
+       
      
     }
-
+    
     return { trainModel, isLoading, error }
 }
