@@ -32,6 +32,7 @@
     "socket.io": "^4.7.5",
     "socket.io-client": "^4.7.5",
     "three": "^0.163.0",
+    "uuid": "^9.0.1",
     "vercel": "^34.1.8"
   },
   "devDependencies": {

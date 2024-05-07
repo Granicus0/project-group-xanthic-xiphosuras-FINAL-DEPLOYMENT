@@ -17,7 +17,8 @@ export const makrPrediction = async (req, res, io) => {
     const csvFilePath = 'uploads/' + req.file.filename
     const pyPredictFile = 'python/testing.py'
     const pythonProcess = spawn('python', [pyPredictFile, '-csvp', csvFilePath, '-id', modelId]);
-   
+    const socketId = req.body.socketId;
+    
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Python error: ${data}`);
@@ -34,8 +35,7 @@ export const makrPrediction = async (req, res, io) => {
         // This 'predict_update' string is special! Notice how this is the *exact same string* that is inside of 
         // client/pages/modelProgressPage/ModelProgress.jsx
        
-        io.emit('predict_update@'+modelId, update);
-        console.log('predict_update@'+modelId)
+        io.emit('predict_update@'+socketId, update);
     });
 
     pythonProcess.on('close', (code) => {

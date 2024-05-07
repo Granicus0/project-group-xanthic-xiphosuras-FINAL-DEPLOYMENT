@@ -14,7 +14,7 @@ export const useModelPredict = () => {
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
 
     // Define an asynchronous function `predictModel` to send a file for prediction
-    const predictModel = async (_id, uploadedFile) => {
+    const predictModel = async (_id, uploadedFile,socket_id) => {
         // Set loading state to true at the start of the function
         setIsLoading(true)
         // Clear any previous errors at the start of a new prediction attempt
@@ -24,7 +24,7 @@ export const useModelPredict = () => {
         const formData = new FormData();
         formData.append('_id', _id); // Append model ID to the form data
         formData.append('csvFile', uploadedFile); // Append file to be predicted
-
+        formData.append('socketId', socket_id);// Append the socket id for message exchange
         try {
             // Make a POST request using axios to the server's prediction endpoint
             const response = await axios.post(`${baseApiRoute}/api/models/predictModel`, formData, {

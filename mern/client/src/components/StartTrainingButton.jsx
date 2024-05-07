@@ -3,8 +3,8 @@ import { useModelTrain } from "../hooks/useModelTrain";
 import './css/StartTrainingButton.css'
 import EmptyDataAlert from "./EmptyDataalter";
 import EmptyColumnalert from "./EmptyColumnalert";
-import { useDisclosure } from '@chakra-ui/react'
-
+import { useDisclosure } from '@chakra-ui/react';
+import { v4 as uuidv4 } from 'uuid';
 // This button component takes in model information and sends it to the database to create a new model.
 const StartTrainingButton = ({ modelInfo }) => {
     const { isOpen: isOpenDataAlert, onOpen: onDataAlertOpen, onClose: onDataAlertClose } = useDisclosure();
@@ -20,7 +20,7 @@ const StartTrainingButton = ({ modelInfo }) => {
         } else if (modelInfo.selectedColumn === "") {
             onColumnAlertOpen();
         } else {
-            let socket_id = modelInfo.userId;
+            const socket_id = uuidv4();
             trainModel(modelInfo.modelName, modelInfo.modelType, modelInfo.uploadedFile, modelInfo.userId, modelInfo.selectedColumn, socket_id)
             navigate("/modelProgress", { state: { socket_id: socket_id } })
 

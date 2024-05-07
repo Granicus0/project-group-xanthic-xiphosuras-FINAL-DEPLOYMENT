@@ -3,7 +3,7 @@ import './css/StartPredictingButton.css'
 import { useModelPredict } from "../hooks/useModelPredict";
 import EmptyDataAlert from "./EmptyDataalter";
 import { useDisclosure } from '@chakra-ui/react'
-
+import { v4 as uuidv4 } from 'uuid';
 // A button to start predicting once a user has chosen a model on their model page.
 // ************NOT YET IMPLEMENTED*************
 const StartPredictingButton = ({modelInfo}) => {
@@ -17,8 +17,9 @@ const StartPredictingButton = ({modelInfo}) => {
             // alert("Please upload a file first!")
         }
         else{
-            predictModel(modelInfo._id, modelInfo.uploadedFile)
-            navigate("/modelPredict", { state: { model_id: modelInfo._id } })
+            const socket_id = uuidv4();
+            predictModel(modelInfo._id, modelInfo.uploadedFile,socket_id)
+            navigate("/modelPredict", { state: { socket_id : socket_id } })
         }
     }
 
