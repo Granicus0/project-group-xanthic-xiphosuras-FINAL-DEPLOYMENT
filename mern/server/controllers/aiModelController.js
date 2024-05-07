@@ -116,14 +116,14 @@ export const beginModelTraining = async (req, res, io) => {
                 await newModel.save()
             } catch (error) {
                 console.log(error.message);
-                return res.status(400).json({ error: error.message });
+                //return res.status(400).json({ error: error.message });
             }
             console.log(`Model training success. Python process exited with code ${code}`);
-            return res.status(200).send("Model tarining complete");
+            //return res.status(200).send("Model tarining complete");
         }
         else{
             console.log(`Model training failed. Python process exited with code ${code}`);
-            return res.status(400).send("Model tarining incomplete");
+            //return res.status(400).send("Model tarining incomplete");
         }
         
     });
