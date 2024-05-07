@@ -98,7 +98,7 @@ export const beginModelTraining = async (req, res, io) => {
         // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
         // This 'training_update' string is special! Notice how this is the *exact same string* that is inside of 
         // client/pages/modelProgressPage/ModelProgress.jsx
-        io.emit('training_update', update);
+        io.emit('training_update@'+userId, update);
     });
 
     pythonProcess.on('close', async (code) => {
