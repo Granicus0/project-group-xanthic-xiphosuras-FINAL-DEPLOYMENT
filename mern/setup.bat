@@ -11,10 +11,6 @@ echo Initializing Tailwind CSS configuration...
 npx tailwindcss init -p
 
 :: **MERN Subdirectory Installations**
-echo Installing dependencies in the 'mern' directory...
-cd mern
-npm install
-
 echo Installing dependencies in the 'server' directory...
 cd server
 npm install
