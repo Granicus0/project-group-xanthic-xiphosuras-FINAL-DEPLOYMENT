@@ -8,6 +8,8 @@ import fs from 'fs'
 import path from 'path';
 import { fileURLToPath } from 'url';
 import gfs from 'gridfs-stream'
+import { ObjectId, UUID } from 'mongodb';
+import db from '../db/connection.js';
 
 export const makrPrediction = async (req, res, io) => {
     const modelId = req.body._id;
@@ -47,28 +49,12 @@ export const beginModelTraining = async (req, res, io) => {
     const modelType = req.body.modelType;
     const userId = req.body.userId;
     const predictVariable = req.body.selectedColumn
-    let modelId; // Declare the variable outside the try-catch block to widen its scope
+    const modelId=new ObjectId(); // Declare the variable outside the try-catch block to widen its scope
 
-    try {
-        // check if the referenced user exists
-        const existingUser = await User.findById(userId);
-        if (!existingUser) {
-            return res.status(404).json({ error: "User not found" });
-        }
-
-        // Create the model document in the database
-        const newModel = await Model.create({
-            model_name: modelName,
-            model_type: modelType,
-            user: userId,  // This assumes that userId is correctly formatted as an ObjectId
-            model_address : predictVariable //This isn't model_address, but instead it's the label that the user want to predict.
-        });
-
-        // Accessing the ObjectId of the newly created model
-        modelId = newModel._id;
-
-    } catch (error) {
-        res.status(400).json({ error: error.message });
+    // check if the referenced user exists
+    const existingUser = await User.findById(userId);
+    if (!existingUser) {
+        return res.status(404).json({ error: "User not found" });
     }
 
     console.log("Training request recieved for: " + modelName + " of type: " + modelType + " from: " + userId)
@@ -115,9 +101,31 @@ export const beginModelTraining = async (req, res, io) => {
         io.emit('training_update', update);
     });
 
-    pythonProcess.on('close', (code) => {
-        console.log(`Model training finished. Python process exited with code ${code}`);
-        res.status(200).send("Model tarining complete");
+    pythonProcess.on('close', async (code) => {
+        console.log(`Model training success. Python process exited with code ${code}`);
+        if(code==0){
+            try {
+                // Create the model document in the database
+                const newModel=new Model({
+                    _id:modelId,
+                    model_name: modelName,
+                    model_type: modelType,
+                    user: userId,  // This assumes that userId is correctly formatted as an ObjectId
+                    model_address : predictVariable //This isn't model_address, but instead it's the label that the user want to predict.
+                })
+                await newModel.save()
+            } catch (error) {
+                console.log(error.message);
+                return res.status(400).json({ error: error.message });
+            }
+            console.log(`Model training success. Python process exited with code ${code}`);
+            return res.status(200).send("Model tarining complete");
+        }
+        else{
+            console.log(`Model training failed. Python process exited with code ${code}`);
+            return res.status(400).send("Model tarining incomplete");
+        }
+        
     });
 
 };
