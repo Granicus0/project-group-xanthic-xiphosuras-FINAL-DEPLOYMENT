@@ -51,6 +51,7 @@ const ModelProgress = () => {
                     console.log("LINE CONTAINTS: " + line)
                     // Extract model_id and ensure it's a string with trimmed spaces
                     const model_id = line.split(":")[1].trim().toString();
+                    // console.log('ModelID:', ModelID, 'Type:', typeof ModelID);
                     setModelID(model_id);
                     console.log(typeof model_id);
                     return model_id; // Return the found model_id

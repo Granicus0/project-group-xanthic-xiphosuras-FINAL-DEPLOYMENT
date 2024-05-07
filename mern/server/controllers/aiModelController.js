@@ -16,9 +16,9 @@ export const makrPrediction = async (req, res, io) => {
     const modelId = req.body._id;
     const csvFilePath = 'uploads/' + req.file.filename
     const pyPredictFile = 'python/testing.py'
-    const pythonProcess = spawn('python', [pyPredictFile, '-csvp', csvFilePath, '-id', modelId]);
+    const pythonProcess = spawn('python3', [pyPredictFile, '-csvp', csvFilePath, '-id', modelId]);
     const socketId = req.body.socketId;
-    
+
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {
         console.error(`Python error: ${data}`);
@@ -34,8 +34,8 @@ export const makrPrediction = async (req, res, io) => {
         // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
         // This 'predict_update' string is special! Notice how this is the *exact same string* that is inside of 
         // client/pages/modelProgressPage/ModelProgress.jsx
-       
-        io.emit('predict_update@'+socketId, update);
+
+        io.emit('predict_update@' + socketId, update);
     });
 
     pythonProcess.on('close', (code) => {
@@ -53,8 +53,8 @@ export const beginModelTraining = async (req, res, io) => {
     const userId = req.body.userId;
     const socketId = req.body.socketId;
     const predictVariable = req.body.selectedColumn
-    const modelId=new ObjectId(); // Declare the variable outside the try-catch block to widen its scope
-    
+    const modelId = new ObjectId(); // Declare the variable outside the try-catch block to widen its scope
+
     // check if the referenced user exists
     const existingUser = await User.findById(userId);
     if (!existingUser) {
@@ -71,14 +71,14 @@ export const beginModelTraining = async (req, res, io) => {
     //const pyAnalyseFile = 'python/analyse.py'
     console.log("Selected variable for prediction: " + predictVariable)
 
-     const process = 'once'
+    const process = 'once'
 
 
     // we do not need to use python/analyse.py to generate schemas anymore it will be done in training.py
     //const analyzeCsvPythonProcess = spawn('python', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
     //const schemaPath = 'schemas/' + req.file.filename + '.json'
     //const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', modelId]);
-    const pythonProcess = spawn('python', ['-u', pyTrainFile, '-csvp', csvFilePath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType]);
+    const pythonProcess = spawn('python3', ['-u', pyTrainFile, '-csvp', csvFilePath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType]);
 
     // Log any errors from executing the python script (bruh this saved so much trouble...)
     pythonProcess.stderr.on('data', (data) => {
@@ -100,20 +100,23 @@ export const beginModelTraining = async (req, res, io) => {
         // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
         // This 'training_update' string is special! Notice how this is the *exact same string* that is inside of 
         // client/pages/modelProgressPage/ModelProgress.jsx
-        io.emit('training_update@'+socketId, update);
+        io.emit('training_update@' + socketId, update);
     });
 
     pythonProcess.on('close', async (code) => {
-        console.log(`Model training success. Python process exited with code ${code}`);
-        if(code==0){
+        console.log("TYPE OF CODE: ")
+        console.log(typeof(code));
+
+        if (code == 0) {
             try {
                 // Create the model document in the database
-                const newModel=new Model({
-                    _id:modelId,
+                console.log("MODEL ID SAVED: " + modelId)
+                const newModel = new Model({
+                    _id: modelId,
                     model_name: modelName,
                     model_type: modelType,
                     user: userId,  // This assumes that userId is correctly formatted as an ObjectId
-                    model_address : predictVariable //This isn't model_address, but instead it's the label that the user want to predict.
+                    model_address: predictVariable //This isn't model_address, but instead it's the label that the user want to predict.
                 })
                 await newModel.save()
             } catch (error) {
@@ -123,11 +126,11 @@ export const beginModelTraining = async (req, res, io) => {
             console.log(`Model training success. Python process exited with code ${code}`);
             return res.status(200).send("Model tarining complete");
         }
-        else{
+        else {
             console.log(`Model training failed. Python process exited with code ${code}`);
             return res.status(400).send("Model tarining incomplete");
         }
-        
+
     });
 
 };
@@ -186,7 +189,7 @@ export const updateModel = async (req, res) => {
 // Delete a model
 export const deleteModel = async (req, res) => {
     logger.logRequestDetails(req);
-    
+
     const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
     const { id } = req.params;
@@ -217,7 +220,7 @@ export const deleteModel = async (req, res) => {
                 console.error(`Error while attempting to delete directory: ${dirError}`);
             }
         }
-        
+
         res.status(200).json({ message: "Model deleted successfully" });
     } catch (error) {
         res.status(400).json({ error: error.message });
