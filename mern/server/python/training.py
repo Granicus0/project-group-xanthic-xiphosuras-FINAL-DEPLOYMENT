@@ -54,7 +54,7 @@ if __name__ == "__main__":
     if addition_extra is not None:
         extra.update(addition_extra)
 
-    print("Starting data preprocessing...", flush=True)
+    print("Starting data preprocessing..." + args['id'], flush=True)
     df=df[schema.keys()]
     preproessor={}
     for column, type in schema.items():
@@ -81,6 +81,6 @@ if __name__ == "__main__":
     print("Evaluate Result: ")
     for key, value in evaluate_result.items():
         if not(key == "valid_result" and len(value)==0):
-            print(f"    {key}: {round(value,4)}")
+            print(f"    {key}: {round(value,4)}" + f" ${args['id']}")
     print("Modelid: " + args['id'])
     

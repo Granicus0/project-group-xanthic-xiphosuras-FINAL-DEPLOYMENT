@@ -5,7 +5,7 @@ import * as d3 from 'd3';
 import { LiveLinechart } from '../../components/LiveLinechart';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import { BarLoader } from 'react-spinners'; 
-// import NavToPredictpageButton from '../../components/NavToPredictpageButton';
+import NavToPredictpageButton from '../../components/NavToPredictpageButton';
 import { set } from 'lodash';
 
 const ModelProgress = () => {
@@ -13,12 +13,11 @@ const ModelProgress = () => {
     const [chartData, setChartData] = useState([]);
     const [resultData, setResultData] = useState([]);
     const [loading, setLoading] = useState(true); 
-    // const [ModelID, setModelID] = useState();
+    const [ModelID, setModelID] = useState();
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
 
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
-
         socket.on('training_update', (update) => {
             setTrainingUpdates(prevUpdates => [...prevUpdates, update]);
             const data = update.split("\n").reduce((acc, line) => {
@@ -44,17 +43,19 @@ const ModelProgress = () => {
                 return acc;
             }, []);
             setResultData(data2);
-            // const data3 = update.split("\n").reduce((acc, line) => {
-            //     if (line.includes("Modelid")) {
-            //         // Extract model_id and ensure it's a string with trimmed spaces
-            //         const model_id = line.split(":")[1].slice(1, -1).trim();
-            //         console.log('ModelID:', ModelID, 'Type:', typeof ModelID);
-            //         return model_id; // Return the found model_id
-            //     }
-            //     return acc; // Keep the existing accumulator
-            // }, ""); // Initialize acc as a string to keep the data type consistent
-            
-            // setModelID(data3);
+            const data3 = update.split("\n").reduce((acc, line) => {
+                if (line.includes("Modelid")) {
+                    // Extract model_id and ensure it's a string with trimmed spaces
+                    const model_id = line.split(":")[1].slice(1, -1).trim().toString();
+                    // console.log('ModelID:', ModelID, 'Type:', typeof ModelID);
+                    setModelID(model_id);
+                    console.log(typeof model_id);
+                    return model_id; // Return the found model_id
+                }
+                return acc; // Keep the existing accumulator
+            }, ""); // Initialize acc as a string to keep the data type consistent
+            console.log('ModelID:', ModelID, 'Type:', typeof ModelID);
+            console.log(data3);
             setLoading(false);
         });
         return () => socket.disconnect();
@@ -76,10 +77,11 @@ const ModelProgress = () => {
             <div className="training-container">
                 <BackToHomepageButton />
                 <div className="predict-right-button">
+                    {typeof ModelID === 'string' ? <NavToPredictpageButton Model_id = {ModelID} /> : null}
                     {/* <NavToPredictpageButton Model_id = {ModelID} /> */}
                 </div>
                 <div className="training-info-container">
-                    <h2 style={{float: 'left', marginTop: '5px', marginBottom: '10px'}}>Model Training Process</h2>
+                    <h2 style={{float: 'left', marginTop: '5px', marginBottom: '10px'}}>Model Training Progress</h2>
                     <div className="chart-container">
                             {/* Our graph will go on the right half of the screen */}
                             {/* <svg ref={svgRef} width={width} height={height} /> */}
