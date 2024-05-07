@@ -14,13 +14,13 @@ export const useLogin = () => {
     const navigate = useNavigate();
 
     const login = async (email, password) => {
-        
+
         setIsLoading(true)
         setError(null)
 
         // This is our actual API request.
         const response = await fetch(`${baseApiRoute}/api/user/login`, {
-            method: 'POST',
+             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
         })
