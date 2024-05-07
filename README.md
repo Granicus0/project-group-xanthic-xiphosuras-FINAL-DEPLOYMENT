@@ -25,6 +25,7 @@ This is a project that utilizes the [MERN](https://www.mongodb.com/mern-stack) s
 - Run the following commands inside of the ``mern`` directory:
 ```npm install d3```
 
+
 That's it! To run the client-side part of the web application, run the following command inside of the ``client`` folder under the ``mern`` directory:
 
 
