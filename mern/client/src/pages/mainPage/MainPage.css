@@ -60,8 +60,6 @@ nav a {
   position: absolute;
   top: 30%;
   left: 5%;
-  /* transform: translate(-30%, -20%); */
-  /* -webkit-text-stroke: 1px black; */
   font-size: 3rem;
 }
 
@@ -71,8 +69,6 @@ nav a {
   position: absolute;
   top: 40%;
   left: 5%;
-  /* transform: translate(-30%, -20%); */
-  /* -webkit-text-stroke: 1px black; */
   font-size: 4rem;
 }
 

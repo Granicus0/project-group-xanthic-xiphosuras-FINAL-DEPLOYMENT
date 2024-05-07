@@ -25,8 +25,10 @@ const ModelPredict = () => {
     useEffect(() => {
         if (predictUpdates.length > 0) {
             const lines = predictUpdates[0].split('\n');
+            //start the table from the result: below
             const resultIndex = lines.findIndex(line => line.includes("Result:"));
             if (resultIndex !== -1) {
+            //define the table headers and rows
             const originalHeaders = lines[resultIndex + 1].split(',');
             const originalRows = lines.slice(resultIndex + 2).map(line => line.split(','));
 
@@ -57,6 +59,7 @@ const ModelPredict = () => {
         return <div>Loading data or no data available</div>;
     }
     
+    //generate a csv file of the predict dataset
     const generateCsvContent = () => {
         let csvContent = "data:text/csv;charset=utf-8,";
         const cleanedHeaders = headers.map(header => header.replace(/[\r\n]+/g, ' '));
@@ -68,7 +71,7 @@ const ModelPredict = () => {
         return csvContent;
     };
 
-    
+    //set csv download fuction
     const handleDownloadCsv = () => {
         const csvContent = generateCsvContent();
         const encodedUri = encodeURI(csvContent);

@@ -13,7 +13,7 @@
 }
 .hero-image-container{
   display: flex;
-  justify-content: center;  /* 水平居中内容 */
+  justify-content: center; 
   width: 100%;  
 }
 .model-image {

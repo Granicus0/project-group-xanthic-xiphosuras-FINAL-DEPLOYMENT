@@ -1,5 +1,4 @@
-.create-model-button-component {
-    
+.create-model-button-component {    
     padding: 6px 12px; 
     background-color: #eff3f6; 
     border: 1px solid rgba(27, 31, 35, 0.15);
@@ -10,8 +9,7 @@
     text-align: center; 
     cursor: pointer; 
     text-decoration: none; 
-    display: inline-block; 
-    
+    display: inline-block;    
 }
 
 .create-model-button-component:hover {

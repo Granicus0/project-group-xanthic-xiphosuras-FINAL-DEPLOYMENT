@@ -29,7 +29,7 @@
     background-color: #000000;
     width: 20rem;
     height: 30rem;
-    border-radius: 0.4rem;
+    border-radius: 1rem;
     box-shadow: 0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
@@ -97,8 +97,6 @@ h1 {
 .login-sign-input::placeholder {
     color: #ffffff;
 }
-
-
 
 .form-box button {
     width: 60%;

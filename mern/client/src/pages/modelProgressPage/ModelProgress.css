@@ -38,8 +38,6 @@
   left: 0;
 }
 
-
-
 .right-half {
   position: relative;
   width: 100%;
@@ -51,14 +49,12 @@
   margin-top: 30px;
   border: 1px solid #E5E7EB;
   border-radius: 5px;
-  /* box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2); */
   padding: 10px;
   width: 1250px;
   height:auto;
   display:relative;
   justify-content: center;
   text-align: center;
-  
   margin-left: auto;
   margin-right: auto;
 }
@@ -100,7 +96,6 @@ td p{
   padding-bottom: 10px;
 }
 
-
 .loading-container {
   display: flex;
   justify-content: center;
@@ -109,18 +104,15 @@ td p{
   height: 100vh; 
 }
 
-
 .loading-text {
   margin-bottom: 20px; 
   font-size: 18px;
   color: #333; 
 }
 
-
 .loading-spinner {
   transform: scale(2); 
 }
-
 
 .react-spinner_loader,
 .react-spinner_bar {
