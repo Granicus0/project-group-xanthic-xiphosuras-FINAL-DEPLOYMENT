@@ -2,8 +2,6 @@ import { useState, useEffect } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { useSignup } from "../../hooks/useSignup";
-import { Link } from "react-router-dom";
-import gsap from "gsap";
 import "./Login_sign.css";
 import { useLocation } from 'react-router-dom';
 
@@ -26,8 +24,6 @@ const LoginSignup = () => {
 
   const logoImagePath = import.meta.env.VITE_ASSETS_FOLDER + '/textures/logo3.png'
 
-
-
   useEffect(() => {
     const checkLoggedIn = () => {
       const token = localStorage.getItem("user");
@@ -35,7 +31,6 @@ const LoginSignup = () => {
         navigate("/user");
       }
     };
-
     checkLoggedIn();
   }, []);
 
@@ -49,101 +44,39 @@ const LoginSignup = () => {
   };
 
   useEffect(() => {
-    const newStyles_input = {
-      outline: "none",
-      color: "#4f619e",
-      borderBottom: "1px solid #4f619e80",
-      transition: "0.5s",
-    };
-
     let log_in = document.getElementById("login");
     let register = document.getElementById("register");
     let formbox = document.getElementsByClassName("form-box")[0];
     let loginbox = document.getElementsByClassName("login-box")[0];
     let registerbox = document.getElementsByClassName("register-box")[0];
-
-
+  
     if (isLogin) {
       formbox.style.transform = "translateX(0%)";
-      formbox.style.backgroundColor = "#fab2be";
       loginbox.classList.remove("hidden");
       registerbox.classList.add("hidden");
     } else {
-      formbox.style.transform = "translateX(80%)"; 
-      formbox.style.backgroundColor = "#a5c8fd";
+      formbox.style.transform = "translateX(80%)";
       loginbox.classList.add("hidden");
       registerbox.classList.remove("hidden");
     }
-
-    const input_i = document.getElementsByTagName("input");
-    const but_i = document.getElementsByTagName("button");
-
+  
     register.addEventListener("click", function () {
       formbox.style.transform = "translateX(80%)";
-      formbox.style.backgroundColor = "#a5c8fd";
-      Array.from(input_i).forEach((input) => {
-        input.addEventListener("focus", () => {
-          Object.assign(input.style, newStyles_input);
-        });
-
-        input.addEventListener("blur", () => {
-          input.style.color = "";
-          input.style.borderBottom = "";
-        });
-      });
-      Array.from(but_i).forEach((button) => {
-        button.style.borderColor = "#4f619e";
-        button.style.color = "#4f619e";
-        button.addEventListener("click", () => {
-          button.style.backgroundColor = "#4f619e";
-          button.style.color = "#fff";
-        });
-        button.addEventListener("blur", () => {
-          button.style.color = "";
-        });
-        button.addEventListener("mouseenter", () => {
-          button.style.backgroundColor = "#4f619e";
-          button.style.color = "#fff";
-        });
-        button.addEventListener("mouseleave", () => {
-          button.style.backgroundColor = "";
-          button.style.color = "";
-        });
-      });
       loginbox.classList.add("hidden");
       registerbox.classList.remove("hidden");
     });
-
+  
     log_in.addEventListener("click", function () {
       formbox.style.transform = "translateX(0%)";
-      formbox.style.backgroundColor = "#fab2be";
-      Array.from(but_i).forEach((button) => {
-        button.style.borderColor = "#9e4f5c";
-        button.style.color = "#9e4f5c";
-        button.addEventListener("click", () => {
-          button.style.backgroundColor = "#9e4f5c";
-          button.style.color = "#fff";
-        });
-        button.addEventListener("blur", () => {
-          button.style.color = "";
-        });
-        button.addEventListener("mouseenter", () => {
-          button.style.backgroundColor = "#9e4f5c";
-          button.style.color = "#fff";
-        });
-        button.addEventListener("mouseleave", () => {
-          button.style.backgroundColor = "";
-          button.style.color = "";
-        });
-      });
       loginbox.classList.remove("hidden");
       registerbox.classList.add("hidden");
     });
   }, [isLogin]);
+  
 
   return (
     <div className="loginf">
-      <a href="/" className="back_home_link">
+      <a href="/" className="back_home_link" >
         Back to main page
       </a>
       <div className="container">
@@ -163,10 +96,11 @@ const LoginSignup = () => {
               onChange={(e) => setLoginPassword(e.target.value)}
             ></input>
             
-            <button type="submit" disabled={isLoading}>
+            <button type="submit" className="login-button" disabled={isLoading}>
               Log in
             </button>
-            {error && <div className="error">{error}</div>}
+            <br></br>
+            {error && <div className="error" style={{color: "red"}}>{error} </div>}
           </form>
 
           <form className="register-box hidden" onSubmit={handleSubmit}>
@@ -196,22 +130,23 @@ const LoginSignup = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmSignupPassword}
             />
-            <button type="submit" disabled={isSignupLoading}>
+            <button type="submit" className="register-button" disabled={isSignupLoading}>
               Sign up
             </button>
-            {signupError && <div className="error">{signupError}</div>}
+            <br></br>
+            {signupError && <div className="error" style={{color: "red"}}>{signupError}</div>}
           </form>
         </div>
 
         <div className="con-box left">
           <h2>Have account?</h2>
           <img src={logoImagePath} alt="logo" />
-          <button id="login" onClick={() => setIsLogin(true)}>Go to Log in</button>
+          <button id="login" className = "go-to-login-button" onClick={() => setIsLogin(true)}>Go to Log in</button>
         </div>
         <div className="con-box right">
           <h2>Do not have account?</h2>
           <img src={logoImagePath} alt="logo" />
-          <button id="register" onClick={() => setIsLogin(false)}>Go to sign up</button>
+          <button id="register" className = "go-to-signup-button" onClick={() => setIsLogin(false)}>Go to sign up</button>
         </div>
       </div>
     </div>

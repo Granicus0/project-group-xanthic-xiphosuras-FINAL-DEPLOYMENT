@@ -1,6 +1,7 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 .loginf {
@@ -8,40 +9,62 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(200deg, #fab2be, #a5c8fd);
+    background: white
 }
 
 .container {
-    background-color: white;
+    background-color: #ffffff;
     width: 40rem;
     height: 25rem;
-    border-radius: 0.4rem;
-    box-shadow: 0.4rem 0.4rem 0.4rem rgb(0,0,0,0.1);
+    border-radius: 10px;
+    border: 1px solid black;
+    box-shadow: 0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.1);
     position: relative;
 }
 
-.form-box{
+.form-box {
     position: absolute;
     top: -10%;
     left: 5%;
-    background-color:#fab2be;
+    background-color: #000000;
     width: 20rem;
     height: 30rem;
     border-radius: 0.4rem;
-    box-shadow: 0.4rem 0.4rem 0.4rem rgb(0,0,0,0.1);
+    box-shadow: 0.4rem 0.4rem 0.4rem rgba(0, 0, 0, 0.1);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 2;
     transition: 0.5s ease-in-out;
+    
 }
 
-.register-box, .login-box {
+.register-box,
+.login-box {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: 100%;
+}
+
+.login-button, .register-button {
+    background-color: white !important;
+    color: black !important;
+}
+
+.login-button:hover, .register-button:hover {
+    background-color: rgb(145, 145, 145) !important;
+    color: black !important;
+}
+
+.go-to-signup-button, .go-to-login-button {
+    background-color: rgb(0, 0, 0) !important;
+    color: rgb(255, 255, 255) !important;
+    border-radius: 10px;
+}
+
+.go-to-signup-button:hover, .go-to-login-button:hover {
+    background-color: rgb(58, 58, 58) !important;
 }
 
 .hidden {
@@ -53,14 +76,14 @@ h1 {
     text-align: center;
     margin-bottom: 1.5rem;
     text-transform: uppercase;
-    color: white;
-    letter-spacing: 0.4rem;
+    color: #ffffff;
+    letter-spacing: 0.2rem;
 }
 
 input {
-    background: transparent;
-    width: 60%;
+    background: black;
     color: white;
+    width: 60%;
     padding: 0.8rem 0;
     border: none;
     border-bottom: 1px solid rgba(255, 255, 255, 0.5);
@@ -70,48 +93,39 @@ input {
     letter-spacing: 0.1rem;
 }
 
-input::placeholder{
-    color:white;
+input::placeholder {
+    color: #ffffff;
 }
 
-input:focus{
-    outline: none;
-    color: #9e4f5c;
-    border-bottom: 1px solid #9e4f5c80;
-    transition: 0.5s;
-}
 
-input:focus::placeholder{
-    opacity: 0;
-}
 
-.form-box button{
+.form-box button {
     width: 60%;
     margin-top: 2rem;
-    background-color: white;
+    background-color: #000000;
     outline: none;
     border-radius: 0.9rem;
-    color: #9e4f5c;
+    color: #ffffff;
     padding: 1rem;
     letter-spacing: 0.1rem;
     border: none;
     cursor: pointer;
 }
 
-.form-box button:hover{
-    background-color: #9e4f5c;
-    color: white;
+.form-box button:hover {
+    background-color: #ffffff;
+    color: #000000;
     transition: background-color 0.5s ease;
 }
 
-.con-box img{
+.con-box img {
     width: 150px;
     height: 150px;
     opacity: 0.9;
     margin: 2rem 0;
 }
 
-.con-box{
+.con-box {
     width: 50%;
     display: flex;
     flex-direction: column;
@@ -122,15 +136,15 @@ input:focus::placeholder{
     transform: translateY(-50%);
 }
 
-.con-box p{
+.con-box p {
     font-size: 0.7rem;
     letter-spacing: 0.1rem;
-    color: black;
+    color: #000000;
     text-align: center;
 }
 
-.con-box h2{
-    color: black;
+.con-box h2 {
+    color: #000000;
     font-size: 1.2rem;
     font-weight: bold;
     letter-spacing: 0.1rem;
@@ -140,16 +154,15 @@ input:focus::placeholder{
 .left {
     left: -2%;
 }
-
 .right {
     right: -2%;
 }
 
-.con-box button{
+.con-box button {
     margin-top: 0%;
-    background-color: white;
-    color:#9e4f5c;
-    border: 1px solid #9e4f5c80;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid #00000080;
     padding: 0.3rem 0.6rem;
     border-radius: 0.3rem;
     letter-spacing: 0.1rem;
@@ -157,17 +170,17 @@ input:focus::placeholder{
     outline: none;
 }
 
-.con-box button:hover{
-    background-color: #9e4f5c;
-    color: white;
+.con-box button:hover {
+    background-color: #000000;
+    color: #ffffff;
     transition: background-color 0.5s ease;
 }
 
-.back_home_link{
-    color: black;
+.back_home_link {
+    color: #000000;
     text-decoration: none;
-    font-weight:bold;
-    background-color: white;
+    font-weight: bold;
+    background-color: #ffffff;
     padding: 1rem;
     border: none;
     border-radius: 1rem;
@@ -176,9 +189,25 @@ input:focus::placeholder{
     left: 2rem;
 }
 
-.reset-password{
+.reset-password {
     text-decoration: none;
-    color: white;
+    color: #ffffff;
     font-size: 0.8rem;
     margin-top: 1rem;
 }
+
+.back_home_link {
+    cursor: pointer;  
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+    padding: 10px 20px;  
+    text-decoration: none; 
+    display: inline-block; 
+  }
+  
+  .back_home_link:hover {
+    background-color: #333; 
+    transition: background-color 0.3s ease-in-out; /* Transition for background-color */
+
+  }
