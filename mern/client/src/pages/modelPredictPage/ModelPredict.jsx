@@ -3,7 +3,7 @@ import io from 'socket.io-client';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import './ModelPredict.css';
 import { BarLoader } from 'react-spinners'; 
-
+import { useLocation } from 'react-router-dom';
 
 const ModelPredict = () => {
     const [predictUpdates, setPredictUpdates] = useState([]);
@@ -12,9 +12,11 @@ const ModelPredict = () => {
     const [preResultText, setPreResultText] = useState("");
     const [loading, setLoading] = useState(true); 
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
+    const location = useLocation();
     const model_id = location.state?.model_id;
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
+        console.log(location.state)
         socket.on('predict_update@'+model_id, (update) => {
             setPredictUpdates(prevUpdates => [...prevUpdates, update]);
         });

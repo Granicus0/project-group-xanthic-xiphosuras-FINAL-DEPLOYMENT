@@ -33,7 +33,9 @@ export const makrPrediction = async (req, res, io) => {
         // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
         // This 'predict_update' string is special! Notice how this is the *exact same string* that is inside of 
         // client/pages/modelProgressPage/ModelProgress.jsx
+       
         io.emit('predict_update@'+modelId, update);
+        console.log('predict_update@'+modelId)
     });
 
     pythonProcess.on('close', (code) => {
