@@ -48,9 +48,9 @@ const ModelProgress = () => {
             setResultData(data2);
             const data3 = update.split("\n").reduce((acc, line) => {
                 if (line.includes("Modelid")) {
+                    console.log("LINE CONTAINTS: " + line)
                     // Extract model_id and ensure it's a string with trimmed spaces
-                    const model_id = line.split(":")[1].slice(1, -1).trim().toString();
-                    // console.log('ModelID:', ModelID, 'Type:', typeof ModelID);
+                    const model_id = line.split(":")[1].trim().toString();
                     setModelID(model_id);
                     console.log(typeof model_id);
                     return model_id; // Return the found model_id
