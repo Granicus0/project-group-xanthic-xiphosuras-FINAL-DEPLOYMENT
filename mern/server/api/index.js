@@ -31,7 +31,6 @@ app.use(cors({
 })); 
 
 app.use((req, res, next) => {
-  const origin = req.get('referer');
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
   res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
@@ -49,6 +48,10 @@ app.use('/api/models', modelRoutes(io));
 app.use('/api/TEST', (req, res) => {
   console.log("Reached test api (/api/TEST)")
   res.json({ msg: 'Base API route works! Note this does not mean the other routes function properly' })
+})
+app.use('/', (req, res) => {
+  console.log("Reached test api (/)")
+  res.json({ msg: 'API entrance works! Note this does not mean the other routes function properly' })
 })
 
 
