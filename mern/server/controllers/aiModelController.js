@@ -51,15 +51,15 @@ export const beginModelTraining = async (req, res, io) => {
     const modelName = req.body.modelName;
     const modelType = req.body.modelType;
     const userId = req.body.userId;
+    const socketId = req.body.socketId;
     const predictVariable = req.body.selectedColumn
     const modelId=new ObjectId(); // Declare the variable outside the try-catch block to widen its scope
-
+    
     // check if the referenced user exists
     const existingUser = await User.findById(userId);
     if (!existingUser) {
         return res.status(404).json({ error: "User not found" });
     }
-    res.status(200).json({ model_id: modelId })
     console.log("Training request recieved for: " + modelName + " of type: " + modelType + " from: " + userId)
 
     // files uploaded by the user are temporarily stored in /server/uploads. Use this folder to retrieve the CSV file.
@@ -100,7 +100,7 @@ export const beginModelTraining = async (req, res, io) => {
         // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
         // This 'training_update' string is special! Notice how this is the *exact same string* that is inside of 
         // client/pages/modelProgressPage/ModelProgress.jsx
-        io.emit('training_update@'+modelId, update);
+        io.emit('training_update@'+socketId, update);
     });
 
     pythonProcess.on('close', async (code) => {
@@ -118,14 +118,14 @@ export const beginModelTraining = async (req, res, io) => {
                 await newModel.save()
             } catch (error) {
                 console.log(error.message);
-                //return res.status(400).json({ error: error.message });
+                return res.status(400).json({ error: error.message });
             }
             console.log(`Model training success. Python process exited with code ${code}`);
-            //return res.status(200).send("Model tarining complete");
+            return res.status(200).send("Model tarining complete");
         }
         else{
             console.log(`Model training failed. Python process exited with code ${code}`);
-            //return res.status(400).send("Model tarining incomplete");
+            return res.status(400).send("Model tarining incomplete");
         }
         
     });

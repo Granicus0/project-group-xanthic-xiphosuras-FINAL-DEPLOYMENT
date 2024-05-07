@@ -17,12 +17,11 @@ const ModelProgress = () => {
     const [ModelID, setModelID] = useState();
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
     const location = useLocation();
-    const model_id = location.state?.model_id;
+    const socket_id = location.state?.socket_id;
 
     useEffect(() => {
-        console.log("get", model_id)
         const socket = io(`${baseApiRoute}`);
-        socket.on('training_update@'+model_id, (update) => {
+        socket.on('training_update@'+socket_id, (update) => {
             setTrainingUpdates(prevUpdates => [...prevUpdates, update]);
             const data = update.split("\n").reduce((acc, line) => {
                 if (line.includes("Iteration")) {

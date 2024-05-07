@@ -20,13 +20,10 @@ const StartTrainingButton = ({ modelInfo }) => {
         } else if (modelInfo.selectedColumn === "") {
             onColumnAlertOpen();
         } else {
-            trainModel(modelInfo.modelName, modelInfo.modelType, modelInfo.uploadedFile, modelInfo.userId, modelInfo.selectedColumn)
-            .then((model_id)=>{
-                console.log("get model id"+model_id)
-                navigate("/modelProgress", { state: { model_id: model_id } })
-            })
-            
-            
+            let socket_id = modelInfo.userId;
+            trainModel(modelInfo.modelName, modelInfo.modelType, modelInfo.uploadedFile, modelInfo.userId, modelInfo.selectedColumn, socket_id)
+            navigate("/modelProgress", { state: { socket_id: socket_id } })
+
         }
     }
 

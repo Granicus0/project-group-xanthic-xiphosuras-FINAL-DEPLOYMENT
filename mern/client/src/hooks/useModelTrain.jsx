@@ -9,7 +9,7 @@ export const useModelTrain = () => {
     const [isLoading, setIsLoading] = useState(null)
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
     
-    const trainModel = async (modelName, modelType, uploadedFile, userId, selectedColumn) => {
+    const trainModel = async (modelName, modelType, uploadedFile, userId, selectedColumn, socketId) => {
 
         setIsLoading(true)
         setError(null)
@@ -22,6 +22,7 @@ export const useModelTrain = () => {
         formData.append('modelType', modelType);
         formData.append('userId', userId);
         formData.append('selectedColumn', selectedColumn);
+        formData.append('socketId', socketId);
 
         try {
             const response = await axios.post(`${baseApiRoute}/api/models/createModel`, formData, {
@@ -30,7 +31,6 @@ export const useModelTrain = () => {
                 }
             });
             console.log("Training started: ", response);
-            return response.data.model_id
         } catch (error) {
             console.error("Error starting training:", error);
         }
