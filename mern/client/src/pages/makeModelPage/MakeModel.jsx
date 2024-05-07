@@ -22,14 +22,16 @@ function MakeModel() {
     const json = JSON.parse(userDat);
     const userId = json._id;
 
-    const nnGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/nn.gltf'
-    const rfGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/rf_model2.gltf'
-    const svmGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/svm_model7.gltf'
-
     // Used by the "FileUpload" component below. Scroll down and read what it does.
     const handleFileUpload = (file) => {
         setUploadedFile(file);
     };
+
+    const nnGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/nn.gltf'
+    const rfGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/rf_model2.gltf'
+    const svmGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/svm_model7.gltf'
+
+    
     const canvasRef2 = useRef(null);
     const sizes = {
             width: 450,
@@ -37,16 +39,6 @@ function MakeModel() {
         }
     
     const tl = gsap.timeline();
-
-    
-    //const model_list = [
-    //    nngroup,
-    //    svmgroup
-    //];
-
-    //const [model_list, setModelList] = useState([]);
-
-    
 
     useEffect(() => {
 

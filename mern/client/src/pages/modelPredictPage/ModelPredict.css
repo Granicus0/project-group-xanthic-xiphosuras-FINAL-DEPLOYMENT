@@ -26,6 +26,22 @@
     font-weight: bold; 
 }
 
+/* .result-text-container {
+    text-align: center;
+    margin: 20px auto; 
+    width: 40%; 
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); 
+    border-radius: 8px;
+    white-space: pre-wrap; 
+    overflow-wrap: break-word; 
+    text-align: justify;
+    font-size: 15px;
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    text-transform: uppercase;
+} */
+
 .result-text-container {
     text-align: center;
     margin: 20px auto; 
@@ -40,11 +56,22 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
     text-transform: uppercase;
+    min-height: 100px;
 }
 
-.model-predict-output-container {
+/* .model-predict-output-container {
     height: 450px; 
     max-width: 80%; 
+    margin: 20px auto; 
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(42, 41, 41, 0.1); 
+    padding: 20px; 
+    border-radius: 8px; 
+} */
+
+.model-predict-output-container {
+    max-height: 450px; /* Change height to max-height */
+    overflow-y: auto; /* Add overflow-y to enable scrolling if needed */
     margin: 20px auto; 
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(42, 41, 41, 0.1); 
@@ -86,9 +113,20 @@
   background-color: #e1e4e8; 
   }
 
-.table-container {
+/* .table-container {
     width: 100%; 
     height: 360px; 
+    overflow-y: auto; 
+    overflow-x: auto; 
+    margin: 10px 5px; 
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(42, 41, 41, 0.3); 
+    padding: 20px; 
+    border-radius: 8px;    
+} */
+
+.table-container {
+    max-height: 360px; /* Change height to max-height */
     overflow-y: auto; 
     overflow-x: auto; 
     margin: 10px 5px; 
@@ -200,6 +238,7 @@
 .react-spinner_bar {
   background-color: #acacac; 
 }
-  
+
+
 
 

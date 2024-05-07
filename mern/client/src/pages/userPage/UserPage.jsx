@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import LogoutButton from '../../components/LogoutButton'
-import CreateModelButton from '../../components/CreateModelButton'; 
+import CreateModelButton from '../../components/CreateModelButton';
+import { BarLoader } from 'react-spinners';
 import "./UserPage.css";
 import UserSelectButton from '../../components/UserSelectButton';
 
@@ -15,8 +16,8 @@ function UserPage() {
   const userName = json.name;
   const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
 
-// TODO CHANGE THIS LATER SO THAT THE MODELS ARE UPDATED AS THE USER CREATES THEM. RIGHT NOW IF THE USER CREATES A NEW MODEL THE PAGE WONT REFRESH
-// UNLESS THEY LOG OUT AND BACK IN AGAIN
+  // TODO CHANGE THIS LATER SO THAT THE MODELS ARE UPDATED AS THE USER CREATES THEM. RIGHT NOW IF THE USER CREATES A NEW MODEL THE PAGE WONT REFRESH
+  // UNLESS THEY LOG OUT AND BACK IN AGAIN
   useEffect(() => {
     const fetchModels = async () => {
       setIsLoading(true);
@@ -38,7 +39,12 @@ function UserPage() {
   }, [userId]);
 
   if (isLoading) {
-    return <p>Loading...</p>;
+    <div className="loading-container">
+      <div className="loading-text">Loading Dashboard...</div>
+      <div className="loading-spinner">
+        <BarLoader loading={isLoading} />
+      </div>
+    </div>
   }
 
   if (error) {
@@ -61,8 +67,8 @@ function UserPage() {
         <br></br>
         <h5 className='user-page-sub-header2'> Click one to make some predictions! </h5>
         <div>
-        <UserSelectButton modelData={models} />
-        </div>  
+          <UserSelectButton modelData={models} />
+        </div>
       </div>
     </div>
   );
