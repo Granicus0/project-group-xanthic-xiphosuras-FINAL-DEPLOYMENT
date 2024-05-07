@@ -4,14 +4,14 @@ def get_default_extra(model_type,problem_type):
         if model_type=="SVM":
             pass
         if model_type=="NN":
-            return {"verbose":True}
+            return {"verbose":True, "max_iter":50}
         if model_type=="RF":
             pass
     elif problem_type=="numeric":
         if model_type=="SVM":
             pass
         if model_type=="NN":
-            return {"verbose":True}
+            return {"verbose":True, "max_iter":50}
         if model_type=="RF":
             pass
     return {}
