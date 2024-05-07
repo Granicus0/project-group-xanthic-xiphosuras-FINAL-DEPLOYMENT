@@ -18,7 +18,7 @@ const StartPredictingButton = ({modelInfo}) => {
         }
         else{
             predictModel(modelInfo._id, modelInfo.uploadedFile)
-            navigate("/modelPredict")
+            navigate("/modelPredict", { state: { model_id: modelInfo._id}})
         }
     }
 

@@ -12,10 +12,10 @@ const ModelPredict = () => {
     const [preResultText, setPreResultText] = useState("");
     const [loading, setLoading] = useState(true); 
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
-
+    const model_id = location.state?.model_id;
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
-        socket.on('predict_update', (update) => {
+        socket.on('predict_update@'+model_id, (update) => {
             setPredictUpdates(prevUpdates => [...prevUpdates, update]);
         });
         return () => socket.disconnect();
