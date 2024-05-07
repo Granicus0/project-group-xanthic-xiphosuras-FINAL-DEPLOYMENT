@@ -24,6 +24,8 @@ const LoginSignup = () => {
   const [name, setSignupName]= useState("");
   const { signup, error2, isLoading2 } = useSignup();
 
+  const logoImagePath = import.meta.env.VITE_ASSETS_FOLDER + '/textures/logo3.png'
+
 
 
   useEffect(() => {
@@ -211,12 +213,12 @@ const LoginSignup = () => {
 
         <div className="con-box left">
           <h2>Have account?</h2>
-          <img src="src/assets/textures/logo3.png" alt="logo" />
+          <img src={logoImagePath} alt="logo" />
           <button id="login" onClick={() => setIsLogin(true)}>Go to Log in</button>
         </div>
         <div className="con-box right">
           <h2>Do not have account?</h2>
-          <img src="src/assets/textures/logo3.png" alt="logo" />
+          <img src={logoImagePath} alt="logo" />
           <button id="register" onClick={() => setIsLogin(false)}>Go to sign up</button>
         </div>
       </div>

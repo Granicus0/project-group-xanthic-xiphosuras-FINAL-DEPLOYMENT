@@ -22,6 +22,10 @@ function MakeModel() {
     const json = JSON.parse(userDat);
     const userId = json._id;
 
+    const nnGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/nn.gltf'
+    const rfGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/rf_model2.gltf'
+    const svmGltfPath = import.meta.env.VITE_ASSETS_FOLDER + '/models/svm_model7.gltf'
+
     // Used by the "FileUpload" component below. Scroll down and read what it does.
     const handleFileUpload = (file) => {
         setUploadedFile(file);
@@ -65,7 +69,7 @@ function MakeModel() {
         
         const loader = new GLTFLoader();
         loader.load(
-            'src/assets/models/nn.gltf',
+            nnGltfPath,
             function (gltf) {
               const nnmesh = gltf.scene
               nnmesh.scale.set(0.005, 0.005, 0.005)
@@ -76,7 +80,7 @@ function MakeModel() {
         );
         
         loader.load(
-            'src/assets/models/svm_model7.gltf',
+            svmGltfPath,
             function (gltf) {
               const svmmesh = gltf.scene
               svmmesh.scale.set(0.005, 0.005, 0.005)
@@ -93,7 +97,7 @@ function MakeModel() {
         svmgroup.scale.set(0, 0, 0);
 
         loader.load(
-            'src/assets/models/rf_model2.gltf',
+            rfGltfPath,
             function (gltf) {
               const rfmesh = gltf.scene
               rfmesh.scale.set(0.007, 0.007, 0.007)
@@ -165,9 +169,9 @@ function MakeModel() {
         };
 
         const modelTypes_des_dict = {
-            "NN": "This model perform good on NLP tasks.",
-            "SVM": "This model perform good on classification tasks.",
-            "RF": "This model perform good on Regression tasks."
+            "NN": "This model performs well on language processing tasks.",
+            "SVM": "This model performs well on classification tasks.",
+            "RF": "This model performs well on prediction tasks."
         };
 
         
