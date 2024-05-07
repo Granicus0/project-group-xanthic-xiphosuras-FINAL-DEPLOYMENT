@@ -71,7 +71,7 @@ export const beginModelTraining = async (req, res, io) => {
     //const pyAnalyseFile = 'python/analyse.py'
     console.log("Selected variable for prediction: " + predictVariable)
 
-    const process = 'once'
+     const process = 'once'
 
 
     // we do not need to use python/analyse.py to generate schemas anymore it will be done in training.py
