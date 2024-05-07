@@ -54,7 +54,7 @@ if __name__ == "__main__":
     if addition_extra is not None:
         extra.update(addition_extra)
 
-    print("Starting data preprocessing...", flush=True)
+    print("Starting data preprocessing..." + args['id'], flush=True)
     df=df[schema.keys()]
     preproessor={}
     for column, type in schema.items():
