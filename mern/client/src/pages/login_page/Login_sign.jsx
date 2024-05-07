@@ -162,9 +162,7 @@ const LoginSignup = () => {
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
             ></input>
-            <a href="#" className="reset-password">
-              Reset password
-            </a>
+            
             <button type="submit" disabled={isLoading}>
               Log in
             </button>
