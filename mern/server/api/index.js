@@ -18,26 +18,18 @@ const io = new Server(server, {
   // policies. If you don't know what CORS is you can visit this link: https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS
   // This basically allows the frontend to bypass CORS for GET and POST requests (remember the front-end is hosted on port 5173, and our backend server is hosted on port 5050)
   cors: {
-    origin: '*',
-    methods: ["GET", "POST"]
+    origin: true, 
+    credentials: true, 
+    methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'] 
   }
 });
 
 app.use(cors({
-  origin: '*', 
-  credentials: true, 
+  origin: true, 
+  credentials: true,
+  exposedHeaders: ["Link", "Set-Cookie"], 
   methods: ['GET', 'POST', 'OPTIONS', 'PUT', 'PATCH', 'DELETE'] 
-
 })); 
-
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', true);
-  if (req.method === 'OPTIONS') res.sendStatus(200);
-  else next();
-});
 
 // Allows us to grab data from request objects (express will parse request objects into a JSON)
 app.use(express.json());
