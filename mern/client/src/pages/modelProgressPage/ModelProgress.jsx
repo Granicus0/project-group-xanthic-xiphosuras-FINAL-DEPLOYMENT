@@ -18,7 +18,6 @@ const ModelProgress = () => {
 
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
-
         socket.on('training_update', (update) => {
             setTrainingUpdates(prevUpdates => [...prevUpdates, update]);
             const data = update.split("\n").reduce((acc, line) => {

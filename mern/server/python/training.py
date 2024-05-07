@@ -81,6 +81,6 @@ if __name__ == "__main__":
     print("Evaluate Result: ")
     for key, value in evaluate_result.items():
         if not(key == "valid_result" and len(value)==0):
-            print(f"    {key}: {round(value,4)}")
+            print(f"    {key}: {round(value,4)}" + f" ${args['id']}")
     print("Modelid: " + args['id'])
     
