@@ -14,9 +14,10 @@ const ModelProgress = () => {
     const [resultData, setResultData] = useState([]);
     const [loading, setLoading] = useState(true); 
     // const [ModelID, setModelID] = useState();
+    const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
 
     useEffect(() => {
-        const socket = io('http://localhost:5050');
+        const socket = io(`${baseApiRoute}`);
 
         socket.on('training_update', (update) => {
             setTrainingUpdates(prevUpdates => [...prevUpdates, update]);

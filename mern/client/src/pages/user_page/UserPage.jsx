@@ -14,13 +14,15 @@ function UserPage() {
   const json = JSON.parse(userDat);
   const userId = json._id;
   const userName = json.name;
+  const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
+
 // TODO CHANGE THIS LATER SO THAT THE MODELS ARE UPDATED AS THE USER CREATES THEM. RIGHT NOW IF THE USER CREATES A NEW MODEL THE PAGE WONT REFRESH
 // UNLESS THEY LOG OUT AND BACK IN AGAIN
   useEffect(() => {
     const fetchModels = async () => {
       setIsLoading(true);
       try {
-        const response = await fetch(`http://localhost:5050/api/models/user/${userId}`);
+        const response = await fetch(`${baseApiRoute}/api/models/user/${userId}`);
         if (!response.ok) {
           throw new Error('Failed to fetch models');
         }
