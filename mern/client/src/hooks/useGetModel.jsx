@@ -24,7 +24,7 @@ const useGetModel = () => {
       if (!response.ok) {
         throw new Error('Failed to get the model'); // Throw an error if deletion failed
       }
-      return response;
+      return response.json();
     } catch (error) {
       // Catch any errors, set the error message, and reset `isLoading`
       setError('Failed to get the model. Please try again.');

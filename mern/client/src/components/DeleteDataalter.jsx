@@ -45,7 +45,7 @@ const DeleteDataAlert = ({Button_info, handleDelete }) => {
                             </Button>
                             <Button colorScheme='red' ml={3}onClick={() => {
                                 handleDelete();  // Call the delete function
-                                onClose();       // Close the dialog after deletion
+                                Button_info.onClose;       // Close the dialog after deletion
                             }}>
                                 Yes
                             </Button>
