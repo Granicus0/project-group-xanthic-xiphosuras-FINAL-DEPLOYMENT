@@ -1,4 +1,7 @@
-# COMPSCI 732 / SOFTENG 750 project - Team Xanthic Xiphosuras
+# <p align="center" > ArgusML - A simple, intuitive, online machine learning creation platform </p>
+<p align="center"> 
+  <img src="https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/a6e95a6c-9fa2-48dc-898b-9c9b552bbfac" width="400" height="400" >  
+</p>
 
 ## Prerequisite Installations
 This is a project that utilizes the [MERN](https://www.mongodb.com/mern-stack) stack. 
