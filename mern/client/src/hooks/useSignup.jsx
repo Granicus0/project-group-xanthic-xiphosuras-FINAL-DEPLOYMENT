@@ -5,21 +5,28 @@ import { useNavigate } from 'react-router-dom'
 // A custom hook to sign the user up. Please please *please* make a custom hook if you want to target API paths from the front end.
 // You can use this, useLogin or useSignup as an example on how to make a custom hook to target an API endpoint from the client side
 export const useSignup = () => {
-    const [error, setError] = useState(null)
-    const [isLoading, setIsLoading] = useState(null)
+    const [signupError, setSignupError] = useState(null)
+    const [isSignupLoading, setIsSignupLoading] = useState(null)
     const { dispatch } = useAuthContext()
     const navigate = useNavigate()
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
 
-    const signup = async (name, email, password) => {
+    const signup = async (name, email, password, confirmSignupPassword) => {
+
+        setIsSignupLoading(true)
+        setSignupError(null)
+
         try {
             if (!name || !email || !password) {  // check if any fields are empty
-                setError('All fields are required');
+                setSignupError('All fields are required');
+                setIsSignupLoading(false)
                 return;
             }
-
-            setIsLoading(true)
-            setError(null)
+            if (password != confirmSignupPassword) {
+                setSignupError('Passwords must match!');
+                setIsSignupLoading(false)
+                return;
+            }
 
             // This is our actual API request. 
             const response = await fetch(`${baseApiRoute}/api/user/signup`, {
@@ -30,8 +37,9 @@ export const useSignup = () => {
 
             const json = await response.json()
             if (!response.ok) {
-                setIsLoading(false)
-                setError(json.error || 'An error occurred')
+                setIsSignupLoading(false)
+                setSignupError(json.error)
+                console.log('signup loading: ' + isSignupLoading)
 
             } else {
                 // THIS is our token. It is nothing more than just a JSON in local storage.
@@ -41,15 +49,17 @@ export const useSignup = () => {
 
                 // Don't worry about this.
                 dispatch({ type: 'LOGIN', payload: json })
-                setIsLoading(false)
+                setIsSignupLoading(false)
+                console.log('signup loading: ' + isSignupLoading)
                 navigate("/user");
             }
         }
         catch (error) {
-            setIsLoading(false)
-            setError('Failed to sign up: ' + error.message)
+            setIsSignupLoading(false)
+                console.log('signup loading: ' + isSignupLoading)
+                setSignupError('Failed to sign up: ' + error.message)
         }
     }
 
-    return { signup, isLoading, error }
+    return { signup, isSignupLoading, signupError }
 }

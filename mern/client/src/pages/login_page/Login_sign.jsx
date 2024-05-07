@@ -13,7 +13,7 @@ const LoginSignup = () => {
   const [loginEmail, setLoginEmail] = useState("");
   const [loginPassword, setLoginPassword] = useState("");
   const { login, error, isLoading } = useLogin();
-
+  
   const initialMode = location.state?.mode;
   const [isLogin, setIsLogin] = useState(initialMode === 'signup' ? false : true); 
   const navigate = useNavigate();
@@ -22,7 +22,7 @@ const LoginSignup = () => {
   const [signupPassword, setSignupPassword] = useState("");
   const [confirmSignupPassword, setConfirmPassword] = useState(""); 
   const [name, setSignupName]= useState("");
-  const { signup, error2, isLoading2 } = useSignup();
+  const { signup, isSignupLoading, signupError } = useSignup();
 
   const logoImagePath = import.meta.env.VITE_ASSETS_FOLDER + '/textures/logo3.png'
 
@@ -41,16 +41,10 @@ const LoginSignup = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(isLogin)
     if (isLogin) {
-
       await login(loginEmail, loginPassword);
     } else {
-      if (signupPassword !== confirmSignupPassword) {
-        console.error("Passwords do not match!");
-        return; // Stop the submission if passwords do not match
-      }
-      await signup(name, signupEmail, signupPassword);
+      await signup(name, signupEmail, signupPassword, confirmSignupPassword);
     }
   };
 
@@ -204,10 +198,10 @@ const LoginSignup = () => {
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmSignupPassword}
             />
-            <button type="submit" disabled={isLoading2}>
+            <button type="submit" disabled={isSignupLoading}>
               Sign up
             </button>
-            {error && <div className="error">{error2}</div>}
+            {signupError && <div className="error">{signupError}</div>}
           </form>
         </div>
 

@@ -14,6 +14,7 @@ export const useLogin = () => {
     const navigate = useNavigate();
 
     const login = async (email, password) => {
+        
         setIsLoading(true)
         setError(null)
 
@@ -28,7 +29,6 @@ export const useLogin = () => {
         if (!response.ok) {
             setIsLoading(false)
             setError(json.error)
-
         }
         if (response.ok) {
             // THIS is our token. It is nothing more than just a JSON in local storage.
