@@ -80,7 +80,7 @@ h1 {
     letter-spacing: 0.2rem;
 }
 
-input {
+.login-sign-input {
     background: black;
     color: white;
     width: 60%;
@@ -93,7 +93,7 @@ input {
     letter-spacing: 0.1rem;
 }
 
-input::placeholder {
+.login-sign-input::placeholder {
     color: #ffffff;
 }
 

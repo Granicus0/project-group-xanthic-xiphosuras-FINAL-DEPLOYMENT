@@ -88,12 +88,14 @@ const LoginSignup = () => {
               placeholder="Email:"
               value={loginEmail}
               onChange={(e) => setLoginEmail(e.target.value)}
+              className="login-sign-input"
             ></input>
             <input
               type="password"
               placeholder="Password:"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
+              className="login-sign-input"
             ></input>
             
             <button type="submit" className="login-button" disabled={isLoading}>
@@ -110,18 +112,21 @@ const LoginSignup = () => {
               placeholder="Name:"
               value={name}
               onChange={(e) => setSignupName(e.target.value)}
+              className="login-sign-input"
             ></input>
             <input
               type="email"
               placeholder="Email:"
               value={signupEmail}
               onChange={(e) => setSignupEmail(e.target.value)}
+              className="login-sign-input"
             ></input>
             <input
               type="password"
               placeholder="Password:"
               value={signupPassword}
               onChange={(e) => setSignupPassword(e.target.value)}
+              className="login-sign-input"
             ></input>
             <input
               id="confirm-password"
@@ -129,6 +134,7 @@ const LoginSignup = () => {
               placeholder="Confirm Password:"
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmSignupPassword}
+              className="login-sign-input"
             />
             <button type="submit" className="register-button" disabled={isSignupLoading}>
               Sign up
