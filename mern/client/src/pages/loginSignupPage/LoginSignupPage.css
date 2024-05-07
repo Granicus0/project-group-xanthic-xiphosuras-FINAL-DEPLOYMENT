@@ -50,6 +50,7 @@
 .login-button, .register-button {
     background-color: white !important;
     color: black !important;
+    border-radius: 15px !important;
 }
 
 .login-button:hover, .register-button:hover {

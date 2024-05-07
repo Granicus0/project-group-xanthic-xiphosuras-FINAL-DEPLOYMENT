@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import LogoutButton from '../../components/LogoutButton'
 import CreateModelButton from '../../components/CreateModelButton'; 
 import "./UserPage.css";
-import ModelGrid from '../../components/ModelGrid';
 import UserSelectButton from '../../components/UserSelectButton';
 
 function UserPage() {

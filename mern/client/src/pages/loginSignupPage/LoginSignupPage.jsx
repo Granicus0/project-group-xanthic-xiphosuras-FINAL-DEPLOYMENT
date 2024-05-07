@@ -2,10 +2,10 @@ import { useState, useEffect } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { useNavigate } from "react-router-dom";
 import { useSignup } from "../../hooks/useSignup";
-import "./Login_sign.css";
+import "./LoginSignupPage.css";
 import { useLocation } from 'react-router-dom';
 
-const LoginSignup = () => {
+const LoginSignupPage = () => {
 
   const location = useLocation();
   const [loginEmail, setLoginEmail] = useState("");
@@ -159,4 +159,4 @@ const LoginSignup = () => {
   );
 };
 
-export default LoginSignup;
+export default LoginSignupPage;
