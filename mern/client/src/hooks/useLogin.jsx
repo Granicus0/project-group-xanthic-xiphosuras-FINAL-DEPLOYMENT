@@ -20,7 +20,7 @@ export const useLogin = () => {
 
         // This is our actual API request.
         const response = await fetch(`${baseApiRoute}/api/user/login`, {
-             method: 'POST',
+            method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email, password })
         })
