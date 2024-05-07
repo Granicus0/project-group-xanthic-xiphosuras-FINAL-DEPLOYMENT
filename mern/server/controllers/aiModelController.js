@@ -10,7 +10,7 @@ import { fileURLToPath } from 'url';
 import gfs from 'gridfs-stream'
 import { ObjectId, UUID } from 'mongodb';
 import db from '../db/connection.js';
-import { mode } from 'd3';
+
 
 export const makrPrediction = async (req, res, io) => {
     const modelId = req.body._id;
