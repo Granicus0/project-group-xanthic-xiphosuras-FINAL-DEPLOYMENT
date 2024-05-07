@@ -7,6 +7,7 @@ import BackToHomepageButton from '../../components/BackToHomepageButton';
 import { BarLoader } from 'react-spinners'; 
 import NavToPredictpageButton from '../../components/NavToPredictpageButton';
 import { set } from 'lodash';
+import { useLocation } from 'react-router-dom';
 
 const ModelProgress = () => {
     const [trainingUpdates, setTrainingUpdates] = useState([]);
@@ -15,10 +16,12 @@ const ModelProgress = () => {
     const [loading, setLoading] = useState(true); 
     const [ModelID, setModelID] = useState();
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
+    const location = useLocation();
+    const userId = location.state?.user_id;
 
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
-        socket.on('training_update', (update) => {
+        socket.on('training_update@'+userId, (update) => {
             setTrainingUpdates(prevUpdates => [...prevUpdates, update]);
             const data = update.split("\n").reduce((acc, line) => {
                 if (line.includes("Iteration")) {

@@ -21,7 +21,8 @@ const StartTrainingButton = ({ modelInfo }) => {
             onColumnAlertOpen();
         } else {
             trainModel(modelInfo.modelName, modelInfo.modelType, modelInfo.uploadedFile, modelInfo.userId, modelInfo.selectedColumn) 
-            navigate("/modelProgress")
+            console.log(modelInfo.userId)
+            navigate("/modelProgress", { state: { user_id: modelInfo.userId } })
         }
     }
 
