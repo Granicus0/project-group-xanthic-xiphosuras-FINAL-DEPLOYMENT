@@ -105,7 +105,7 @@ export const beginModelTraining = async (req, res, io) => {
 
     pythonProcess.on('close', async (code) => {
         console.log("TYPE OF CODE: ")
-        console.log(typeof(code));
+        console.log(typeof (code));
 
         if (code == 0) {
             try {

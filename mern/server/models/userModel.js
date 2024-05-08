@@ -23,10 +23,10 @@ const userSchema = new Schema({
     },
 
     models: [{
-         type: Schema.Types.ObjectId, 
-         ref: 'Model' 
-        }]
-    
+        type: Schema.Types.ObjectId,
+        ref: 'Model'
+    }]
+
 
 })
 
@@ -67,7 +67,7 @@ userSchema.statics.signup = async function (name, email, password) {
         throw Error('Email already exists')
     }
 
-    
+
     // Use the bcrypt library to create a salt for the password hash
     const salt = await bcrypt.genSalt(10)
     // Use the bcrypt library to hash the actual password, adding the salt
@@ -96,7 +96,7 @@ userSchema.statics.login = async function (email, password) {
     // Compare the passwords
     const match = await bcrypt.compare(password, user.password);
 
-    if(!match) {
+    if (!match) {
         throw Error('Invalid login details')
     }
 

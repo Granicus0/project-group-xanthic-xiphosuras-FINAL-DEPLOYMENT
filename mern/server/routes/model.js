@@ -1,6 +1,6 @@
 import express from 'express'
 import multer from 'multer';
-import {getModelsByUser, updateModel, deleteModel, getModelById, beginModelTraining, makrPrediction } from '../controllers/aiModelController.js'
+import { getModelsByUser, updateModel, deleteModel, getModelById, beginModelTraining, makrPrediction } from '../controllers/aiModelController.js'
 const router = express.Router();
 
 // Our model will have to give live updates back to the client during training.
@@ -20,7 +20,7 @@ export default (io) => {
     });
 
     router.post('/predictModel', upload.single('csvFile'), (req, res) => {
-        
+
         makrPrediction(req, res, io);
     });
 

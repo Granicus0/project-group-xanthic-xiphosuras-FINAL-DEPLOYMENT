@@ -24,8 +24,8 @@ export const loginUser = async (req, res) => {
         const token = createToken(user._id)
 
         // Send back response with email and JWT
-        res.status(200).json({_id: user._id, name: user.name, email: user.email, token });
-        
+        res.status(200).json({ _id: user._id, name: user.name, email: user.email, token });
+
 
     } catch (error) {
 
@@ -38,7 +38,7 @@ export const loginUser = async (req, res) => {
 export const signupUser = async (req, res) => {
 
     logger.logRequestDetails(req);
-    
+
     const { name, email, password } = req.body;
 
 
@@ -51,7 +51,7 @@ export const signupUser = async (req, res) => {
         const token = createToken(user._id)
 
         // Send back response with email and JWT
-        res.status(200).json({_id: user._id, name: user.name, email: user.email, token })
+        res.status(200).json({ _id: user._id, name: user.name, email: user.email, token })
 
 
     } catch (error) {
