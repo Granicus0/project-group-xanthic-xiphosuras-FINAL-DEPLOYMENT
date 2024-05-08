@@ -3,4 +3,5 @@
     grid-gap: 20px;
     justify-content: space-around;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+    margin-bottom: 40px;
 }
