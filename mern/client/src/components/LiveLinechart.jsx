@@ -18,7 +18,7 @@ export function LiveLinechart({data}) {
 
         const xScale = d3.scaleLinear()
             .domain(d3.extent(data, d => d.iteration))
-            .range([margin.left, width - margin.right]);
+            .range([margin.left, width - margin.right-30]);
 
         const yScale = d3.scaleLinear()
             .domain([0, d3.max(data, d => d.loss)])
@@ -78,7 +78,7 @@ export function LiveLinechart({data}) {
 
         svg.append("g")
             .attr("class", "y-axis")
-            .attr("transform", `translate(${margin.left},0)`)
+            .attr("transform", `translate(${margin.left-20},0)`)
             .call(yAxis)
             .call(g => g.select('.domain').remove());
 
