@@ -30,6 +30,8 @@
 }
 
 .result-text-container {
+    display: flex;
+    justify-content: center;
     text-align: center;
     margin: 20px auto;
     width: 40%;
@@ -38,10 +40,9 @@
     border-radius: 8px;
     white-space: pre-wrap;
     overflow-wrap: break-word;
-    text-align: justify;
+    align-items: center;
     font-size: 15px;
     font-family: Georgia, 'Times New Roman', Times, serif;
-    text-align: center;
     text-transform: uppercase;
     /*min-height: 100px;*/
     height: 15vh;
