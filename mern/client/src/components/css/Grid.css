@@ -5,3 +5,13 @@
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
     margin-bottom: 40px;
 }
+
+.no-data {
+    grid-column: 1 / -1; 
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+    height: 50vh; 
+    font-size: x-large;
+
+}

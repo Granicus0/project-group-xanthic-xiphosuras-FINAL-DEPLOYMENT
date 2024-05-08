@@ -65,8 +65,7 @@ function UserPage() {
         <h1 className='user-page-header'> Hello, {userName}! </h1>
         <h4 className='user-page-sub-header1'> Your Current Models </h4>
         <br></br>
-        {models.length > 0 && <h5 className='user-page-sub-header2'> Click one to make some predictions! </h5>}
-        {models.length == 0 && <h5 className='user-page-sub-header2'> Looks like you don't have any models. Go ahead and create a new one! </h5>}
+        <h5 className='user-page-sub-header2'> Click one to make some predictions! </h5>
         <div>
           <UserSelectButton modelData={models} />
         </div>

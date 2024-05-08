@@ -8,11 +8,14 @@ function ModelGrid({ modelData, modelType }) {
 
   return (
     <div className="grid-container-component" data-testid="grid-container-component-test">
-      {filteredModelData.map((modelInfo) => (
+    {filteredModelData.length > 0 ? (
+      filteredModelData.map((modelInfo) => (
         <ModelCardv2 key={modelInfo._id} modelInfo={modelInfo} data-testid="model-card-test" />
-
-      ))}
-    </div>
+      ))
+    ) : (
+      <p className="no-data">Looks like you don't have any models. Go ahead and create a new one! </p>
+    )}
+  </div>
   );
 }
 
