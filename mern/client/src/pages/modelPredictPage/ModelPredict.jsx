@@ -21,21 +21,19 @@ const ModelPredict = () => {
         });
         return () => socket.disconnect();
     }, []);
-
     useEffect(() => {
         if (predictUpdates.length > 0) {
             const lines = predictUpdates[0].split('\n');
-            //start the table from the result: below
             const resultIndex = lines.findIndex(line => line.includes("Result:"));
             if (resultIndex !== -1) {
-                //define the table headers and rows
                 const originalHeaders = lines[resultIndex + 1].split(',');
-                const originalRows = lines.slice(resultIndex + 2).map(line => line.split(','));
-
+                let originalRows = lines.slice(resultIndex + 2).map(line => line.split(','));
+                // Filter out rows with empty first column
+                originalRows = originalRows.filter(row => row[0].trim() !== '');
                 // Rearrange headers and rows
                 const rearrangedHeaders = [...originalHeaders.slice(-1), ...originalHeaders.slice(0, -1)];
                 const rearrangedRows = originalRows.map(row => [...row.slice(-1), ...row.slice(0, -1)]);
-
+    
                 setHeaders(rearrangedHeaders);
                 setRows(rearrangedRows);
                 setPreResultText(lines.slice(0, resultIndex).join('\n'));
@@ -43,6 +41,7 @@ const ModelPredict = () => {
             }
         }
     }, [predictUpdates]);
+    
 
     if (loading) {
         return (
