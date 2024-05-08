@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import './ModelPredict.css';
-import { BarLoader } from 'react-spinners'; 
+import { BarLoader } from 'react-spinners';
 import { useLocation } from 'react-router-dom';
 
 const ModelPredict = () => {
@@ -10,13 +10,13 @@ const ModelPredict = () => {
     const [headers, setHeaders] = useState([]);
     const [rows, setRows] = useState([]);
     const [preResultText, setPreResultText] = useState("");
-    const [loading, setLoading] = useState(true); 
+    const [loading, setLoading] = useState(true);
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
     const location = useLocation();
-    const socket_id  = location.state?.socket_id ;
+    const socket_id = location.state?.socket_id;
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
-        socket.on('predict_update@'+socket_id, (update) => {
+        socket.on('predict_update@' + socket_id, (update) => {
             setPredictUpdates(prevUpdates => [...prevUpdates, update]);
         });
         return () => socket.disconnect();
@@ -28,18 +28,18 @@ const ModelPredict = () => {
             //start the table from the result: below
             const resultIndex = lines.findIndex(line => line.includes("Result:"));
             if (resultIndex !== -1) {
-            //define the table headers and rows
-            const originalHeaders = lines[resultIndex + 1].split(',');
-            const originalRows = lines.slice(resultIndex + 2).map(line => line.split(','));
+                //define the table headers and rows
+                const originalHeaders = lines[resultIndex + 1].split(',');
+                const originalRows = lines.slice(resultIndex + 2).map(line => line.split(','));
 
-            // Rearrange headers and rows
-            const rearrangedHeaders = [...originalHeaders.slice(-1), ...originalHeaders.slice(0, -1)];
-            const rearrangedRows = originalRows.map(row => [...row.slice(-1), ...row.slice(0, -1)]);
+                // Rearrange headers and rows
+                const rearrangedHeaders = [...originalHeaders.slice(-1), ...originalHeaders.slice(0, -1)];
+                const rearrangedRows = originalRows.map(row => [...row.slice(-1), ...row.slice(0, -1)]);
 
-            setHeaders(rearrangedHeaders);
-            setRows(rearrangedRows);
-            setPreResultText(lines.slice(0, resultIndex).join('\n'));
-            setLoading(false);
+                setHeaders(rearrangedHeaders);
+                setRows(rearrangedRows);
+                setPreResultText(lines.slice(0, resultIndex).join('\n'));
+                setLoading(false);
             }
         }
     }, [predictUpdates]);
@@ -47,9 +47,9 @@ const ModelPredict = () => {
     if (loading) {
         return (
             <div className="loading-container">
-                <div className="loading-text">Predicting Data...</div> 
+                <div className="loading-text">Predicting Data...</div>
                 <div className="loading-spinner">
-                    <BarLoader loading={loading} /> 
+                    <BarLoader loading={loading} />
                 </div>
             </div>
         );
@@ -58,12 +58,12 @@ const ModelPredict = () => {
     if (!headers.length || !rows.length) {
         return <div>Loading data or no data available</div>;
     }
-    
+
     //generate a csv file of the predict dataset
     const generateCsvContent = () => {
         let csvContent = "data:text/csv;charset=utf-8,";
         const cleanedHeaders = headers.map(header => header.replace(/[\r\n]+/g, ' '));
-        csvContent += cleanedHeaders.join(",") + "\n"; 
+        csvContent += cleanedHeaders.join(",") + "\n";
         rows.forEach(row => {
             const cleanedRow = row.map(cell => cell.replace(/[\r\n]+/g, ' '));
             csvContent += cleanedRow.join(",") + "\n";
@@ -82,7 +82,7 @@ const ModelPredict = () => {
         link.click();
         document.body.removeChild(link);
     };
-    
+
     return (
         <div className="predict-page-container">
             <div className='predict-header'>
@@ -103,7 +103,7 @@ const ModelPredict = () => {
                         <thead>
                             <tr>
                                 {headers.map((header, index) => (
-                                    <th key={index} className={index === 0 ? 'highlight-column' : ''}>{header}</th> 
+                                    <th key={index} className={index === 0 ? 'highlight-column' : ''}>{header}</th>
                                 ))}
                             </tr>
                         </thead>
@@ -119,7 +119,7 @@ const ModelPredict = () => {
                     </table>
                 </div>
             </div>
-        </div> 
+        </div>
     );
 };
 

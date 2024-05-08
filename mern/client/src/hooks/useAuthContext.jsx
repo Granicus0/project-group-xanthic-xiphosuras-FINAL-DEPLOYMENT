@@ -9,7 +9,7 @@ export const useAuthContext = () => {
   const context = useContext(AuthContext)
 
   // Check if the context is not available, which would happen if this hook is used outside of a provider
-  if(!context) {
+  if (!context) {
     // If context is not available, throw an error to inform the developer of incorrect usage
     throw Error('useAuthContext must be used inside an AuthContextProvider')
   }
