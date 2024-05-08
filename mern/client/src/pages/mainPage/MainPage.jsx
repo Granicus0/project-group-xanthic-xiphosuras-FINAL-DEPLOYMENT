@@ -9,7 +9,7 @@ const MainPage = () => {
     <>
       <MainPageBackgroundAnimation assetsFolder={assetsFolder} />
       <nav>
-        <a href="/" className="toptitle">ArgusML</a>
+         <a href="/" className="toptitle">ArgusML</a>
         <ul>
           <li>
             <a className="login_button" href='/register'>Log in</a>
