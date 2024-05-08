@@ -5,8 +5,12 @@ import EmptyDataAlert from "./EmptyDataalter";
 import EmptyColumnalert from "./EmptyColumnalert";
 import { useDisclosure } from '@chakra-ui/react';
 import { v4 as uuidv4 } from 'uuid';
+import { useContext } from 'react';
+import { ModelProgressContext } from "../context/ModelProgressContext";
+
 // This button component takes in model information and sends it to the database to create a new model.
 const StartTrainingButton = ({ modelInfo }) => {
+    const {setTrainingUpdates, setChartData, setResultData, setLoading, setModelID }= useContext(ModelProgressContext)
     const { isOpen: isOpenDataAlert, onOpen: onDataAlertOpen, onClose: onDataAlertClose } = useDisclosure();
     const { isOpen: isOpenColumnAlert, onOpen: onColumnAlertOpen, onClose: onColumnAlertClose } = useDisclosure();
     const { trainModel, isLoading, error } = useModelTrain(); // This is a *custom* hook used to train the model
@@ -21,6 +25,11 @@ const StartTrainingButton = ({ modelInfo }) => {
             onColumnAlertOpen();
         } else {
             const socket_id = uuidv4();
+            setTrainingUpdates([])
+            setChartData([])
+            setResultData([])
+            setLoading(true)
+            setModelID()
             trainModel(modelInfo.modelName, modelInfo.modelType, modelInfo.uploadedFile, modelInfo.userId, modelInfo.selectedColumn, socket_id)
             navigate("/modelProgress", { state: { socket_id: socket_id } })
 

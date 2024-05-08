@@ -13,7 +13,6 @@ export const useModelTrain = () => {
 
         setIsLoading(true)
         setError(null)
-
         // Files such as CSV's need to be passed into a special FormData object. This is the only way to upload files to our API paths
         // Do *not* change the data type
         const formData = new FormData();

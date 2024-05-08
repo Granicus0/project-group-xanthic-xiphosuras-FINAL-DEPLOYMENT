@@ -8,13 +8,17 @@ import { BarLoader } from 'react-spinners';
 import NavToPredictpageButton from '../../components/NavToPredictpageButton';
 import { set } from 'lodash';
 import { useLocation } from 'react-router-dom';
+import { useContext } from 'react';
+import { ModelProgressContext } from '../../context/ModelProgressContext';
 
 const ModelProgress = () => {
-    const [trainingUpdates, setTrainingUpdates] = useState([]);
-    const [chartData, setChartData] = useState([]);
-    const [resultData, setResultData] = useState([]);
-    const [loading, setLoading] = useState(true); 
-    const [ModelID, setModelID] = useState();
+    // const [trainingUpdates, setTrainingUpdates] = useState([]);
+    // const [chartData, setChartData] = useState([]);
+    // const [resultData, setResultData] = useState([]);
+    // const [loading, setLoading] = useState(true); 
+    // const [ModelID, setModelID] = useState();
+    const {trainingUpdates, setTrainingUpdates, chartData, setChartData, resultData
+        , setResultData, loading, setLoading, ModelID, setModelID }=useContext(ModelProgressContext)
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
     const location = useLocation();
     const socket_id = location.state?.socket_id;
