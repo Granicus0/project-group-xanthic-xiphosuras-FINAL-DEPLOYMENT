@@ -8,8 +8,8 @@ export default defineConfig({
   plugins: [
     react()
   ],
-  server:{
-    open:true, //automatic
+  server: {
+    open: true, //automatic
   },
   test: {
     globals: true,
