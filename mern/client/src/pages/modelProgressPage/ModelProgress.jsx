@@ -78,10 +78,14 @@ const ModelProgress = () => {
 
     return (
         <div className="training-container">
-            <BackToHomepageButton />
-            <div className="predict-right-button">
-                {typeof ModelID === 'string' ? <NavToPredictpageButton Model_id = {ModelID} /> : null}
-                {/* <NavToPredictpageButton Model_id = {ModelID} /> */}
+            <div className="top-button-container">
+                <div className="left-button">
+                    <BackToHomepageButton />
+                </div>
+                <div className="predict-right-button">
+                    {typeof ModelID === 'string' ? <NavToPredictpageButton Model_id = {ModelID} /> : null}
+                    {/* <NavToPredictpageButton Model_id = {ModelID} /> */}
+                </div>
             </div>
             <div className="training-info-container">
                 <h2 style={{float: 'left', marginTop: '5px', marginBottom: '10px'}}>Model Training Progress</h2>

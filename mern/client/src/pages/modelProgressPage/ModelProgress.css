@@ -130,6 +130,17 @@ td p{
   position: fixed;
   right:20px;
   top:20px;
+  z-index:2;
+}
+
+.left-button{
+  position: fixed;
+  left:20px;
+  top:20px;
+}
+
+.top-button-container{
+  margin-bottom: 50px;
 }
 
 .no-updates-placeholder{
