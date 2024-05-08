@@ -132,3 +132,4 @@ It is *never* good practice to commit sensitive info, such as API keys, to a rem
 
 ## Deployment:
 The project is currently hosted on [Vercel](https://vercel.com) (for the front-end) and [Render](https://render.com) (for the back-end). 
+The Website can be accesse online via [Link](https://project-group-xanthic-xiphosuras.vercel.app/), The model training and prediction pages could take a while due to free-tier deployment, please be patient, it 100% works.
