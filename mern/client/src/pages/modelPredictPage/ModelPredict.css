@@ -16,6 +16,9 @@
     padding: 8px 15px;
 }
 
+.predict-header{
+    height:5vh;
+}
 .header-text {
     font-size: 24px;
     padding-top: 10px;
@@ -40,13 +43,15 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-align: center;
     text-transform: uppercase;
-    min-height: 100px;
+    /*min-height: 100px;*/
+    height: 15vh;
 }
 
 .model-predict-output-container {
-    max-height: 450px;
+    /*max-height: 600px;*/
+    height: 60vh;
     /* Change height to max-height */
-    overflow-y: auto;
+   /* overflow-y: auto;*/
     /* Add overflow-y to enable scrolling if needed */
     margin: 20px auto;
     background-color: #fff;
@@ -54,10 +59,10 @@
     border-radius: 8px;
 }
 
-.model-predict-output-container::-webkit-scrollbar {
+/*.model-predict-output-container::-webkit-scrollbar {
     width: 0;
     background: transparent;
-}
+}*/
 
 .table-header {
     display: flex;
@@ -65,6 +70,7 @@
     position: relative;
     width: 100%;
     padding: 0px 5px;
+    height: 10vh;
 }
 
 .table-header-text {
@@ -94,7 +100,8 @@
 }
 
 .table-container {
-    max-height: 360px;
+    /*max-height: 500px;*/
+    height: 50vh;
     /* Change height to max-height */
     overflow-y: auto;
     overflow-x: auto;
