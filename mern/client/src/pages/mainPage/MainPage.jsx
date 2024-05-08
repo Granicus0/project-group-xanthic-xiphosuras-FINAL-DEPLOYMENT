@@ -12,10 +12,10 @@ const MainPage = () => {
          <a href="/" className="toptitle">ArgusML</a>
         <ul>
           <li>
-            <a className="login_button" href='/register'>Log in</a>
+            <a className="login_button" href='/register?state=login'>Log in</a>
           </li>
           <li>
-            <a className="sign_button" href="/register">Sign up</a>
+            <a className="sign_button" href="/register?state=signup">Sign up</a>
           </li>
         </ul>
       </nav>

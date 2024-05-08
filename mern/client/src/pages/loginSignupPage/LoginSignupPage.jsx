@@ -12,7 +12,10 @@ const LoginSignupPage = () => {
   const [loginPassword, setLoginPassword] = useState("");
   const { login, error, isLoading } = useLogin();
   
-  const initialMode = location.state?.mode;
+  const queryParams = new URLSearchParams(location.search);
+  const initialMode = queryParams.get('state');
+
+  //const initialMode = location.state?.mode;
   const [isLogin, setIsLogin] = useState(initialMode === 'signup' ? false : true); 
   const navigate = useNavigate();
 
@@ -21,6 +24,8 @@ const LoginSignupPage = () => {
   const [confirmSignupPassword, setConfirmPassword] = useState(""); 
   const [name, setSignupName]= useState("");
   const { signup, isSignupLoading, signupError } = useSignup();
+
+  
 
   const logoImagePath = import.meta.env.VITE_ASSETS_FOLDER + '/textures/logo3.png'
 
