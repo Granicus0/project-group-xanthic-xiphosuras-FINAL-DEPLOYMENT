@@ -100,7 +100,7 @@ h1 {
 
 .form-box button {
     width: 60%;
-    margin-top: 2rem;
+    margin-top: 1rem;
     background-color: #000000;
     outline: none;
     border-radius: 0.9rem;
@@ -210,3 +210,9 @@ h1 {
     transition: background-color 0.3s ease-in-out; /* Transition for background-color */
 
   }
+
+.showPassword_btn{
+    width: 40px;
+    height: 40px;
+    margin-top: 1rem;
+}

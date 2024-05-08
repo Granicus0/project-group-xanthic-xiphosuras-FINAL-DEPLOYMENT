@@ -24,6 +24,13 @@ const LoginSignupPage = () => {
 
   const logoImagePath = import.meta.env.VITE_ASSETS_FOLDER + '/textures/logo3.png'
 
+  const[showPassword,setShowPassword]=useState(false)
+  function filpShowPassword(){
+    setShowPassword(!showPassword)
+  }
+  const showPasswordPath = import.meta.env.VITE_ASSETS_FOLDER + '/image/show-password.png'
+
+
   useEffect(() => {
     const checkLoggedIn = () => {
       const token = localStorage.getItem("user");
@@ -91,12 +98,13 @@ const LoginSignupPage = () => {
               className="login-sign-input"
             ></input>
             <input
-              type="password"
+              type={showPassword? "text" : "password"}
               placeholder="Password:"
               value={loginPassword}
               onChange={(e) => setLoginPassword(e.target.value)}
               className="login-sign-input"
             ></input>
+            <img src={showPasswordPath} alt="logo" onClick={filpShowPassword} className="showPassword_btn"/>
             
             <button type="submit" className="login-button" disabled={isLoading}>
               Log in
@@ -122,20 +130,21 @@ const LoginSignupPage = () => {
               className="login-sign-input"
             ></input>
             <input
-              type="password"
+              type={showPassword? "text" : "password"}
               placeholder="Password:"
               value={signupPassword}
               onChange={(e) => setSignupPassword(e.target.value)}
               className="login-sign-input"
-            ></input>
+            />
             <input
               id="confirm-password"
-              type="password"
+              type={showPassword? "text" : "password"}
               placeholder="Confirm Password:"
               onChange={(e) => setConfirmPassword(e.target.value)}
               value={confirmSignupPassword}
               className="login-sign-input"
             />
+            <img src={showPasswordPath} alt="logo" onClick={filpShowPassword} className="showPassword_btn"/>
             <button type="submit" className="register-button" disabled={isSignupLoading}>
               Sign up
             </button>
