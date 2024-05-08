@@ -62,8 +62,14 @@ const ModelProgress = () => {
                 }
                 return acc; // Keep the existing accumulator
             }, ""); // Initialize acc as a string to keep the data type consistent
+
+            
             console.log('ModelID:', ModelID, 'Type:', typeof ModelID);
             console.log(data3);
+
+
+            
+
             setLoading(false);
         });
         return () => socket.disconnect();
