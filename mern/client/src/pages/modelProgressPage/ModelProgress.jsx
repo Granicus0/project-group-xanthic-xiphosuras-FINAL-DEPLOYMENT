@@ -77,62 +77,60 @@ const ModelProgress = () => {
     }
 
     return (
-        <>
-            <div className="training-container">
-                <BackToHomepageButton />
-                <div className="predict-right-button">
-                    {typeof ModelID === 'string' ? <NavToPredictpageButton Model_id = {ModelID} /> : null}
-                    {/* <NavToPredictpageButton Model_id = {ModelID} /> */}
-                </div>
-                <div className="training-info-container">
-                    <h2 style={{float: 'left', marginTop: '5px', marginBottom: '10px'}}>Model Training Progress</h2>
-                    <div className="chart-container">
-                            {/* Our graph will go on the right half of the screen */}
-                            {/* <svg ref={svgRef} width={width} height={height} /> */}
-                            {chartData.length > 0 ? (
-                                <LiveLinechart data={chartData} />
-                                ) : (
-                                <div className="no-updates-placeholder">
-                                    No training updates available for this model.
-                                </div>
-                            )}
-                    </div>
-                    
-                    <table className='summary-table'>
-                        <tbody>
-                            <tr>
-                                <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingRight: '20px' }}>
-                                    <h4>Training Summary</h4>
-                                    <div className="summary-container">
-                                        {resultData.length > 0 && (
-                                            <>
-                                                {resultData.map((result, index) => (
-                                                    <p key={index}>
-                                                        {result.summary_name}: <span style={{ float: 'right' }}>{result.summary_value}</span>
-                                                    </p>
-                                                ))}
-                                            </>
-                                        )}
-                                    </div>
-                                </td>
-                                <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingLeft: '20px' }}>
-                                    <h4>Model Training Log</h4>
-                                    <div className="model-training-output-container">
-                                        <ul className="update-list">
-                                            {trainingUpdates.map((update, index) => (
-                                                <li key={index}>
-                                                    <pre>{update}</pre>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
+        <div className="training-container">
+            <BackToHomepageButton />
+            <div className="predict-right-button">
+                {typeof ModelID === 'string' ? <NavToPredictpageButton Model_id = {ModelID} /> : null}
+                {/* <NavToPredictpageButton Model_id = {ModelID} /> */}
             </div>
-        </>
+            <div className="training-info-container">
+                <h2 style={{float: 'left', marginTop: '5px', marginBottom: '10px'}}>Model Training Progress</h2>
+                <div className="chart-container">
+                        {/* Our graph will go on the right half of the screen */}
+                        {/* <svg ref={svgRef} width={width} height={height} /> */}
+                        {chartData.length > 0 ? (
+                            <LiveLinechart data={chartData} />
+                            ) : (
+                            <div className="no-updates-placeholder">
+                                No training updates available for this model.
+                            </div>
+                        )}
+                </div>
+                
+                <table className='summary-table'>
+                    <tbody>
+                        <tr>
+                            <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingRight: '20px' }}>
+                                <h4>Training Summary</h4>
+                                <div className="summary-container">
+                                    {resultData.length > 0 && (
+                                        <>
+                                            {resultData.map((result, index) => (
+                                                <p key={index}>
+                                                    {result.summary_name}: <span style={{ float: 'right' }}>{result.summary_value}</span>
+                                                </p>
+                                            ))}
+                                        </>
+                                    )}
+                                </div>
+                            </td>
+                            <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingLeft: '20px' }}>
+                                <h4>Model Training Log</h4>
+                                <div className="model-training-output-container">
+                                    <ul className="update-list">
+                                        {trainingUpdates.map((update, index) => (
+                                            <li key={index}>
+                                                <pre>{update}</pre>
+                                            </li>
+                                        ))}
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
     );
 };
 

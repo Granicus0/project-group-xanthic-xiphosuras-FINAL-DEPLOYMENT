@@ -18,7 +18,7 @@
   border: 1px solid #E5E7EB;
   border-radius: 10px;
   width: 100%;
-  height: 80%;
+  height: 400px;
 }
 
 .update-list {
@@ -61,6 +61,13 @@
 
 .training-container{
   padding: 20px;
+  height: 100vh;
+  overflow-y: auto;
+}
+
+.training-container::-webkit-scrollbar {
+  width: 0; 
+  background: transparent; 
 }
 
 .chart-container {
