@@ -141,14 +141,14 @@ const ModelPredict = () => {
         <div className="predict-page-container">
             <div className='predict-header'>
                 <BackToHomepageButton />
-                <h3 className="header-text">Predict Result</h3>
+                <h3 className="header-text">Predicted Result</h3>
             </div>
             <div className="result-text-container">
                 <p>{preResultText}</p>
             </div>
             <div className='model-predict-output-container'>
                 <div className="table-header">
-                    <p className='table-header-text'>Predict Dataset</p>
+                    <p className='table-header-text'>Predicted Dataset (click headers to change chart)</p>
                     <button onClick={handleDownloadCsv} className="download-button">Download CSV</button>
                 </div>
                 <div className="table-container">
