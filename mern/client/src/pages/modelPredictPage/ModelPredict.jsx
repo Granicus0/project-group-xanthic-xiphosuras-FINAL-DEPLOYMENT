@@ -1,9 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import { Chart, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Bar } from 'react-chartjs-2';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import './ModelPredict.css';
 import { BarLoader } from 'react-spinners';
 import { useLocation } from 'react-router-dom';
+
+// Register the components required by Chart.js
+Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const ModelPredict = () => {
     const [predictUpdates, setPredictUpdates] = useState([]);
@@ -11,9 +16,11 @@ const ModelPredict = () => {
     const [rows, setRows] = useState([]);
     const [preResultText, setPreResultText] = useState("");
     const [loading, setLoading] = useState(true);
-    const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
+    const [chartData, setChartData] = useState(null);
+    const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT;
     const location = useLocation();
     const socket_id = location.state?.socket_id;
+
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
         socket.on('predict_update@' + socket_id, (update) => {
@@ -21,6 +28,7 @@ const ModelPredict = () => {
         });
         return () => socket.disconnect();
     }, []);
+
     useEffect(() => {
         if (predictUpdates.length > 0) {
             const lines = predictUpdates[0].split('\n');
@@ -28,12 +36,10 @@ const ModelPredict = () => {
             if (resultIndex !== -1) {
                 const originalHeaders = lines[resultIndex + 1].split(',');
                 let originalRows = lines.slice(resultIndex + 2).map(line => line.split(','));
-                // Filter out rows with empty first column
                 originalRows = originalRows.filter(row => row[0].trim() !== '');
-                // Rearrange headers and rows
                 const rearrangedHeaders = [...originalHeaders.slice(-1), ...originalHeaders.slice(0, -1)];
                 const rearrangedRows = originalRows.map(row => [...row.slice(-1), ...row.slice(0, -1)]);
-    
+
                 setHeaders(rearrangedHeaders);
                 setRows(rearrangedRows);
                 setPreResultText(lines.slice(0, resultIndex).join('\n'));
@@ -41,7 +47,59 @@ const ModelPredict = () => {
             }
         }
     }, [predictUpdates]);
+// Trigger the chart of the first header 
+    useEffect(() => {
+        if (headers.length > 0 && rows.length > 0) {
+            handleHeaderClick(0); 
+        }
+    }, [headers, rows]);
+
+    const handleHeaderClick = (index) => {
+        const columnData = rows.map(row => row[index]);
+        const isNumeric = columnData.every(item => !isNaN(parseFloat(item)) && isFinite(item));
     
+        if (isNumeric) {
+            const data = columnData.map(Number);
+            const max = Math.max(...data);
+            const min = Math.min(...data);
+            const binSize = (max - min) / 10; 
+            // Divide data into 10 bins for simplicity
+            let histogramData = new Array(10).fill(0);
+            let labels = new Array(10).fill(0).map((_, i) => `${(min + binSize * i).toFixed(1)} - ${(min + binSize * (i + 1)).toFixed(1)}`);
+    
+            data.forEach(value => {
+                const binIndex = Math.min(Math.floor((value - min) / binSize), 9);
+                histogramData[binIndex]++;
+            });
+    
+            setChartData({
+                labels,
+                datasets: [{
+                    label: `Data Distribution for ${headers[index]}`,
+                    data: histogramData,
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)', 
+                    borderColor: '#007BFF', 
+                    borderWidth: 1
+                }]
+            });
+        } else {
+            const counts = columnData.reduce((acc, val) => {
+                acc[val] = (acc[val] || 0) + 1;
+                return acc;
+            }, {});
+    
+            setChartData({
+                labels: Object.keys(counts),
+                datasets: [{
+                    label: `Category Counts for ${headers[index]}`,
+                    data: Object.values(counts),
+                    backgroundColor: 'rgba(0, 123, 255, 0.2)', 
+                    borderColor: '#007BFF',
+                    borderWidth: 1
+                }]
+            });
+        }
+    };
 
     if (loading) {
         return (
@@ -55,10 +113,9 @@ const ModelPredict = () => {
     }
 
     if (!headers.length || !rows.length) {
-        return <div>Loading data or no data available</div>;
+        return <div>No data available</div>;
     }
 
-    //generate a csv file of the predict dataset
     const generateCsvContent = () => {
         let csvContent = "data:text/csv;charset=utf-8,";
         const cleanedHeaders = headers.map(header => header.replace(/[\r\n]+/g, ' '));
@@ -70,7 +127,6 @@ const ModelPredict = () => {
         return csvContent;
     };
 
-    //set csv download fuction
     const handleDownloadCsv = () => {
         const csvContent = generateCsvContent();
         const encodedUri = encodeURI(csvContent);
@@ -81,41 +137,46 @@ const ModelPredict = () => {
         link.click();
         document.body.removeChild(link);
     };
-
     return (
         <div className="predict-page-container">
             <div className='predict-header'>
-                <BackToHomepageButton></BackToHomepageButton>
+                <BackToHomepageButton />
                 <h3 className="header-text">Predict Result</h3>
             </div>
             <div className="result-text-container">
                 <p>{preResultText}</p>
             </div>
-
             <div className='model-predict-output-container'>
                 <div className="table-header">
                     <p className='table-header-text'>Predict Dataset</p>
                     <button onClick={handleDownloadCsv} className="download-button">Download CSV</button>
                 </div>
                 <div className="table-container">
-                    <table className="data-table">
-                        <thead>
-                            <tr>
-                                {headers.map((header, index) => (
-                                    <th key={index} className={index === 0 ? 'highlight-column' : ''}>{header}</th>
-                                ))}
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {rows.map((row, index) => (
-                                <tr key={index}>
-                                    {row.map((cell, cellIndex) => (
-                                        <td key={cellIndex} className={cellIndex === 0 ? 'highlight-cell' : ''}>{cell}</td>
+                    <div className="data-table-container">
+                        <table className="data-table">
+                            <thead>
+                                <tr>
+                                    {headers.map((header, index) => (
+                                        <th key={index} onClick={() => handleHeaderClick(index)} className={index === 0 ? 'highlight-column' : ''}>{header}</th>
                                     ))}
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
+                            </thead>
+                            <tbody>
+                                {rows.map((row, index) => (
+                                    <tr key={index}>
+                                        {row.map((cell, cellIndex) => (
+                                            <td key={cellIndex} className={cellIndex === 0 ? 'highlight-cell' : ''}>{cell}</td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    {chartData && (
+                        <div className='chart-container'>
+                            <Bar data={chartData} options={{ responsive: true, scales: { y: { beginAtZero: true } } }} />
+                        </div>
+                    )}
                 </div>
             </div>
         </div>
@@ -124,3 +185,4 @@ const ModelPredict = () => {
 
 export default ModelPredict;
 
+   
