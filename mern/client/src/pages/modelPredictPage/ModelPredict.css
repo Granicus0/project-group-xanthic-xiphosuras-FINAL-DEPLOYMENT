@@ -45,7 +45,9 @@
     font-size: 1.2vw; 
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-transform: uppercase;
-    height: 15vh; 
+    height: 20vh;
+    min-height: 170px;
+    max-height: 300px;
     position: relative;
 }
 
