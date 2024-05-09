@@ -89,7 +89,7 @@ npm test
 
 The project by and large is rather simple, it is a website where users can upload any training dataset and train their own machine learning models. You may think of it as a nice front-end for [scikit-learn](https://scikit-learn.org/), which is the back-end library used to train, test, and evaluate models.
 
-To visit the site, click [here](https://project-group-xanthic-xiphosuras.vercel.app/)
+To visit the site, click [here](https://project-group-xanthic-xiphosuras-deployment.vercel.app/)
 You should be greeted by a lovely animation with the ability to log in, sign up, or view information about the application:
 
 ![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/8b0a5447-307e-4408-b5e0-5fafc3a29645)
@@ -132,5 +132,5 @@ It is *never* good practice to commit sensitive info, such as API keys, to a rem
 
 ## Deployment:
 The project is currently hosted on [Vercel](https://vercel.com) (for the front-end) and [Render](https://render.com) (for the back-end). 
-
-The Website can be accesse online via [https://project-group-xanthic-xiphosuras.vercel.app/](https://project-group-xanthic-xiphosuras.vercel.app/), The model training and prediction pages could take a while due to free-tier deployment, please be patient, it 100% works.
+The model training and prediction pages could take a while due to free-tier deployment, so please be patient.
+Click [here](https://project-group-xanthic-xiphosuras-deployment.vercel.app/) to check out the deployment.
