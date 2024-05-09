@@ -60,7 +60,7 @@ export const beginModelTraining = async (req, res, io) => {
     const userId = req.body.userId;
     const socketId = req.body.socketId;
     const predictVariable = req.body.selectedColumn
-    const modelId = new ObjectId(); // Declare the variable outside the try-catch block to widen its scope
+    const modelId = new ObjectId(); 
 
     // check if the referenced user exists
     const existingUser = await User.findById(userId);
@@ -69,8 +69,7 @@ export const beginModelTraining = async (req, res, io) => {
     }
     console.log("Training request recieved for: " + modelName + " of type: " + modelType + " from: " + userId)
 
-    // files uploaded by the user are temporarily stored in /server/uploads. Use this folder to retrieve the CSV file.
-    // Start a Python process. The relative path is just the server folder, NOT the current directory.
+   
     // Grab the CSV file the user has just uploaded
     const csvFilePath = 'uploads/' + req.file.filename
     console.log("Path of user uploaded file: " + csvFilePath)
@@ -81,10 +80,8 @@ export const beginModelTraining = async (req, res, io) => {
     const process = 'once'
 
 
-    // we do not need to use python/analyse.py to generate schemas anymore it will be done in training.py
-    //const analyzeCsvPythonProcess = spawn('python', [pyAnalyseFile, '-csvp', csvFilePath, '-schema_file', req.file.filename + '.json', '-id', 'schemas'])
-    //const schemaPath = 'schemas/' + req.file.filename + '.json'
-    //const pythonProcess = spawn('python', [pyTrainFile, '-csvp', csvFilePath, '-schemap', schemaPath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType, '-pickle', modelId]);
+    // files uploaded by the user are temporarily stored in /server/uploads. Use this folder to retrieve the CSV file.
+    // Start a Python process. The relative path is just the server folder, NOT the current directory.
     const pythonProcess = spawn('python', ['-u', pyTrainFile, '-csvp', csvFilePath, '-id', modelId, '-l', predictVariable, '-p', process, '-m', modelType]);
 
     // Log any errors from executing the python script (bruh this saved so much trouble...)
@@ -92,21 +89,13 @@ export const beginModelTraining = async (req, res, io) => {
         console.error(`Python error: ${data}`);
     });
 
-    // THIS is how we communicate live data back to the client.
-    // In the python files, wherever you want to output data, make sure you print it like this:
 
-    // ``` print("Print something here", flush=True) ```
-
-    // Setting flush=True flushes the buffer immediately and lets our backend capture these inputs
-    // inside this function through 'stdout'
     pythonProcess.stdout.on('data', (data) => {
         // ANY data that has been printed to the console from ANY of the python files executed will be captured here and converted to a string
         const update = data.toString();
         // Log the output to the console for our own sake (debugging mainly)
 
         // THIS IS THE LINE THAT ACTUALLY BEAMS THE UPDATE BACK TO THE CLIENT.
-        // This 'training_update' string is special! Notice how this is the *exact same string* that is inside of 
-        // client/pages/modelProgressPage/ModelProgress.jsx
         io.emit('training_update@' + socketId, update);
     });
 
@@ -122,8 +111,8 @@ export const beginModelTraining = async (req, res, io) => {
                     _id: modelId,
                     model_name: modelName,
                     model_type: modelType,
-                    user: userId,  // This assumes that userId is correctly formatted as an ObjectId
-                    model_address: predictVariable //This isn't model_address, but instead it's the label that the user want to predict.
+                    user: userId,  
+                    model_address: predictVariable // This isn't actually an address, but instead it's the label that the user want to predict.
                 })
                 await newModel.save()
             } catch (error) {
