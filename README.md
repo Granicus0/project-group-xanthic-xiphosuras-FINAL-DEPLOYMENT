@@ -127,9 +127,6 @@ Back at the dashboard, the user can use their new model whenever they'd like, or
 
 ![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/35824b3e-af37-45a2-8486-7900a68f4f3a)
 
-## A note on environment files:
-It is *never* good practice to commit sensitive info, such as API keys, to a remote repository. Rest assured, the MongoDB database instance was created in complete isolation through various means to ensure the safety of a group. It is, in essence, a throwaway instance meant only for the singular purpose of showcasing this project. It is not tied to anyone or anything. In a real world scenario, this would not exist in the repo as it does now (under the server folder).
-
 ## Deployment:
 The project is currently hosted on [Vercel](https://vercel.com) (for the front-end) and [Render](https://render.com) (for the back-end). 
 The model training and prediction pages could take a while due to free-tier deployment, so please be patient.
