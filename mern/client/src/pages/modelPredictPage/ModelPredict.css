@@ -46,6 +46,15 @@
     font-family: Georgia, 'Times New Roman', Times, serif;
     text-transform: uppercase;
     height: 15vh; 
+    position: relative;
+}
+
+.predicted-result-text {
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); 
+    width: 100%; 
 }
 
 .model-predict-output-container {

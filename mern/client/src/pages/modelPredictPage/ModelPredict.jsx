@@ -167,7 +167,7 @@ const ModelPredict = () => {
                     <h3 className="header-text">Predicted Result</h3>
                 </div>
                 <div className="result-text-container">
-                    <p>{preResultText}</p>
+                    <p className='predicted-result-text'>{preResultText}</p>
                 </div>
                 <div className='model-predict-output-container'>
                     <div className="table-header">
