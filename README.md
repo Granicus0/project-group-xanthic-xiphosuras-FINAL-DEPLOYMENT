@@ -140,7 +140,7 @@ Click [here](https://project-group-xanthic-xiphosuras-deployment.vercel.app/) to
 
 | Testing Unit | Testing Method |
 |---|---|
-| Front-end components | Vitest + Manual testing|
+| Front-end components | Vitest |
 | Front-end context | Manual testing |
 | Front-end hooks | Manual testing |
 | Front-end pages | Manual testing |
