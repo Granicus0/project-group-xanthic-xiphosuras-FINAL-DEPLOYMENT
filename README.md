@@ -144,6 +144,27 @@ Click [here](https://project-group-xanthic-xiphosuras-deployment.vercel.app/) to
 | Front-end context | Manual testing |
 | Front-end hooks | Manual testing |
 | Front-end pages | Manual testing |
-| Back-end APIs | Jest + Manual testing|
-| Python script | Manual testing |
+| Back-end user APIs    | Jest and Manual testing w/ [Postman](https://www.postman.com/) |
+| Back-end ML APIs | Manual testing |
+| Python scripts | Manual testing |
 
+### Detailed Testing Methods & Justifications
+
+While testing user login and signup was rather trivial with Jest, and front-end components with Vitest, testing the rest of the back-end proved quite challenging given the three different model types outputting a plethora of data each with their own quirks, as well as the nearly infinite possible complexity of CSV datasets. Although it was definitely *possible* to automate the tests of the ML model training, testing, predicting, and schema generation, it would have required a testing facility of a similar scale to the project entirely, and so we decided to settle for manual testing. The model test procedures went as follows:
+
+- We created a diverse set of test cases (not numerous; but diverse) covering the following:
+  - **Typical Inputs**: Standard, expected CSV data that the models should process successfully
+  - **Edge Cases**: CSV Data with unusual values, formats, or potential errors to test the model's robustness
+  - **Boundary Conditions**: Data at the limits of what a model should handle (e.g., extremely large or small values)
+  - **Environment**: We set up the necessary environment to run the models and any tools required for comparing results.
+ 
+The above was to test the machine learning models performance in isolation. End-to-end testing was then done manually once it was confirmed the models were not outputting erroneous results themselves. The manual end-to-end testing procedure for the models were as follows:
+
+- We made sure that there were ``console.log()`` statements at every "hop" in our application to catch any parts of the pipeline that were not being executed as expected in our backend API.
+- We made sure that there were ``print()`` statements within the actual Python scripts to rule out any potential issues with Node.js child spawning and/or communication via ``stdout`` between Node.js and the Python child processes
+- Create three model types using the *same* dataset to rule out any errors with actual data
+- Train these three models using the *same* prediction label to rule out any problems with labels
+- Compare the output of these models from our previous testing results from above
+- Check ***all*** server logs on the actual deployment server to rule out any issues that could be local only
+
+Depending on the specific problem at hand AND known/unknown factors, slight tweaks were made to the procedure above or the procedure would change entirely. For example, if it was found that the server deployment was working without issue, but hosting locally with, we would perform an inspection of all environment variables and configurations to spot the problem as this is likely the cause.
