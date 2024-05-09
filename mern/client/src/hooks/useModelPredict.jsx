@@ -4,11 +4,14 @@ import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 // Import axios to make HTTP requests
 import axios from 'axios'
+import { useContext } from 'react'
+import { ModelProgressContext } from '../context/ModelProgressContext'
 
 // Define a custom hook named `useModelPredict` for handling model prediction requests
 export const useModelPredict = () => {
     // State variable `error` to store any error information
-    const [error, setError] = useState(null)
+    const {setError}=useContext(ModelProgressContext)
+    let error
     // State variable `isLoading` to indicate whether a prediction is in progress
     const [isLoading, setIsLoading] = useState(null)
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
@@ -18,7 +21,6 @@ export const useModelPredict = () => {
         // Set loading state to true at the start of the function
         setIsLoading(true)
         // Clear any previous errors at the start of a new prediction attempt
-        setError(null)
 
         // Create a new FormData object for sending the file and id to the server
         const formData = new FormData();
@@ -35,6 +37,7 @@ export const useModelPredict = () => {
             // Log the server's response to the console for debugging
             console.log("Prediction started: ", response);
         } catch (error) {
+            setError(true)
             // Handle errors by logging them to the console and setting the error state
             console.error("Error starting predicting:", error);
         }

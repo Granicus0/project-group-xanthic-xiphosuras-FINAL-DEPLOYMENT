@@ -5,21 +5,28 @@ import { Bar } from 'react-chartjs-2';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import './ModelPredict.css';
 import { BarLoader } from 'react-spinners';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import ProcessErroralert from '../../components/ProcessErroralert';
+import { useDisclosure } from '@chakra-ui/react';
+import { ModelPredictionContext } from '../../context/ModelPredictionContext';
 
 // Register the components required by Chart.js
 Chart.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
 const ModelPredict = () => {
-    const [predictUpdates, setPredictUpdates] = useState([]);
-    const [headers, setHeaders] = useState([]);
-    const [rows, setRows] = useState([]);
-    const [preResultText, setPreResultText] = useState("");
-    const [loading, setLoading] = useState(true);
-    const [chartData, setChartData] = useState(null);
+    const { isOpen: isErrorAlert, onOpen: onErrorOpen, onClose: onErrorClose } = useDisclosure();
+    const { predictUpdates, setPredictUpdates, headers, setHeaders,rows, setRows, preResultText, setPreResultText
+        ,chartData, setChartData,  loading, setLoading, Error}=useContext(ModelPredictionContext)
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT;
     const location = useLocation();
     const socket_id = location.state?.socket_id;
+    const navigate=useNavigate()
+
+    useEffect(()=>{
+        if(Error)
+            onErrorOpen()
+    },[Error])
 
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
@@ -103,19 +110,34 @@ const ModelPredict = () => {
 
     if (loading) {
         return (
-            <div className="loading-container">
-                <div className="loading-text">Predicting Data...</div>
-                <div className="loading-spinner">
-                    <BarLoader loading={loading} />
+            <>
+                <div className="loading-container">
+                    <div className="loading-text">Predicting Data...</div>
+                    <div className="loading-spinner">
+                        <BarLoader loading={loading} />
+                    </div>
                 </div>
-            </div>
+                <ProcessErroralert Button_info={{ isOpen: isErrorAlert, onClose: onCloseNavigate }} 
+                        process={"predicting"}></ProcessErroralert>
+            </>
+
         );
     }
 
     if (!headers.length || !rows.length) {
-        return <div>No data available</div>;
+        return (
+            <>
+                <div>No data available</div>
+                <ProcessErroralert Button_info={{ isOpen: isErrorAlert, onClose: onCloseNavigate }} 
+                        process={"predicting"}></ProcessErroralert>
+            </>
+        
+        )
     }
-
+    function onCloseNavigate(){
+        navigate("/user")
+        onErrorClose()
+    }
     const generateCsvContent = () => {
         let csvContent = "data:text/csv;charset=utf-8,";
         const cleanedHeaders = headers.map(header => header.replace(/[\r\n]+/g, ' '));
@@ -138,48 +160,52 @@ const ModelPredict = () => {
         document.body.removeChild(link);
     };
     return (
-        <div className="predict-page-container">
-            <div className='predict-header'>
-                <BackToHomepageButton />
-                <h3 className="header-text">Predicted Result</h3>
-            </div>
-            <div className="result-text-container">
-                <p>{preResultText}</p>
-            </div>
-            <div className='model-predict-output-container'>
-                <div className="table-header">
-                    <p className='table-header-text'>Predicted Dataset (click headers to change chart)</p>
-                    <button onClick={handleDownloadCsv} className="download-button">Download CSV</button>
+        <>
+            <div className="predict-page-container">
+                <div className='predict-header'>
+                    <BackToHomepageButton />
+                    <h3 className="header-text">Predicted Result</h3>
                 </div>
-                <div className="table-container">
-                    <div className="data-table-container">
-                        <table className="data-table">
-                            <thead>
-                                <tr>
-                                    {headers.map((header, index) => (
-                                        <th key={index} onClick={() => handleHeaderClick(index)} className={index === 0 ? 'highlight-column' : ''}>{header}</th>
-                                    ))}
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {rows.map((row, index) => (
-                                    <tr key={index}>
-                                        {row.map((cell, cellIndex) => (
-                                            <td key={cellIndex} className={cellIndex === 0 ? 'highlight-cell' : ''}>{cell}</td>
+                <div className="result-text-container">
+                    <p>{preResultText}</p>
+                </div>
+                <div className='model-predict-output-container'>
+                    <div className="table-header">
+                        <p className='table-header-text'>Predicted Dataset (click headers to change chart)</p>
+                        <button onClick={handleDownloadCsv} className="download-button">Download CSV</button>
+                    </div>
+                    <div className="table-container">
+                        <div className="data-table-container">
+                            <table className="data-table">
+                                <thead>
+                                    <tr>
+                                        {headers.map((header, index) => (
+                                            <th key={index} onClick={() => handleHeaderClick(index)} className={index === 0 ? 'highlight-column' : ''}>{header}</th>
                                         ))}
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
-                    {chartData && (
-                        <div className='chart-container'>
-                            <Bar data={chartData} options={{ responsive: true, scales: { y: { beginAtZero: true } } }} />
+                                </thead>
+                                <tbody>
+                                    {rows.map((row, index) => (
+                                        <tr key={index}>
+                                            {row.map((cell, cellIndex) => (
+                                                <td key={cellIndex} className={cellIndex === 0 ? 'highlight-cell' : ''}>{cell}</td>
+                                            ))}
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
                         </div>
-                    )}
+                        {chartData && (
+                            <div className='chart-container'>
+                                <Bar data={chartData} options={{ responsive: true, scales: { y: { beginAtZero: true } } }} />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
-        </div>
+            <ProcessErroralert Button_info={{ isOpen: isErrorAlert, onClose: onCloseNavigate }} 
+            process={"predictig"}></ProcessErroralert>
+        </>
     );
 };
 

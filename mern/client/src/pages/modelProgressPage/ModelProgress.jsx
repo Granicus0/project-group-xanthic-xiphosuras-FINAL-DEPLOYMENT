@@ -1,27 +1,29 @@
 import React, { useEffect, useState,useRef } from 'react';
 import io from 'socket.io-client';
 import './ModelProgress.css';
-import * as d3 from 'd3';
 import { LiveLinechart } from '../../components/LiveLinechart';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import { BarLoader } from 'react-spinners'; 
 import NavToPredictpageButton from '../../components/NavToPredictpageButton';
-import { set } from 'lodash';
 import { useLocation } from 'react-router-dom';
 import { useContext } from 'react';
 import { ModelProgressContext } from '../../context/ModelProgressContext';
+import ProcessErroralert from '../../components/ProcessErroralert';
+import { useDisclosure } from '@chakra-ui/react';
+import { useNavigate } from "react-router-dom";
 
 const ModelProgress = () => {
-    // const [trainingUpdates, setTrainingUpdates] = useState([]);
-    // const [chartData, setChartData] = useState([]);
-    // const [resultData, setResultData] = useState([]);
-    // const [loading, setLoading] = useState(true); 
-    // const [ModelID, setModelID] = useState();
+    const { isOpen: isErrorAlert, onOpen: onErrorOpen, onClose: onErrorClose } = useDisclosure();
     const {trainingUpdates, setTrainingUpdates, chartData, setChartData, resultData
-        , setResultData, loading, setLoading, ModelID, setModelID }=useContext(ModelProgressContext)
+        , setResultData, loading, setLoading, ModelID, setModelID,Error }=useContext(ModelProgressContext)
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
     const location = useLocation();
     const socket_id = location.state?.socket_id;
+    const navigate=useNavigate()
+    useEffect(()=>{
+        if(Error)
+            onErrorOpen()
+    },[Error])
 
     useEffect(() => {
         const socket = io(`${baseApiRoute}`);
@@ -75,76 +77,92 @@ const ModelProgress = () => {
         return () => socket.disconnect();
     }, []);
 
+    function onCloseNavigate(){
+        navigate("/user")
+        onErrorClose()
+    }
+
     if (loading) {
         return (
-            <div className="loading-container">
-                <div className="loading-text">Training Model...</div> 
-                <div className="loading-spinner">
-                    <BarLoader loading={loading} /> 
+            <>
+                <div className="loading-container">
+                    <div className="loading-text">Training Model...</div> 
+                    <div className="loading-spinner">
+                        <BarLoader loading={loading} /> 
+                    </div>
                 </div>
-            </div>
+                <ProcessErroralert Button_info={{ isOpen: isErrorAlert, onClose: onCloseNavigate }} 
+                    process={"training"}></ProcessErroralert>
+            </>
+            
         );
+        
     }
 
     return (
-        <div className="training-container">
-            <div className="top-button-container">
-                <div className="left-button">
-                    <BackToHomepageButton />
+        <>
+            <div className="training-container">
+                <div className="top-button-container">
+                    <div className="left-button">
+                        <BackToHomepageButton />
+                    </div>
+                    <div className="predict-right-button">
+                        {typeof ModelID === 'string' ? <NavToPredictpageButton Model_id = {ModelID} /> : null}
+                        {/* <NavToPredictpageButton Model_id = {ModelID} /> */}
+                    </div>
                 </div>
-                <div className="predict-right-button">
-                    {typeof ModelID === 'string' ? <NavToPredictpageButton Model_id = {ModelID} /> : null}
-                    {/* <NavToPredictpageButton Model_id = {ModelID} /> */}
-                </div>
-            </div>
-            <div className="training-info-container">
-                <h2 style={{float: 'left', marginTop: '5px', marginBottom: '10px'}}>Model Training Progress</h2>
-                <div className="chart-container">
-                        {/* Our graph will go on the right half of the screen */}
-                        {/* <svg ref={svgRef} width={width} height={height} /> */}
-                        {chartData.length > 0 ? (
-                            <LiveLinechart data={chartData} />
-                            ) : (
-                            <div className="no-updates-placeholder">
-                                No training updates available for this model.
-                            </div>
-                        )}
-                </div>
-                
-                <table className='summary-table'>
-                    <tbody>
-                        <tr>
-                            <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingRight: '20px' }}>
-                                <h4>Training Summary</h4>
-                                <div className="summary-container">
-                                    {resultData.length > 0 && (
-                                        <>
-                                            {resultData.map((result, index) => (
-                                                <p key={index}>
-                                                    {result.summary_name}: <span style={{ float: 'right' }}>{result.summary_value}</span>
-                                                </p>
+                <div className="training-info-container">
+                    <h2 style={{float: 'left', marginTop: '5px', marginBottom: '10px'}}>Model Training Progress</h2>
+                    <div className="chart-container">
+                            {/* Our graph will go on the right half of the screen */}
+                            {/* <svg ref={svgRef} width={width} height={height} /> */}
+                            {chartData.length > 0 ? (
+                                <LiveLinechart data={chartData} />
+                                ) : (
+                                <div className="no-updates-placeholder">
+                                    No training updates available for this model.
+                                </div>
+                            )}
+                    </div>
+                    
+                    <table className='summary-table'>
+                        <tbody>
+                            <tr>
+                                <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingRight: '20px' }}>
+                                    <h4>Training Summary</h4>
+                                    <div className="summary-container">
+                                        {resultData.length > 0 && (
+                                            <>
+                                                {resultData.map((result, index) => (
+                                                    <p key={index}>
+                                                        {result.summary_name}: <span style={{ float: 'right' }}>{result.summary_value}</span>
+                                                    </p>
+                                                ))}
+                                            </>
+                                        )}
+                                    </div>
+                                </td>
+                                <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingLeft: '20px' }}>
+                                    <h4>Model Training Log</h4>
+                                    <div className="model-training-output-container">
+                                        <ul className="update-list">
+                                            {trainingUpdates.map((update, index) => (
+                                                <li key={index}>
+                                                    <pre>{update}</pre>
+                                                </li>
                                             ))}
-                                        </>
-                                    )}
-                                </div>
-                            </td>
-                            <td style={{ width: "600px", height: "100px", verticalAlign: 'top', textAlign: 'left', paddingLeft: '20px' }}>
-                                <h4>Model Training Log</h4>
-                                <div className="model-training-output-container">
-                                    <ul className="update-list">
-                                        {trainingUpdates.map((update, index) => (
-                                            <li key={index}>
-                                                <pre>{update}</pre>
-                                            </li>
-                                        ))}
-                                    </ul>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                                        </ul>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
-        </div>
+            <ProcessErroralert Button_info={{ isOpen: isErrorAlert, onClose: onCloseNavigate }} 
+                        process={"training"} ></ProcessErroralert>
+        </>
+        
     );
 };
 

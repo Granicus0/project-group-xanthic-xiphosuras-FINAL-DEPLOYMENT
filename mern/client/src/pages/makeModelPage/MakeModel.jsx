@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-import LogoutButton from '../../components/LogoutButton';
 import BackToHomepageButton from '../../components/BackToHomepageButton';
 import "./MakeModel.css";
 import FileUpload from '../../components/FileUpload';
@@ -15,7 +14,6 @@ function MakeModel() {
     const [modelName, setModelName] = useState('');
     const [modelType, setModelType] = useState('NN');
     const [uploadedFile, setUploadedFile] = useState(null);
-    const [showCSV, setShowCSV] = useState(false);
     const [selectedColumn, setSelectedColumn] = useState('');
 
     const userDat = localStorage.getItem('user')

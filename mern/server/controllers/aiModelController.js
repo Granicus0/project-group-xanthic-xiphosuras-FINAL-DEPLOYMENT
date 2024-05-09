@@ -39,8 +39,15 @@ export const makrPrediction = async (req, res, io) => {
     });
 
     pythonProcess.on('close', (code) => {
-        console.log(`Model prediction finished. Python process exited with code ${code}`);
-        res.status(200).send("Model tarining complete");
+        if (code!=0){
+            console.log(`Model training failed. Python process exited with code ${code}`);
+            return res.status(400).send("Model tarining incomplete");
+        }
+        else{
+            console.log(`Model prediction finished. Python process exited with code ${code}`);
+            res.status(200).send("Model tarining complete");
+        }
+        
     });
 
 
