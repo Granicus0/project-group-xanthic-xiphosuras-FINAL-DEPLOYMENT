@@ -94,38 +94,40 @@ You should be greeted by a lovely animation with the ability to log in, sign up,
 
 ![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/8b0a5447-307e-4408-b5e0-5fafc3a29645)
 
-Upon signing up/logging in, you'll be greeted with a dashboard containing all machine learning models you have currently trained. At the beginning, of course, it will be empty:
+Upon signing up/logging in, you'll be greeted with a dashboard containing all machine learning models you have currently trained. At the beginning, of course, it will be empty (the user below, however, has one model already):
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/230b3e82-6505-4dec-816c-7f606fbfa9af)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/d294117f-786b-4eca-91db-6d5b022c8d0a)
 
 Users may create their own models by navigating via "Create New Model" button on the top right corner. Currently only three model types are supported: SVM (Support Vector Machine), NN (Neural Network), and RF (Random Forest). To make selection easy for the user, a short sentence is given beneath an interactive model animation (which depicts its structure) for what it performs best with.
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/3ef8471e-715d-4b92-afde-0dfa9ad7e7e5)
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/c73cfe7d-ebdf-43f3-b7c0-133dbe17174d)
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/eafbbcb3-aa5a-4588-b5bc-e891417351de)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/35ba4f3e-096d-44ee-95b2-9b09536bd48f)
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/00797640-0035-4d6e-a058-1f1692b8cee4)
+
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/de9264e1-bf31-4f96-98bc-8f467b0d799a)
 
 Hinging on simplicity as per the project proposal, users need not learn about machine learning theory, rigorous statistics, or even any programming language. All they have to do is choose a model type, and upload a dataset. Currently, only CSV datasets are supported. Below will be a "flow chart" example of a user selecting to train a neural network, uploading a dataset, choosing a column for prediction, and obtaining the results:
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/7b77620e-4410-4ce0-8416-d9d616dc2ba4)
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/ee2f200f-ed91-4e8a-9aa3-7dc028508962)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/410f38d7-f952-47d8-bf3d-891ca6607de3)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/2b1aade7-1fae-42bc-957f-c9b8250f9e0a)
 ![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/85e21a1e-8e2b-440b-a7eb-3bc8e36417cb)
 
 Upon clicking "Start Training!", a graph is displayed which ***updates live*** showing the current progress of the model, as well as a training log and a training summary once finished. Note that at present, only neural networks support live graphs, due to the nature of extrapolating live graphable information from other the model types:
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/c1a6ec69-5974-4358-834c-419a070d9152)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/b23e0492-1910-466d-b191-0eef9ab536d4)
 
 The user may then use the trained model immediately, or go back to the homepage (dashboard). If the user wants to use the model immediately, they'll be brought to a separate page with their model information and a means to upload a dataset to perform some predictions using the model:
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/b3b2dea1-8920-47e1-a0bb-a977022e347b)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/35bd68d0-6000-4cbf-867a-c56ff2670553)
 ![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/c2683162-8597-4100-82e4-20613fe6e844)
 
-The user will then be greeted with an evaluation page and a CSV viewer to see the predictions their model made. They may also download the CSV for their own use. In the example below, we have the predicted incomes of various people:
+The user will then be greeted with an evaluation page and a CSV viewer to see the predictions their model made. They may also download the CSV for their own use, and hover over the bar charts to see statistics about their data, and select which statistic they want to see by clicking any column header in the CSV viewer. In the example below, we have the predicted incomes of various people:
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/2e2a5e0e-4ce6-42fd-b51a-e66555ea1e72)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/e2bf2277-ee05-47a7-a459-a3c64bd551a2)
 
 Back at the dashboard, the user can use their new model whenever they'd like, or delete it by pressing remove:
 
-![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/35824b3e-af37-45a2-8486-7900a68f4f3a)
+![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/3a65d229-c12c-4306-b213-f5467bd020c8)
 
 
 ## Deployment:
