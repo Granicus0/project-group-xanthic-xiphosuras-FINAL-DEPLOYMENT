@@ -127,7 +127,23 @@ Back at the dashboard, the user can use their new model whenever they'd like, or
 
 ![image](https://github.com/UOA-CS732-SE750-Students-2024/project-group-xanthic-xiphosuras/assets/100744627/35824b3e-af37-45a2-8486-7900a68f4f3a)
 
+
 ## Deployment:
 The project is currently hosted on [Vercel](https://vercel.com) (for the front-end) and [Render](https://render.com) (for the back-end). 
 The model training and prediction pages could take a while due to free-tier deployment, so please be patient.
 Click [here](https://project-group-xanthic-xiphosuras-deployment.vercel.app/) to check out the deployment.
+
+
+
+
+### Functionality Testing:
+
+| Testing Unit | Testing Method |
+|---|---|
+| Front-end components | Vitest |
+| Front-end context | Manual testing |
+| Front-end hooks | Manual testing |
+| Front-end pages | Manual testing |
+| Back-end APIs | Jest |
+| Python script | Manual testing |
+
