@@ -79,7 +79,7 @@ if __name__ == "__main__":
         row_df["Pred_" + label]=row_df["Pred_" + label].round(3)
 
     if df_have_label: 
-        print("Evaluate:")
+        print("Evaluation:")
         for key, value in evaluate_result.items(): 
             print(f"{key}: {value}")
     

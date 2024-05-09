@@ -1,9 +1,9 @@
 .create-model-button-component {    
     padding: 6px 12px; 
-    background-color: #eff3f6; 
-    border: 1px solid rgba(27, 31, 35, 0.15);
+    background-color: #089c39; 
+    border: 0px solid rgba(27, 31, 35, 0.15);
     border-radius: 6px;
-    color: #24292e; 
+    color: #ffffff; 
     font-size: 14px; 
     font-weight: 300; 
     text-align: center; 
@@ -13,7 +13,7 @@
 }
 
 .create-model-button-component:hover {
-    background-color: #e1e4e8; 
+    background-color: #089c39da; 
 }
 
 .create-model-button-component:active {

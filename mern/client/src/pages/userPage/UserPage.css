@@ -46,6 +46,7 @@
     color: black;
     text-align: center;
     font-size:larger;
+    font-weight: normal !important;
 }
 
 .user-page-sub-header1 {
