@@ -1,6 +1,9 @@
 import axios from 'axios';
 import { aiModelEndpoints } from '../apiEndpoints';
 
+// Setup Axios mock
+jest.mock('axios');
+
 describe('AI Model API endpoints', () => {
     // Mock data for model
     const mockModel = {
@@ -13,8 +16,7 @@ describe('AI Model API endpoints', () => {
     // Mock model ID for tests that require an existing model
     const modelId = '6639a9ac7a8f996283298ef9';
 
-    // Setup Axios mock
-    jest.mock('axios');
+    
 
     // Test creation of a model
     describe('POST /models/createModel', () => {
