@@ -16,6 +16,7 @@ const ModelProgress = () => {
     const { isOpen: isErrorAlert, onOpen: onErrorOpen, onClose: onErrorClose } = useDisclosure();
     const {trainingUpdates, setTrainingUpdates, chartData, setChartData, resultData
         , setResultData, loading, setLoading, ModelID, setModelID,Error }=useContext(ModelProgressContext)
+    const [finishtrain, setFinishtrain] = useState(false);
     const baseApiRoute = import.meta.env.VITE_BASE_API_ENDPOINT
     const location = useLocation();
     const socket_id = location.state?.socket_id;
@@ -35,6 +36,9 @@ const ModelProgress = () => {
                     const loss = parseFloat(line.split("loss = ")[1]);
                     console.log(iteration, loss);
                     acc.push({ iteration, loss });
+                }
+                if(line.includes("Finished Training!")){
+                    setFinishtrain(true);
                 }
                 return acc;
             }, []);
@@ -117,7 +121,14 @@ const ModelProgress = () => {
                             {/* Our graph will go on the right half of the screen */}
                             {/* <svg ref={svgRef} width={width} height={height} /> */}
                             {chartData.length > 0 ? (
-                                <LiveLinechart data={chartData} />
+                                <div>
+                                    <LiveLinechart data={chartData} />
+                                    {finishtrain && (
+                                        <div className="finish-train">
+                                            Training Finished!
+                                        </div>
+                                    )}
+                                </div>
                                 ) : (
                                 <div className="no-updates-placeholder">
                                     No training updates available for this model.
