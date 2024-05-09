@@ -147,7 +147,7 @@ Click [here](https://project-group-xanthic-xiphosuras-deployment.vercel.app/) to
 | Front-end hooks | Manual testing |
 | Front-end pages | Manual testing |
 | Back-end user APIs    | Jest and Manual testing w/ [Postman](https://www.postman.com/) |
-| Back-end ML APIs | Jest and Manual testing |
+| Back-end ML APIs | Manual testing |
 | Python scripts | Manual testing |
 
 ### Detailed Testing Methods & Justifications
