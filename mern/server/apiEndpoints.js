@@ -1,5 +1,3 @@
-import { getModelById } from "./controllers/aiModelController";
-
 const baseEndpoint = 'http://localhost:5050'
 const secondaryEndpoint = '/api'
 

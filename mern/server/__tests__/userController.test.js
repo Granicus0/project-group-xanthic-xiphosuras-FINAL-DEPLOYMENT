@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { loginUser, signupUser, testUser } from '../controllers/userController'; // Update with your actual file path
 import { userEndpoints } from '../apiEndpoints'
 
 describe('Login and Signup API endpoints', () => {
