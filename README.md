@@ -170,3 +170,11 @@ The above was to test the machine learning models performance in isolation. End-
 - Check ***all*** server logs on the actual deployment server to rule out any issues that could be local only
 
 Depending on the specific problem at hand AND known/unknown factors, slight tweaks were made to the procedure above or the procedure would change entirely. For example, if it was found that the server deployment was working without issue, but hosting locally with, we would perform an inspection of all environment variables and configurations to spot the problem as this is likely the cause.
+
+## Test Accounts
+
+For your convenience (the marker) we have provided a testing account if you just wanna immediately get up and running with some models.
+- ***Username***: ``andrewtheGOAT@gmail.com``
+- ***Password***: ``andrewtheGOAT123``
+
+For the "Adult" models, you can use the "adult" datasets provided in the root of the repo (same with "Blood Cell" models).
