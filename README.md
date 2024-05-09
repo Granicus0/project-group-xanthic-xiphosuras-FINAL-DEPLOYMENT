@@ -136,7 +136,7 @@ Click [here](https://project-group-xanthic-xiphosuras-deployment.vercel.app/) to
 
 
 
-### Functionality Testing:
+## Functionality Testing:
 
 | Testing Unit | Testing Method |
 |---|---|
