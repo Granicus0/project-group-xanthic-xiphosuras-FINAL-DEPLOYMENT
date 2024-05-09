@@ -13,7 +13,7 @@ This is a project that utilizes the [MERN](https://www.mongodb.com/mern-stack) s
   
 ## Install All Dependencies
 To make things easy, two script files exist within the ``mern/`` directory to install *all* dependencies for the entire project scope, client, and server.
-
+ 
 ### Windows Platforms
 If you are using Windows, you can execute the batch script named ``setup.bat`` in the ``mern/`` directory in the root of this repository. Simply double click the batch script and you should be good to go. If you already have Command Prmopt/Powershell open, or you don't have a desktop environment (for some reason ...), you can execute the batch script with the following command:
 
