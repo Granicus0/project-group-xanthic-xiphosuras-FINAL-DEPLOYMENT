@@ -40,7 +40,7 @@ const ModelProgress = () => {
             // setChartData(data);
             const data2 = update.split("\n").reduce((acc, line) => {
                 // console.log(line);
-                if (line.includes(":") &&  !line.includes("Evaluate") && !line.includes("id")) {
+                if (line.includes(":") &&  !line.includes("Evaluate") && !line.includes("id") && line != "") {
                     console.log(line);
                     const summary_name = line.split(":")[0];
                     const summary_value = parseFloat(line.split(":")[1]);
